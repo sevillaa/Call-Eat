@@ -1,0 +1,83 @@
+Ejecutar esto en la base de datos para crear las tablas:
+
+-- Crear la tabla de ingredientes
+CREATE TABLE ingredientes (
+    id INT PRIMARY KEY,
+    nombre VARCHAR(255),
+    calorias INT
+);
+
+///
+-- Insertar datos en la tabla de ingredientes
+INSERT INTO ingredientes (id, nombre, calorias) VALUES
+(1, 'arándano', 57),
+(2, 'cereza', 50),
+(3, 'ciruela', 46),
+(4, 'frambuesa', 52),
+(5, 'fresa', 35),
+(6, 'granada', 83),
+(7, 'grosella', 63),
+(8, 'guayaba', 68),
+(9, 'higo', 74),
+(10, 'kiwi', 61),
+(11, 'limón', 29),
+(12, 'mandarina', 53),
+(13, 'mango', 110),
+(14, 'mangostán', 73),
+(15, 'manzana', 85),
+(16, 'melón', 64),
+(17, 'mora', 43),
+(18, 'naranja', 62),
+(19, 'papaya', 43),
+(20, 'pera', 57),
+(21, 'piña', 50),
+(22, 'platano', 110),
+(23, 'sandía', 30),
+(24, 'uva', 69);
+
+-- Crear la tabla de usuario
+CREATE TABLE usuario (
+    idUsuario INT PRIMARY KEY,
+    nombre VARCHAR(255),
+    correo VARCHAR(255),
+    password VARCHAR(255)
+);
+
+-- Insertar datos en la tabla de usuario
+INSERT INTO usuario (idUsuario, nombre, correo, password) VALUES
+(1, 'UsuarioPrueba', 'prueba@example.com', 'password123'),
+(655994, 'a', 'a', 'a');
+
+
+
+-- Crear la tabla batidos
+CREATE TABLE IF NOT EXISTS batidos (
+    id INT PRIMARY KEY,
+    nombre VARCHAR(255),
+    calorias INT,
+    ingredientes VARCHAR(500)
+);
+
+-- Insertar datos en la tabla batidos
+INSERT INTO batidos (id, nombre, calorias, ingredientes) VALUES
+('1','Defender',400,'Naranja + Piña + Plátano + Espinaca + Chlorella'),
+('2','Maui',400,'Piña + Papaya + Plátano + Bayas de Goji + Semillas de Cáñamo'),
+('3','Energy Smoothie',400,'Naranja + Remolacha + Zanahoria + Fresas'),
+('4','Glow',400,'Naranja + Plátano + Mango + Zanahoria'),
+('5','Gym Freak',400,'Manzana, espinaca, piña, espirulina y semillas de cáñamo'),
+('6','Piña Colada',400,'Piñas + Plátano + Leche de Coco + Ágave + Vainilla'),
+('7','Tropical Sunrise',400,'Mango + Piña + Papaya + Naranja + Fresas'),
+('8','Green Detox',400,'Espinacas + Pepino + Manzana + Limón + Jengibre'),
+('9','Berry Blast',400,'Frambuesas + Arándanos + Fresas + Mora + Yogur'),
+('10','Citrus Splash',400,'Limón + Lima + Naranja + Mandarina + Pomelo'),
+('11','Chocolate Dream',400,'Plátano + Cacao en polvo + Leche de almendras + Dátiles + Mantequilla de almendras'),
+('12','Summer Breeze',400,'Sandía + Pepino + Menta + Limón + Agua de coco'),
+('13','Minty Melon',400,'Melón + Menta + Limón + Espinacas + Pepino'),
+('14','Blueberry Bliss',400,'Arándanos + Plátano + Fresas + Yogur + Miel'),
+('15','Orange Zing',400,'Naranja + Zanahoria + Mango + Piña + Jengibre'),
+('16','Peachy Keen',400,'Melocotón + Plátano + Leche de almendras + Miel + Vainilla'),
+('17','Raspberry Refresher',400,'Frambuesas + Plátano + Yogur + Leche de coco + Miel'),
+('18','Kiwi Crush',400,'Kiwi + Plátano + Manzana + Espinacas + Leche de almendras'),
+('19','Pineapple Paradise',400,'Piña + Mango + Plátano + Coco rallado + Leche de coco'),
+('20','Citrus Boost',400,'Naranja + Mandarina + Limón + Zumo de granada + Miel'),
+('21','Coconut Cream',400,'Piña + Mango + Leche de coco + Yogur + Miel');
