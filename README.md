@@ -22,7 +22,7 @@ Contiene las interfaces gráficas del usuario (GUIs) construidas con **Swing**.
 - **LoginPanel.java** → Panel para iniciar sesión.
 - **RegistroPanel.java** → Panel de registro de nuevos clientes.
 - **InicioPanel.java** → Pantalla inicial con opciones de acceso y registro.
-- **Controlador **
+- **Controlador ** (Patrón Singleton)
   Administra la comunicación entre la vista y el modelo.
   - **ControladorImp.java** → Recibe eventos de la vista y llama a la capa de negocio para procesarlos.
   - **Eventos.java** → Define los distintos eventos posibles dentro de la aplicación.
