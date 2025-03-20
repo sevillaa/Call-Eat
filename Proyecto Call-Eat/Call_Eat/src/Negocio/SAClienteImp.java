@@ -2,15 +2,15 @@ package Negocio;
 
 import java.security.NoSuchAlgorithmException;
 
-import Integracion.DAOCliente;
+import Integracion.DAOUsuarios;
 import Integracion.FactoriaDAO;
 
 
 
 public class SAClienteImp implements SACliente {
 
-	public boolean crearUsuario(TransferCliente cliente) {
-		DAOCliente daoCliente = (DAOCliente) FactoriaDAO.getInstancia().nuevoDAOClientes();
+	public boolean crearUsuario(TransferUsuarios cliente) {
+		DAOUsuarios daoCliente = (DAOUsuarios) FactoriaDAO.getInstancia().nuevoDAOClientes();
 		boolean ok = false;
 		try {
 			ok = daoCliente.registrarCliente(cliente);
@@ -23,8 +23,8 @@ public class SAClienteImp implements SACliente {
 	}
 	
 	public boolean accesoCliente(String correo, String contraseña) {
-		DAOCliente daoCliente = (DAOCliente) FactoriaDAO.getInstancia().nuevoDAOClientes();
-		TransferCliente ok;
+		DAOUsuarios daoCliente = (DAOUsuarios) FactoriaDAO.getInstancia().nuevoDAOClientes();
+		TransferUsuarios ok;
 		try {
 			ok = daoCliente.buscarCliente(correo);
 
@@ -38,8 +38,8 @@ public class SAClienteImp implements SACliente {
 		
 	}
 	
-	public boolean borrarCliente(TransferCliente cliente) {
-		DAOCliente daoCliente = (DAOCliente) FactoriaDAO.getInstancia().nuevoDAOClientes();
+	public boolean borrarCliente(TransferUsuarios cliente) {
+		DAOUsuarios daoCliente = (DAOUsuarios) FactoriaDAO.getInstancia().nuevoDAOClientes();
 		boolean ok = false;
 		try {
 			ok = daoCliente.eliminarCliente(cliente);
@@ -52,8 +52,8 @@ public class SAClienteImp implements SACliente {
 
 	@Override
 	public String buscarIdUsuario(String correo, String contraseña) {
-		DAOCliente daoCliente = (DAOCliente) FactoriaDAO.getInstancia().nuevoDAOClientes();
-		TransferCliente ok;
+		DAOUsuarios daoCliente = (DAOUsuarios) FactoriaDAO.getInstancia().nuevoDAOClientes();
+		TransferUsuarios ok;
 		try {
 			ok = daoCliente.buscarCliente(correo);
 			if(ok.getContraseña().equals(contraseña)) { 		

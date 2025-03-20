@@ -6,7 +6,7 @@ import javax.swing.JOptionPane;
 
 import Negocio.FactoriaSA;
 import Negocio.SACliente;
-import Negocio.TransferCliente;
+import Negocio.TransferUsuarios;
 
 public class ControladorImp extends Controlador{
 
@@ -22,7 +22,7 @@ public class ControladorImp extends Controlador{
 			String correo = new String(ids.get("correo"));
 			String contraseña = new String(ids.get("contraseña"));
 			String idUsuario = generarCodigoRandom();
-			TransferCliente cliente = new TransferCliente(idUsuario, nombre, correo , contraseña) ; 
+			TransferUsuarios cliente = new TransferUsuarios(idUsuario, nombre, correo , contraseña) ; 
 
 			
 			SACliente saCliente = FactoriaSA.getInstancia().nuevoSAClientes();
@@ -43,7 +43,7 @@ public class ControladorImp extends Controlador{
 			SACliente saClientes = FactoriaSA.getInstancia().nuevoSAClientes();
 			if(saClientes.accesoCliente(correo, contraseña)) {
 				
-				GUICliente.getInstancia(Controlador.getInstancia(), datos).actualizar(Eventos.CLIENTE_REGISTRADO, datos);
+				GUIUsuarios.getInstancia(Controlador.getInstancia(), datos).actualizar(Eventos.CLIENTE_REGISTRADO, datos);
 				break;
 			}
 			else {
