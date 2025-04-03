@@ -1,18 +1,18 @@
 package Negocio;
 
-import Integracion.DAOClienteImp;
+import Integracion.DAOUsuariosImp;
 
-public class TransferCliente{
+public class TransferUsuarios{
 
 	protected String id;
 	protected String correo;
 	protected String contraseña;
 	protected String nombre;
 	
-	public TransferCliente(){
+	public TransferUsuarios(){
 		
 	}
-	public TransferCliente(String id, String nombre, String correo , String contraseña){
+	public TransferUsuarios(String id, String nombre, String correo , String contraseña){
 		this.id = id ; 
 		this.nombre = nombre ; 
 		this.correo = correo  ; 

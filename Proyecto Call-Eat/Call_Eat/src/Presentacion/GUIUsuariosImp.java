@@ -3,21 +3,25 @@ package Presentacion;
 import javax.swing.*;
 import java.awt.*;
 
-public class GUIClienteImp extends GUICliente {
+public class GUIUsuariosImp extends GUIUsuarios {
 
     private JFrame frame;
     private CardLayout cardLayout;
     private JPanel panelContenedor;
     private Controlador controlador; // Guardamos el controlador
 
+<<<<<<< HEAD:Proyecto Call-Eat/Call_Eat/src/Presentacion/GUIClienteImp.java
     public GUIClienteImp(Controlador controlador, Object datos) {
         this.controlador = controlador;
+=======
+    public GUIUsuariosImp(Controlador controlador, Object datos) {
+>>>>>>> 0bd3ff1f93bcda9471a762bc8163217f13b25340:Proyecto Call-Eat/Call_Eat/src/Presentacion/GUIUsuariosImp.java
         initGUI(controlador);
     }
 
     private void initGUI(Controlador controlador) {
         // Configuración de la ventana principal
-        frame = new JFrame("Cliente");
+        frame = new JFrame("Usuario");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(500, 400); // Tamaño fijo para mantener uniformidad
         frame.setLocationRelativeTo(null);
@@ -29,12 +33,12 @@ public class GUIClienteImp extends GUICliente {
         // Se asume que InicioPanel, LoginPanel y RegistroPanel están implementados
         InicioPanel inicioPanel = new InicioPanel(panelContenedor, cardLayout);
         LoginPanel loginPanel = new LoginPanel(panelContenedor, cardLayout, controlador);
-        RegistroPanel registroPanel = new RegistroPanel(panelContenedor, cardLayout, controlador);
+        //RegistroPanel registroPanel = new RegistroPanel(panelContenedor, cardLayout, controlador);
 
         // Agregar paneles al contenedor con un identificador único para cada uno
         panelContenedor.add(inicioPanel, "inicio");
         panelContenedor.add(loginPanel, "login");
-        panelContenedor.add(registroPanel, "registro");
+        //panelContenedor.add(registroPanel, "registro");
 
         // Añadir el panel contenedor a la ventana
         frame.add(panelContenedor);
