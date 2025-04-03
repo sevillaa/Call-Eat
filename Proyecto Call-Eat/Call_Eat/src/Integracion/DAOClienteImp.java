@@ -10,17 +10,17 @@ import java.util.Iterator;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import Negocio.TransferUsuarios;
+import Negocio.TransferCliente;
 
-public class DAOUsuariosImp implements DAOUsuarios {
+public class DAOClienteImp implements DAOCliente {
     private static final String FILE_PATH = "clientes.json";
     private ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
-    public TransferUsuarios buscarCliente(String correo) {
-        List<TransferUsuarios> clientes = cargarClientes();
+    public TransferCliente buscarCliente(String correo) {
+        List<TransferCliente> clientes = cargarClientes();
         
-        for (TransferUsuarios cliente : clientes) {
+        for (TransferCliente cliente : clientes) {
             if (cliente.getCorreo().equals(correo)) {
                 return cliente;
             }
@@ -29,8 +29,8 @@ public class DAOUsuariosImp implements DAOUsuarios {
     }
 
     @Override
-    public boolean registrarCliente(TransferUsuarios cliente) throws NoSuchAlgorithmException {
-        List<TransferUsuarios> clientes = cargarClientes();
+    public boolean registrarCliente(TransferCliente cliente) throws NoSuchAlgorithmException {
+        List<TransferCliente> clientes = cargarClientes();
 
         if (buscarCliente(cliente.getCorreo()) == null) {
             clientes.add(cliente);
@@ -42,12 +42,12 @@ public class DAOUsuariosImp implements DAOUsuarios {
     }
 
     @Override
-    public boolean eliminarCliente(TransferUsuarios cliente) {
-        List<TransferUsuarios> clientes = cargarClientes();
-        Iterator<TransferUsuarios> iterator = clientes.iterator();
+    public boolean eliminarCliente(TransferCliente cliente) {
+        List<TransferCliente> clientes = cargarClientes();
+        Iterator<TransferCliente> iterator = clientes.iterator();
 
         while (iterator.hasNext()) {
-            TransferUsuarios c = iterator.next();
+            TransferCliente c = iterator.next();
             if (c.getCorreo().equals(cliente.getCorreo()) && c.getContraseña().equals(cliente.getContraseña())) {
                 iterator.remove();
                 guardarClientes(clientes);
@@ -57,20 +57,20 @@ public class DAOUsuariosImp implements DAOUsuarios {
         return false;
     }
 
-    private List<TransferUsuarios> cargarClientes() {
+    private List<TransferCliente> cargarClientes() {
         try {
             File file = new File(FILE_PATH);
             if (!file.exists()) {
                 return new ArrayList<>();
             }
-            return objectMapper.readValue(file, new TypeReference<List<TransferUsuarios>>() {});
+            return objectMapper.readValue(file, new TypeReference<List<TransferCliente>>() {});
         } catch (IOException e) {
             e.printStackTrace();
             return new ArrayList<>();
         }
     }
 
-    private void guardarClientes(List<TransferUsuarios> clientes) {
+    private void guardarClientes(List<TransferCliente> clientes) {
         try {
             objectMapper.writeValue(new File(FILE_PATH), clientes);
         } catch (IOException e) {

@@ -23,7 +23,7 @@ public class InicioPanel extends JPanel {
         setLayout(new FlowLayout());
         
         JButton btnAcceder = new JButton("Acceder");
-       // JButton btnRegistrarse = new JButton("Registrarse");
+        JButton btnRegistrarse = new JButton("Registrarse");
         
         // Al hacer clic en "Acceder", se muestra el panel de login
         btnAcceder.addActionListener(new ActionListener() {
@@ -33,14 +33,15 @@ public class InicioPanel extends JPanel {
         });
         
         // Al hacer clic en "Registrarse", se muestra el panel de registro
-       /* btnRegistrarse.addActionListener(new ActionListener() {
+        btnRegistrarse.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 cardLayout.show(panelContenedor, "registro");
             }
-        });*/
+        });
         
         add(btnAcceder);
-       // add(btnRegistrarse);
+        add(btnRegistrarse);
     }
 }
+
 

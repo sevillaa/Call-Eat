@@ -69,4 +69,3 @@ public class LoginPanel extends JPanel {
         add(btnIniciar);
     }
 }
-

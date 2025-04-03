@@ -6,7 +6,7 @@ import javax.swing.JOptionPane;
 
 import Negocio.FactoriaSA;
 import Negocio.SACliente;
-import Negocio.TransferUsuarios;
+import Negocio.TransferCliente;
 
 public class ControladorImp extends Controlador{
 
@@ -22,7 +22,7 @@ public class ControladorImp extends Controlador{
 			String correo = new String(ids.get("correo"));
 			String contraseña = new String(ids.get("contraseña"));
 			String idUsuario = generarCodigoRandom();
-			TransferUsuarios cliente = new TransferUsuarios(idUsuario, nombre, correo , contraseña) ; 
+			TransferCliente cliente = new TransferCliente(idUsuario, nombre, correo , contraseña) ; 
 
 			
 			SACliente saCliente = FactoriaSA.getInstancia().nuevoSAClientes();
@@ -34,7 +34,6 @@ public class ControladorImp extends Controlador{
 				JOptionPane.showMessageDialog(null, "Error al crear el usuario");
 			}
 		}
-<<<<<<< HEAD
 		case (Eventos.INICIAR_SESION): {
 		    @SuppressWarnings("unchecked")
 		    HashMap<String, String> ids = (HashMap<String, String>) datos;
@@ -52,23 +51,6 @@ public class ControladorImp extends Controlador{
 		        JOptionPane.showMessageDialog(null, "Error al cargar el usuario");
 		        break; 
 		    }
-=======
-		case (Eventos.INICIAR_SESION):{
-			@SuppressWarnings("unchecked")
-			HashMap<String, String> ids = (HashMap<String, String>) datos;
-			String correo = new String(ids.get("correo"));
-			String contraseña = new String(ids.get("contraseña"));
-			SACliente saClientes = FactoriaSA.getInstancia().nuevoSAClientes();
-			if(saClientes.accesoCliente(correo, contraseña)) {
-				
-				GUIUsuarios.getInstancia(Controlador.getInstancia(), datos).actualizar(Eventos.CLIENTE_REGISTRADO, datos);
-				break;
-			}
-			else {
-				JOptionPane.showMessageDialog(null, "Error al cargar el usuario");
-				break ; 
-			}
->>>>>>> 0bd3ff1f93bcda9471a762bc8163217f13b25340
 		}
 
 		default: {
