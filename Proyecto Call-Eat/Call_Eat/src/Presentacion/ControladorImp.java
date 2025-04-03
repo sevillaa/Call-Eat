@@ -33,24 +33,26 @@ public class ControladorImp extends Controlador{
 			else {
 				JOptionPane.showMessageDialog(null, "Error al crear el usuario");
 			}
-			//GUISmoothies.getInstancia(Controlador.getInstancia()).actualizar(Eventos.AÑADIR_CLIENTE, null);
 		}
-		case (Eventos.INICIAR_SESION):{
-			@SuppressWarnings("unchecked")
-			HashMap<String, String> ids = (HashMap<String, String>) datos;
-			String correo = new String(ids.get("correo"));
-			String contraseña = new String(ids.get("contraseña"));
-			SACliente saClientes = FactoriaSA.getInstancia().nuevoSAClientes();
-			if(saClientes.accesoCliente(correo, contraseña)) {
-				
-				GUICliente.getInstancia(Controlador.getInstancia(), datos).actualizar(Eventos.CLIENTE_REGISTRADO, datos);
-				break;
-			}
-			else {
-				JOptionPane.showMessageDialog(null, "Error al cargar el usuario");
-				break ; 
-			}
+		case (Eventos.INICIAR_SESION): {
+		    @SuppressWarnings("unchecked")
+		    HashMap<String, String> ids = (HashMap<String, String>) datos;
+		    String correo = ids.get("correo");
+		    String contraseña = ids.get("contraseña");
+		    SACliente saClientes = FactoriaSA.getInstancia().nuevoSAClientes();
+		    TransferCliente clienteSeguro = saClientes.accesoClienteSeguro(correo, contraseña);
+		    
+		    if(clienteSeguro != null) {
+		        // Se pasa el TransferCliente seguro (sin contraseña) a la GUI
+		        GUICliente.getInstancia(Controlador.getInstancia(), clienteSeguro)
+		                  .actualizar(Eventos.CLIENTE_REGISTRADO, clienteSeguro);
+		        break;
+		    } else {
+		        JOptionPane.showMessageDialog(null, "Error al cargar el usuario");
+		        break; 
+		    }
 		}
+
 		default: {
 			break;
 		}

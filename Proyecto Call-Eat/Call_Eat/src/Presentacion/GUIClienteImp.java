@@ -8,8 +8,10 @@ public class GUIClienteImp extends GUICliente {
     private JFrame frame;
     private CardLayout cardLayout;
     private JPanel panelContenedor;
+    private Controlador controlador; // Guardamos el controlador
 
     public GUIClienteImp(Controlador controlador, Object datos) {
+        this.controlador = controlador;
         initGUI(controlador);
     }
 
@@ -24,8 +26,7 @@ public class GUIClienteImp extends GUICliente {
         cardLayout = new CardLayout();
         panelContenedor = new JPanel(cardLayout);
 
-        // Crear los paneles individuales
-        // Se asume que InicioPanel, LoginPanel y RegistroPanel están implementados para mostrar sus formularios
+        // Se asume que InicioPanel, LoginPanel y RegistroPanel están implementados
         InicioPanel inicioPanel = new InicioPanel(panelContenedor, cardLayout);
         LoginPanel loginPanel = new LoginPanel(panelContenedor, cardLayout, controlador);
         RegistroPanel registroPanel = new RegistroPanel(panelContenedor, cardLayout, controlador);
@@ -42,17 +43,20 @@ public class GUIClienteImp extends GUICliente {
 
     @Override
     public void actualizar(int evento, Object datos) {
-        // Se actualiza la interfaz en función del evento recibido
-        if (evento == Eventos.CLIENTE_REGISTRADO) {
+        // Al iniciar sesión o registrarse, se cierra la ventana actual y se abre GUIMenuImp
+        if (evento == Eventos.CLIENTE_REGISTRADO || evento == Eventos.INICIAR_SESION) {
             JOptionPane.showMessageDialog(frame, "Inicio de sesión exitoso");
-            // Volvemos al panel de inicio tras un registro exitoso
+            frame.dispose();
+            // Se reinicia la instancia del menú mediante un método público en GUIMenu
+            GUIMenu.resetInstancia();
+            // Se crea o se recupera la instancia del menú, pasando el controlador y los datos del usuario
+            GUIMenu.getInstancia(controlador, datos);
+        } else {
+            // Puedes incluir otros eventos aquí
             cardLayout.show(panelContenedor, "inicio");
-        } else if (evento == Eventos.INICIAR_SESION) {
-            JOptionPane.showMessageDialog(frame, "Inicio de sesión exitoso.");
-            // Aquí puedes, por ejemplo, cambiar a otra vista (como un panel de pedidos o dashboard)
-            // cardLayout.show(panelContenedor, "otroPanel");
         }
     }
 }
+
 
 
