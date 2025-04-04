@@ -1,6 +1,6 @@
 package Integracion;
 
-import Integracion.DAOCliente;
+import Integracion.DAOEmpleado;
 
 import Integracion.FactoriaDAO;
 import Integracion.FactoriaDAOImp;
@@ -16,6 +16,6 @@ public abstract class FactoriaDAO {
 		return instancia;
 	}
 
-	public abstract DAOCliente nuevoDAOClientes();
+	public abstract DAOEmpleado nuevoDAOClientes();
 
 }

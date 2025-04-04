@@ -1,13 +1,13 @@
 package Negocio;
 
 import java.security.NoSuchAlgorithmException;
-import Integracion.DAOCliente;
+import Integracion.DAOEmpleado;
 import Integracion.FactoriaDAO;
 
-public class SAClienteImp implements SACliente {
+public class SAEmpleadoImp implements SAEmpleado {
 
-    public boolean crearUsuario(TransferCliente cliente) {
-        DAOCliente daoCliente = (DAOCliente) FactoriaDAO.getInstancia().nuevoDAOClientes();
+    public boolean crearUsuario(TransferEmpleado cliente) {
+        DAOEmpleado daoCliente = (DAOEmpleado) FactoriaDAO.getInstancia().nuevoDAOClientes();
         boolean ok = false;
         try {
             ok = daoCliente.registrarCliente(cliente);
@@ -19,8 +19,8 @@ public class SAClienteImp implements SACliente {
     
     public boolean accesoCliente(String correo, String contraseña) {
         // Este método se usa para la comprobación, pero no expone el TransferCliente seguro
-        DAOCliente daoCliente = (DAOCliente) FactoriaDAO.getInstancia().nuevoDAOClientes();
-        TransferCliente cliente;
+        DAOEmpleado daoCliente = (DAOEmpleado) FactoriaDAO.getInstancia().nuevoDAOClientes();
+        TransferEmpleado cliente;
         try {
             cliente = daoCliente.buscarCliente(correo);
             if (cliente != null && cliente.getContraseña().equals(contraseña)) {         
@@ -32,24 +32,30 @@ public class SAClienteImp implements SACliente {
         return false;
     }
     
-    // Nuevo método: devuelve un TransferCliente sin la contraseña
-    public TransferCliente accesoClienteSeguro(String correo, String contraseña) {
-        DAOCliente daoCliente = (DAOCliente) FactoriaDAO.getInstancia().nuevoDAOClientes();
-        TransferCliente cliente;
+    public TransferEmpleado accesoClienteSeguro(String correo, String contraseña) {
+        DAOEmpleado daoCliente = (DAOEmpleado) FactoriaDAO.getInstancia().nuevoDAOClientes();
+        TransferEmpleado cliente;
         try {
             cliente = daoCliente.buscarCliente(correo);
             if (cliente != null && cliente.getContraseña().equals(contraseña)) {
-                // Retornamos una copia del cliente sin la contraseña
-                return new TransferCliente(cliente.getId(), cliente.getNombre(), cliente.getCorreo(), null);
+                // Retornamos una copia del cliente sin la contraseña, pero con el rol
+                return new TransferEmpleado(
+                    cliente.getId(),
+                    cliente.getNombre(),
+                    cliente.getCorreo(),
+                    null, // por seguridad
+                    cliente.getRol() // ✅ AÑADIDO
+                );
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
+
     
-    public boolean borrarCliente(TransferCliente cliente) {
-        DAOCliente daoCliente = (DAOCliente) FactoriaDAO.getInstancia().nuevoDAOClientes();
+    public boolean borrarCliente(TransferEmpleado cliente) {
+        DAOEmpleado daoCliente = (DAOEmpleado) FactoriaDAO.getInstancia().nuevoDAOClientes();
         boolean ok = false;
         try {
             ok = daoCliente.eliminarCliente(cliente);
@@ -61,8 +67,8 @@ public class SAClienteImp implements SACliente {
 
     @Override
     public String buscarIdUsuario(String correo, String contraseña) {
-        DAOCliente daoCliente = (DAOCliente) FactoriaDAO.getInstancia().nuevoDAOClientes();
-        TransferCliente cliente;
+        DAOEmpleado daoCliente = (DAOEmpleado) FactoriaDAO.getInstancia().nuevoDAOClientes();
+        TransferEmpleado cliente;
         try {
             cliente = daoCliente.buscarCliente(correo);
             if (cliente != null && cliente.getContraseña().equals(contraseña)) {         

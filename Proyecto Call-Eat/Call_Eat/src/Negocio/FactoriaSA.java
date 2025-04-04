@@ -10,5 +10,5 @@ public abstract class FactoriaSA {
 		return instancia;
 	}
 
-	abstract public SACliente nuevoSAClientes();
+	abstract public SAEmpleado nuevoSAClientes();
 }

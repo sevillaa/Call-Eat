@@ -3,14 +3,14 @@ package Presentacion;
 import javax.swing.*;
 import java.awt.*;
 
-public class GUIClienteImp extends GUICliente {
+public class GUIEmpleadoImp extends GUIEmpleado {
 
     private JFrame frame;
     private CardLayout cardLayout;
     private JPanel panelContenedor;
     private Controlador controlador; // Guardamos el controlador
 
-    public GUIClienteImp(Controlador controlador, Object datos) {
+    public GUIEmpleadoImp(Controlador controlador, Object datos) {
         this.controlador = controlador;
         initGUI(controlador);
     }

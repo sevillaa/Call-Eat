@@ -7,6 +7,6 @@ public class Main {
         
         // Iniciar la interfaz gráfica, por ejemplo, la ventana de cliente.
         // Se pasa el controlador y, si no hay datos iniciales, null.
-        GUICliente.getInstancia(controlador, null);
+        GUIEmpleado.getInstancia(controlador, null);
     }
 }

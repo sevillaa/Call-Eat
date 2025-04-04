@@ -12,9 +12,10 @@ public class RegistroPanel extends JPanel {
     private JTextField txtNombre;
     private JTextField txtCorreo;
     private JPasswordField txtContraseña;
+    private JComboBox<String> cmbRol;  // Añadimos el JComboBox para seleccionar el rol
     private JPanel panelContenedor;
     private CardLayout cardLayout;
-    private Controlador controlador; // Se usará para invocar la lógica de registro
+    private Controlador controlador;
 
     public RegistroPanel(JPanel panelContenedor, CardLayout cardLayout, Controlador controlador) {
         this.panelContenedor = panelContenedor;
@@ -24,8 +25,7 @@ public class RegistroPanel extends JPanel {
     }
     
     private void initComponents() {
-        // Configuramos un GridLayout con 4 filas y 2 columnas
-        setLayout(new GridLayout(4, 2, 10, 10));
+        setLayout(new GridLayout(5, 2, 10, 10));  // Cambiamos a 5 filas para incluir el rol
         
         JLabel lblNombre = new JLabel("Nombre:");
         txtNombre = new JTextField();
@@ -36,6 +36,9 @@ public class RegistroPanel extends JPanel {
         JLabel lblContraseña = new JLabel("Contraseña:");
         txtContraseña = new JPasswordField();
         
+        JLabel lblRol = new JLabel("Rol:");  // Etiqueta para el rol
+        cmbRol = new JComboBox<>(new String[] {"Camarero", "Cocinero", "Gerente"});  // ComboBox con las opciones de rol
+        
         JButton btnRegistrar = new JButton("Registrarse");
         JButton btnVolver = new JButton("Volver");
         
@@ -45,19 +48,20 @@ public class RegistroPanel extends JPanel {
                 String nombre = txtNombre.getText();
                 String correo = txtCorreo.getText();
                 String contraseña = new String(txtContraseña.getPassword());
+                String rol = (String) cmbRol.getSelectedItem();  // Obtenemos el rol seleccionado
                 
-                // No se genera el ID aquí. Se delega su asignación en el controlador o en la capa de negocio.
                 HashMap<String, String> datos = new HashMap<>();
                 datos.put("nombre", nombre);
                 datos.put("correo", correo);
                 datos.put("contraseña", contraseña);
+                datos.put("rol", rol);  // Añadimos el rol al HashMap
                 
-                // Invoca al controlador para registrar al usuario
+                // Llamamos al controlador para registrar al usuario
                 controlador.accion(Eventos.ADD_CLIENTE, datos);
                 
-                // Se muestra un mensaje de confirmación (sin mostrar el ID asignado)
+                // Mostramos un mensaje de confirmación
                 JOptionPane.showMessageDialog(RegistroPanel.this, 
-                    "Intento de registro para: " + nombre);
+                    "Intento de registro para: " + nombre + " con rol: " + rol);
             }
         });
         
@@ -68,16 +72,20 @@ public class RegistroPanel extends JPanel {
             }
         });
         
+        // Añadimos los componentes al panel
         add(lblNombre);
         add(txtNombre);
         add(lblCorreo);
         add(txtCorreo);
         add(lblContraseña);
         add(txtContraseña);
+        add(lblRol);  // Añadimos la etiqueta de rol
+        add(cmbRol);  // Añadimos el JComboBox de rol
         add(btnVolver);
         add(btnRegistrar);
     }
 }
+
 
 
 

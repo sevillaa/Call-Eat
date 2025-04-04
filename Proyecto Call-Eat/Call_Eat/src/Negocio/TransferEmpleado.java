@@ -1,25 +1,34 @@
 package Negocio;
 
-import Integracion.DAOClienteImp;
+import Integracion.DAOEmpleadoImp;
 
-public class TransferCliente{
+public class TransferEmpleado{
 
 	protected String id;
 	protected String correo;
 	protected String contraseña;
 	protected String nombre;
+	protected String rol;
 	
-	public TransferCliente(){
+	public TransferEmpleado(){
 		
 	}
-	public TransferCliente(String id, String nombre, String correo , String contraseña){
+	public TransferEmpleado(String id, String nombre, String correo , String contraseña,String rol){
 		this.id = id ; 
 		this.nombre = nombre ; 
 		this.correo = correo  ; 
 		this.contraseña = contraseña; 
+		this.rol = rol;
 	}
 	
-
+	public void setRol(String rol) {
+		this.rol = rol;
+	}
+	
+	public String getRol() {
+		return rol;
+	}
+	
 	public void setId(String id) {
 		this.id = id;
 	}

@@ -2,8 +2,8 @@ package Negocio;
 
 public  class FactoriaSAImp extends FactoriaSA{
 	
-	public SACliente nuevoSAClientes() {
-		return new SAClienteImp();
+	public SAEmpleado nuevoSAClientes() {
+		return new SAEmpleadoImp();
 	}
 
 	

@@ -1,15 +1,15 @@
 package Integracion;
 
-import Integracion.DAOCliente;
-import Integracion.DAOClienteImp;
+import Integracion.DAOEmpleado;
+import Integracion.DAOEmpleadoImp;
 
 import Integracion.FactoriaDAO;
 
 public class FactoriaDAOImp extends FactoriaDAO {
 	
 	
-	public DAOCliente nuevoDAOClientes() {
-		return new DAOClienteImp();
+	public DAOEmpleado nuevoDAOClientes() {
+		return new DAOEmpleadoImp();
 	}
 
 }

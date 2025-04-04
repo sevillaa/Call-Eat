@@ -2,7 +2,7 @@ package Presentacion;
 
 import javax.swing.*;
 import java.awt.*;
-import Negocio.TransferCliente; // Asegúrate de que este import existe
+import Negocio.TransferEmpleado; // Asegúrate de que este import existe
 
 public class GUIMenuImp extends GUIMenu {
 
@@ -26,8 +26,8 @@ public class GUIMenuImp extends GUIMenu {
 
         // Determinar el nombre a mostrar en el mensaje de bienvenida
         String nombreUsuario;
-        if (usuario instanceof TransferCliente) {
-            nombreUsuario = ((TransferCliente) usuario).getNombre();
+        if (usuario instanceof TransferEmpleado) {
+            nombreUsuario = ((TransferEmpleado) usuario).getNombre();
         } else {
             nombreUsuario = usuario.toString();
         }
@@ -43,8 +43,10 @@ public class GUIMenuImp extends GUIMenu {
         botonGestor.addActionListener(e -> {
             // Aquí se debería abrir GUIGestorImp. Por ejemplo:
             // new GUIGestorImp(controlador).setVisible(true);
-            // frame.dispose();
-            JOptionPane.showMessageDialog(frame, "Acción para Panel Gestor (a implementar)");
+        	
+             frame.dispose();
+             new GUIGestorImp(controlador,usuario);
+            //JOptionPane.showMessageDialog(frame, "Acción para Panel Gestor (a implementar)");
         });
         panelGestor.add(botonGestor);
 
@@ -54,8 +56,9 @@ public class GUIMenuImp extends GUIMenu {
         botonCamarero.addActionListener(e -> {
             // Aquí se debería abrir GUICamareroImp. Por ejemplo:
             // new GUICamareroImp(controlador).setVisible(true);
-            // frame.dispose();
-            JOptionPane.showMessageDialog(frame, "Acción para Panel Camarero (a implementar)");
+            frame.dispose();
+            new GUICamareroImp(controlador,usuario);
+            //JOptionPane.showMessageDialog(frame, "Acción para Panel Camarero (a implementar)");
         });
         panelCamarero.add(botonCamarero);
 
@@ -65,7 +68,9 @@ public class GUIMenuImp extends GUIMenu {
         botonCocina.addActionListener(e -> {
             // Aquí se debería abrir GUICocinaImp. Por ejemplo:
             // new GUICocinaImp(controlador).setVisible(true);
-            // frame.dispose();
+        	
+            frame.dispose();
+            new GUICocinaImp(controlador,usuario);
             JOptionPane.showMessageDialog(frame, "Acción para Panel Cocina (a implementar)");
         });
         panelCocina.add(botonCocina);
@@ -81,7 +86,7 @@ public class GUIMenuImp extends GUIMenu {
         cerrarSesionButton.addActionListener(e -> {
             frame.dispose();
             GUIMenu.resetInstancia();  // Método que reinicia la instancia del menú
-            GUICliente.getInstancia(controlador, null);
+            GUIEmpleado.getInstancia(controlador, null);
         });
         frame.add(cerrarSesionButton, BorderLayout.SOUTH);
 
