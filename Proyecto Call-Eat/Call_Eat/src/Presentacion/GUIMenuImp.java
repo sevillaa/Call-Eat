@@ -34,19 +34,15 @@ public class GUIMenuImp extends GUIMenu {
         JLabel bienvenida = new JLabel("Bienvenido, " + nombreUsuario, SwingConstants.CENTER);
         frame.add(bienvenida, BorderLayout.NORTH);
 
-        // Panel principal con tres secciones
-        JPanel panelPrincipal = new JPanel(new GridLayout(1, 3));
+        // Panel principal con cuatro secciones
+        JPanel panelPrincipal = new JPanel(new GridLayout(1, 4)); // Cambié el layout para 4 secciones
 
         // Sección izquierda: Panel Gestor
         JPanel panelGestor = new JPanel();
         JButton botonGestor = new JButton("Panel Gestor");
         botonGestor.addActionListener(e -> {
-            // Aquí se debería abrir GUIGestorImp. Por ejemplo:
-            // new GUIGestorImp(controlador).setVisible(true);
-        	
-             frame.dispose();
-             new GUIGestorImp(controlador,usuario);
-            //JOptionPane.showMessageDialog(frame, "Acción para Panel Gestor (a implementar)");
+            frame.dispose();
+            new GUIGestorImp(controlador, usuario);
         });
         panelGestor.add(botonGestor);
 
@@ -54,11 +50,8 @@ public class GUIMenuImp extends GUIMenu {
         JPanel panelCamarero = new JPanel();
         JButton botonCamarero = new JButton("Panel Camarero");
         botonCamarero.addActionListener(e -> {
-            // Aquí se debería abrir GUICamareroImp. Por ejemplo:
-            // new GUICamareroImp(controlador).setVisible(true);
             frame.dispose();
-            new GUICamareroImp(controlador,usuario);
-            //JOptionPane.showMessageDialog(frame, "Acción para Panel Camarero (a implementar)");
+            new GUICamareroImp(controlador, usuario);
         });
         panelCamarero.add(botonCamarero);
 
@@ -66,19 +59,27 @@ public class GUIMenuImp extends GUIMenu {
         JPanel panelCocina = new JPanel();
         JButton botonCocina = new JButton("Panel Cocina");
         botonCocina.addActionListener(e -> {
-            // Aquí se debería abrir GUICocinaImp. Por ejemplo:
-            // new GUICocinaImp(controlador).setVisible(true);
-        	
             frame.dispose();
-            new GUICocinaImp(controlador,usuario);
+            new GUICocinaImp(controlador, usuario);
             JOptionPane.showMessageDialog(frame, "Acción para Panel Cocina (a implementar)");
         });
         panelCocina.add(botonCocina);
+
+        // Nueva sección: Panel Mesas
+        JPanel panelMesas = new JPanel();
+        JButton botonMesas = new JButton("Ver Mesas");
+        botonMesas.addActionListener(e -> {
+            // Aquí se debería abrir GUIMesasImp
+            frame.dispose();
+            new GUIMesaImp(controlador, usuario);  // Esto abrirá el panel de las mesas
+        });
+        panelMesas.add(botonMesas);
 
         // Agregar los paneles al panel principal
         panelPrincipal.add(panelGestor);
         panelPrincipal.add(panelCamarero);
         panelPrincipal.add(panelCocina);
+        panelPrincipal.add(panelMesas);  // Añadido el panel de mesas
         frame.add(panelPrincipal, BorderLayout.CENTER);
 
         // Botón de cerrar sesión
@@ -99,4 +100,5 @@ public class GUIMenuImp extends GUIMenu {
         JOptionPane.showMessageDialog(frame, "Evento recibido: " + evento);
     }
 }
+
 
