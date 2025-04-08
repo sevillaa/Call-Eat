@@ -1,7 +1,6 @@
 package Negocio;
 
 public class TransferPlato {
-<<<<<<< HEAD
 	
 	protected String id;
 	protected String nombre;
@@ -51,8 +50,4 @@ public class TransferPlato {
 		return this.categoria;
 	}
 
-=======
-	private int b;
-	private int adda;
->>>>>>> f4374e746d18a8b32ddf225b7877935b7522593c
 }

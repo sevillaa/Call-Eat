@@ -11,4 +11,6 @@ public abstract class FactoriaSA {
 	}
 
 	abstract public SAEmpleado nuevoSAClientes();
+	abstract public SAIngrediente nuevoSAIngredientes();
+	abstract public SAPlato nuevosSAPlatos();
 }
