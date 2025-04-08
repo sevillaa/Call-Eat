@@ -36,7 +36,6 @@ public class TransferEmpleado{
 	public String getId() {
 		return id;
 	}
-	
 	public void setContraseña(String contraseña) {
 		this.contraseña = contraseña;
 	}
