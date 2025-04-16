@@ -1,5 +1,7 @@
 package Integracion;
 
+import java.util.List;
+
 import Negocio.TransferEmpleado;
 
 public class FachadaDAOEmpleadoImp implements FachadaDAOEmpleado {
@@ -20,6 +22,11 @@ public class FachadaDAOEmpleadoImp implements FachadaDAOEmpleado {
     public boolean eliminarEmpleado(TransferEmpleado empleado) {
         return saDaoEmpleado.eliminarEmpleado(empleado);
     }
+
+	@Override
+	public List<TransferEmpleado> listaEmpleados() {
+		return saDaoEmpleado.listaEmpleados();
+	}
     
 
 	

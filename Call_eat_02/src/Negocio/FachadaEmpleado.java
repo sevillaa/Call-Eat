@@ -1,5 +1,7 @@
 package Negocio;
 
+import java.util.List;
+
 public interface FachadaEmpleado {
 	
 	public boolean crearUsuario(TransferEmpleado cliente);
@@ -7,5 +9,5 @@ public interface FachadaEmpleado {
 	public TransferEmpleado accesoClienteSeguro(String correo, String contraseña);
 	public boolean borrarCliente(TransferEmpleado cliente);
 	public String buscarIdUsuario(String correo,String contraseña);
-	
+	public List<TransferEmpleado> listaEmpleados();
 }

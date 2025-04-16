@@ -1,5 +1,7 @@
 package Negocio;
 
+import java.util.List;
+
 import Integracion.FachadaDAOEmpleadoImp;
 
 public class SAEmpleadoImp implements SAEmpleado {
@@ -55,6 +57,14 @@ public class SAEmpleadoImp implements SAEmpleado {
         }
         return null;
     }
+
+	@Override
+	public List<TransferEmpleado> listaEmpleados() {
+		List<TransferEmpleado> empleados = fachadaDaoEmpleado.listaEmpleados();
+		if(empleados != null)
+			return empleados;
+		return null;//En caso de que no haya ningun empleado aún
+	}
     
 }
 

@@ -1,5 +1,6 @@
 package Negocio;
 
+import java.util.List;
 
 public class FachadaEmpleadoImp implements FachadaEmpleado {
 
@@ -28,6 +29,11 @@ public class FachadaEmpleadoImp implements FachadaEmpleado {
 	@Override
 	public String buscarIdUsuario(String correo, String contraseña) {
 		return saEmpleado.buscarIdUsuario(correo, contraseña);
+	}
+
+	@Override
+	public List<TransferEmpleado> listaEmpleados() {
+		return saEmpleado.listaEmpleados();
 	}
 
 

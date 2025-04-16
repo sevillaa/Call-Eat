@@ -39,6 +39,33 @@ public class DAOEmpleadoImp  {
         }
     }
 
+    //Funcion que permite modificar un empleado, usamos el id porque asi el correo tambien se puede modificar
+    public boolean modificarEmpleado(TransferEmpleado empleadoActualizado) {
+        List<TransferEmpleado> empleados = cargarEmpleado();
+        boolean encontrado = false;
+
+        for (int i = 0; i < empleados.size(); i++) {
+            TransferEmpleado actual = empleados.get(i);
+            if (actual.getId().equals(empleadoActualizado.getId())) {
+                // Si la contraseña viene vacía, mantenemos la anterior
+                if (empleadoActualizado.getContraseña() == null || empleadoActualizado.getContraseña().isEmpty()) {
+                    empleadoActualizado.setContraseña(actual.getContraseña());
+                }
+
+                empleados.set(i, empleadoActualizado);
+                encontrado = true;
+                break;
+            }
+        }
+
+        if (encontrado) {
+            guardarEmpleados(empleados);
+        }
+
+        return encontrado;
+    }
+
+    
     public boolean eliminarEmpleado(TransferEmpleado cliente) {
         List<TransferEmpleado> clientes = cargarEmpleado();
         Iterator<TransferEmpleado> iterator = clientes.iterator();
@@ -54,6 +81,7 @@ public class DAOEmpleadoImp  {
         return false;
     }
 
+    
     private List<TransferEmpleado> cargarEmpleado() {
         try {
             File file = new File(FILE_PATH);
@@ -66,6 +94,15 @@ public class DAOEmpleadoImp  {
             return new ArrayList<>();
         }
     }
+
+    public List<TransferEmpleado> listarEmpleadosSinContraseña() {
+        List<TransferEmpleado> empleados = cargarEmpleado();
+        for (TransferEmpleado e : empleados) {
+            e.setContraseña("");
+        }
+        return empleados;
+    }
+
 
     private void guardarEmpleados(List<TransferEmpleado> empleado) {
         try {

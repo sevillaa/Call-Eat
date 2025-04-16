@@ -1,6 +1,8 @@
 package Presentacion;
 
-public abstract class GUIGestor {
+import javax.swing.JPanel;
+
+public abstract class GUIGestor extends JPanel{
     private static GUIGestor instancia;
 
     public static GUIGestor getInstancia(Controlador controlador,Object datos) {

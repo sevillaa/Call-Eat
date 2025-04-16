@@ -1,6 +1,8 @@
 package Integracion;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
+
 import Negocio.TransferEmpleado;
 
 public class SADAOEmpleadoImp implements SADAOEmpleado{
@@ -25,4 +27,7 @@ public class SADAOEmpleadoImp implements SADAOEmpleado{
         return dao.eliminarEmpleado(empleado);
     }
 
+    public List<TransferEmpleado> listaEmpleados(){
+    	return dao.listarEmpleadosSinContraseña();
+    }
 }

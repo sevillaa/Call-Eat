@@ -1,6 +1,7 @@
 package Presentacion;
 
 import java.util.HashMap;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
@@ -44,6 +45,10 @@ public class ControladorImp implements Controlador {
 	
 	public boolean borrarCliente(TransferEmpleado empleado) {
 		return this.fachadaEmpleado.borrarCliente(empleado);
+	}
+	
+	public List<TransferEmpleado> listaEmpleados(){
+		return this.fachadaEmpleado.listaEmpleados();
 	}
 	
 	//METODOS DE INGREDIENTE:

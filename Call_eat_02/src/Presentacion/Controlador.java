@@ -1,5 +1,7 @@
 package Presentacion;
 
+import java.util.List;
+
 import Negocio.TransferEmpleado;
 import Negocio.TransferIngrediente;
 import Negocio.TransferMesa;
@@ -19,6 +21,8 @@ public interface Controlador {
 	public String buscarIdUsuario(String correo, String contraseña);
 
 	public boolean borrarCliente(TransferEmpleado empleado);
+	
+	public List<TransferEmpleado> listaEmpleados();
 
 	// METODOS DE INGREDIENTE:
 
