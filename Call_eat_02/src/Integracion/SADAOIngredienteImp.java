@@ -8,20 +8,17 @@ public class SADAOIngredienteImp implements SADAOIngrediente {
 	
 	@Override
 	public boolean crearIngrediente(TransferIngrediente ingrediente) {
-		// TODO Auto-generated method stub
-		return false;
+		return dao.crearIngrediente(ingrediente);
 	}
 
 	@Override
 	public boolean eliminarIngrediente(TransferIngrediente ingrediente) {
-		// TODO Auto-generated method stub
-		return false;
+		return dao.eliminiarIngrediente(ingrediente);
 	}
 
 	@Override
 	public TransferIngrediente buscarIngrediente(String idIngrediente) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.buscarIngrediente(idIngrediente);
 	}
 
 }

@@ -65,6 +65,18 @@ public class ControladorImp implements Controlador {
 		return this.fachadaIngrediente.buscarIngrediente(idIngrediente);
 	}
 	
+	public boolean compruebaIngredientes(TransferPlato plato) {
+		return this.fachadaIngrediente.compruebaIngredientes(plato);
+	}
+
+	public void restaIngredientes(TransferPlato plato) {
+		this.fachadaIngrediente.restaIngredientes(plato);
+	}
+
+	public void sumaIngredientes(TransferPlato plato) {
+		this.fachadaIngrediente.sumaIngredientes(plato);
+	}
+	
 	//METODOS DE MESA:
 	
 	public boolean crearMesa(TransferMesa mesa) {

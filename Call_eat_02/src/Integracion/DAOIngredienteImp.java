@@ -9,20 +9,36 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import Negocio.TransferIngrediente;
+import Negocio.TransferPlato;
 
 public class DAOIngredienteImp {
 
+	private List<TransferIngrediente> ingredientes;
 	private static final String FILE_PATH = "ingredientes.json";
 	private static ObjectMapper objectMapper = new ObjectMapper();
 
-	public void crearIngrediente(TransferIngrediente ingrediente) {
+	public DAOIngredienteImp() {
 		try {
-			List<TransferIngrediente> ingredientes = obtenerTodos();
-			ingredientes.add(ingrediente);
-			objectMapper.writeValue(new File(FILE_PATH), ingredientes);
+			this.ingredientes = objectMapper.readValue(new File(FILE_PATH),
+					new TypeReference<List<TransferIngrediente>>() {
+					});
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public boolean crearIngrediente(TransferIngrediente ingrediente) {
+		try {
+			if (!ingredientes.contains(ingrediente)) {
+				ingredientes.add(ingrediente);
+				objectMapper.writeValue(new File(FILE_PATH), ingredientes);
+				return true;
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return false;
 	}
 
 	public TransferIngrediente buscarIngrediente(String id) {
@@ -36,15 +52,33 @@ public class DAOIngredienteImp {
 
 		return null;
 	}
-	
-	public void actualizar(String id) {
-		// TODO Auto-generated method stub
-		
+
+	public void actualizarIngrediente(TransferIngrediente ingredienteActualizado ) {
+		try {
+			int i = 0;
+			while (i < ingredientes.size() && !ingredientes.get(i).getId().equals(ingredienteActualizado.getId())) {
+				i++;
+			}
+			ingredientes.set(i, ingredienteActualizado);
+			objectMapper.writeValue(new File(FILE_PATH), ingredientes);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 	}
 
-	public void eliminiar() {
-		// TODO Auto-generated method stub
+	public boolean eliminiarIngrediente(TransferIngrediente ingredienteEliminar) {
+		try {
+			if (ingredientes.contains(ingredienteEliminar)) {
+				ingredientes.remove(ingredienteEliminar);
+				objectMapper.writeValue(new File(FILE_PATH), ingredientes);
+				return true;
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
+		return false;
 	}
 
 	private List<TransferIngrediente> obtenerTodos() {

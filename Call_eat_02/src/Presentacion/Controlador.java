@@ -10,7 +10,7 @@ import Negocio.TransferPlato;
 
 public interface Controlador {
 
-//METODOS DE EMPLEADO:
+	//METODOS DE EMPLEADO:
 
 	public boolean crearUsuario(TransferEmpleado empleado);
 
@@ -31,6 +31,12 @@ public interface Controlador {
 	public boolean eliminarIngrediente(TransferIngrediente ingrediente);
 
 	public TransferIngrediente buscarIngrediente(String idIngrediente);
+	
+	public boolean compruebaIngredientes(TransferPlato plato);
+
+	public void restaIngredientes(TransferPlato plato);
+
+	public void sumaIngredientes(TransferPlato plato);
 
 	// METODOS DE MESA:
 

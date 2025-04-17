@@ -4,24 +4,21 @@ import Negocio.TransferPlato;
 
 public class SADAOPlatoImp implements SADAOPlato {
 	
-	DAOPlatoImp dao = new DAOPlatoImp();
+	DAOPlatoImp daoPlato = new DAOPlatoImp();
 
 	@Override
 	public boolean crearPlato(TransferPlato plato) {
-		// TODO Auto-generated method stub
-		return false;
+		return daoPlato.crearPlato(plato);
 	}
 
 	@Override
 	public boolean eliminarPlato(TransferPlato plato) {
-		// TODO Auto-generated method stub
-		return false;
+		return daoPlato.eliminarPlato(plato);
 	}
 
 	@Override
 	public TransferPlato buscarPlato(String idPlato) {
-		// TODO Auto-generated method stub
-		return null;
+		return daoPlato.buscarPlato(idPlato);
 	}
 
 }
