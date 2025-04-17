@@ -61,7 +61,7 @@ public class GUIMenuImp extends GUIMenu {
         botonCocina.addActionListener(e -> {
             frame.dispose();
             new GUICocinaImp(controlador, usuario);
-            //JOptionPane.showMessageDialog(frame, "Acción para Panel Cocina (a implementar)");
+            JOptionPane.showMessageDialog(frame, "Acción para Panel Cocina (a implementar)");
         });
         panelCocina.add(botonCocina);
 
