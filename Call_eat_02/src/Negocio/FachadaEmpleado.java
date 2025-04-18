@@ -10,4 +10,6 @@ public interface FachadaEmpleado {
 	public boolean borrarCliente(TransferEmpleado cliente);
 	public String buscarIdUsuario(String correo,String contraseña);
 	public List<TransferEmpleado> listaEmpleados();
+	public boolean modificaEmpleado(TransferEmpleado modificado);
+	public boolean eliminaEmpleado(TransferEmpleado empleado);
 }

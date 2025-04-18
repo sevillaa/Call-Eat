@@ -72,7 +72,7 @@ public class DAOEmpleadoImp  {
 
         while (iterator.hasNext()) {
             TransferEmpleado c = iterator.next();
-            if (c.getCorreo().equals(cliente.getCorreo()) && c.getContraseña().equals(cliente.getContraseña())) {
+            if (c.getId().equals(cliente.getId())) {
                 iterator.remove();
                 guardarEmpleados(clientes);
                 return true;
@@ -80,6 +80,7 @@ public class DAOEmpleadoImp  {
         }
         return false;
     }
+
 
     
     private List<TransferEmpleado> cargarEmpleado() {

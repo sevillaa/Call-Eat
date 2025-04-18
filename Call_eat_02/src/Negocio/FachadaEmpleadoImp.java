@@ -36,6 +36,16 @@ public class FachadaEmpleadoImp implements FachadaEmpleado {
 		return saEmpleado.listaEmpleados();
 	}
 
+	public boolean modificaEmpleado(TransferEmpleado modificado) {
+		// TODO Auto-generated method stub
+		return saEmpleado.modificarEmpleado(modificado);
+	}
+
+	public boolean eliminaEmpleado(TransferEmpleado empleado) {
+		// TODO Auto-generated method stub
+		return saEmpleado.eliminaEmpleado(empleado);
+	}
+
 
     
 }

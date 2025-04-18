@@ -23,6 +23,10 @@ public interface Controlador {
 	public boolean borrarCliente(TransferEmpleado empleado);
 	
 	public List<TransferEmpleado> listaEmpleados();
+	
+	public boolean modificarEmpleado(TransferEmpleado modificado);
+	
+	public boolean eliminarEmpleado(TransferEmpleado empleadoAEliminar);
 
 	// METODOS DE INGREDIENTE:
 
@@ -68,5 +72,9 @@ public interface Controlador {
 	// METODOS DE CONTROLADOR
 
 	void accion(int evento, Object datos);
+
+	
+
+
 
 }

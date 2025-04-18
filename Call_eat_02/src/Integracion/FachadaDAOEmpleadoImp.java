@@ -27,6 +27,10 @@ public class FachadaDAOEmpleadoImp implements FachadaDAOEmpleado {
 	public List<TransferEmpleado> listaEmpleados() {
 		return saDaoEmpleado.listaEmpleados();
 	}
+
+	public boolean modificarEmpleado(TransferEmpleado modificado) {
+		return saDaoEmpleado.modificarEmpleado(modificado);
+	}
     
 
 	

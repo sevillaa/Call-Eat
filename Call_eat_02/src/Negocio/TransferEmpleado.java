@@ -19,6 +19,7 @@ public class TransferEmpleado{
 		this.rol = rol;
 	}
 	
+	
 	public void setRol(String rol) {
 		this.rol = rol;
 	}

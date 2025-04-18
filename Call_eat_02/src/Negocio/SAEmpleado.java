@@ -10,5 +10,6 @@ public interface SAEmpleado {
 	public boolean borrarCliente(TransferEmpleado cliente);
 	public String buscarIdUsuario(String correo,String contraseña);
 	public List<TransferEmpleado> listaEmpleados();
-
+	public boolean modificarEmpleado(TransferEmpleado modificado);
+	public boolean eliminaEmpleado(TransferEmpleado empleado);
 }

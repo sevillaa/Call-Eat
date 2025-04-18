@@ -51,6 +51,15 @@ public class ControladorImp implements Controlador {
 		return this.fachadaEmpleado.listaEmpleados();
 	}
 	
+	public boolean modificarEmpleado(TransferEmpleado modificado) {
+		return this.fachadaEmpleado.modificaEmpleado(modificado);
+	}
+	
+	public boolean eliminarEmpleado(TransferEmpleado empleado) {
+		return this.fachadaEmpleado.eliminaEmpleado(empleado);
+	}
+
+	
 	//METODOS DE INGREDIENTE:
 	
 	public boolean crearIngrediente(TransferIngrediente ingrediente) {
@@ -184,6 +193,7 @@ public class ControladorImp implements Controlador {
         }
         return sb.toString();
     }
+	
     
     
 }
