@@ -93,23 +93,113 @@ public class GUIGestorImp extends GUIGestor {
             btnModificar.addActionListener(ev -> {
                 int filaSeleccionada = tabla.getSelectedRow();
                 if (filaSeleccionada != -1) {
-                    JOptionPane.showMessageDialog(plantillaFrame, "Modificar empleado: " +
-                            tabla.getValueAt(filaSeleccionada, 1));
+                    // Obtener datos del empleado seleccionado
+                    String id = (String) tabla.getValueAt(filaSeleccionada, 0);
+                    String nombre = (String) tabla.getValueAt(filaSeleccionada, 1);
+                    String correo = (String) tabla.getValueAt(filaSeleccionada, 2);
+                    String rol = (String) tabla.getValueAt(filaSeleccionada, 3);
+
+                    // Aquí necesitamos obtener también la contraseña
+                    // Opciones:
+                    // 1. Si tabla no la tiene, puedes buscarla desde el objeto original
+                    TransferEmpleado empleado = empleados.get(filaSeleccionada); // <- Usa esto
+                    String contraseña = empleado.getContraseña(); // <- si tienes getter
+
+                    // Crear frame para editar
+                    JFrame editarFrame = new JFrame("Modificar Empleado");
+                    editarFrame.setSize(400, 350);
+                    editarFrame.setLocationRelativeTo(null);
+                    editarFrame.setLayout(new GridLayout(6, 2, 10, 10));
+
+                    JTextField campoNombre = new JTextField(nombre);
+                    JTextField campoCorreo = new JTextField(correo);
+                    JTextField campoRol = new JTextField(rol);
+                    JPasswordField campoContraseña = new JPasswordField(contraseña); // editable
+
+                    editarFrame.add(new JLabel("ID:"));
+                    editarFrame.add(new JLabel(String.valueOf(id)));
+
+                    editarFrame.add(new JLabel("Nombre:"));
+                    editarFrame.add(campoNombre);
+
+                    editarFrame.add(new JLabel("Correo:"));
+                    editarFrame.add(campoCorreo);
+
+                    editarFrame.add(new JLabel("Rol:"));
+                    editarFrame.add(campoRol);
+
+                    editarFrame.add(new JLabel("Contraseña:"));
+                    editarFrame.add(campoContraseña);
+
+                    JButton btnGuardar = new JButton("Guardar Cambios");
+                    btnGuardar.addActionListener(evGuardar -> {
+                        String nuevaContraseña = new String(campoContraseña.getPassword());
+
+                        TransferEmpleado modificado = new TransferEmpleado(
+                            id,
+                            campoNombre.getText(),
+                            campoCorreo.getText(),
+                            campoRol.getText(),
+                            nuevaContraseña
+                        );
+
+                        controlador.modificarEmpleado(modificado);
+
+                        editarFrame.dispose();
+                        plantillaFrame.dispose();
+                        JOptionPane.showMessageDialog(frame, "Empleado modificado correctamente.");
+                        frame.setVisible(true);
+                    });
+
+                    editarFrame.add(new JLabel()); // Espacio
+                    editarFrame.add(btnGuardar);
+
+                    editarFrame.setVisible(true);
                 } else {
                     JOptionPane.showMessageDialog(plantillaFrame, "Selecciona un empleado primero.");
                 }
             });
 
+
             JButton btnEliminar = new JButton("Eliminar Empleado");
             btnEliminar.addActionListener(ev -> {
                 int filaSeleccionada = tabla.getSelectedRow();
                 if (filaSeleccionada != -1) {
-                    JOptionPane.showMessageDialog(plantillaFrame, "Eliminar empleado: " +
-                            tabla.getValueAt(filaSeleccionada, 1));
+                    String idEmpleado = (String) tabla.getValueAt(filaSeleccionada, 0);
+
+                    TransferEmpleado empleadoAEliminar = null;
+                    for (TransferEmpleado emp : empleados) {
+                        if (emp.getId().equals(idEmpleado)) {
+                            empleadoAEliminar = emp;
+                            break;
+                        }
+                    }
+
+                    if (empleadoAEliminar != null) {
+                        int confirmacion = JOptionPane.showConfirmDialog(
+                            plantillaFrame,
+                            "¿Estás seguro de que deseas eliminar a " + empleadoAEliminar.getNombre() + "?",
+                            "Confirmar eliminación",
+                            JOptionPane.YES_NO_OPTION
+                        );
+
+                        if (confirmacion == JOptionPane.YES_OPTION) {
+                            boolean eliminado = controlador.eliminarEmpleado(empleadoAEliminar);
+                            if (eliminado) {
+                                JOptionPane.showMessageDialog(plantillaFrame, "Empleado eliminado correctamente.");
+                                plantillaFrame.dispose(); // recarga la tabla
+                                new GUIGestorImp(controlador, datos);
+                            } else {
+                                JOptionPane.showMessageDialog(plantillaFrame, "Error al eliminar el empleado.");
+                            }
+                        }
+                    }
+
                 } else {
                     JOptionPane.showMessageDialog(plantillaFrame, "Selecciona un empleado primero.");
                 }
             });
+
 
             JButton btnAtras = new JButton("Atrás");
             btnAtras.addActionListener(ev -> {

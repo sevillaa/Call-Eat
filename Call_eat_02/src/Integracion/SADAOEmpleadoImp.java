@@ -30,4 +30,9 @@ public class SADAOEmpleadoImp implements SADAOEmpleado{
     public List<TransferEmpleado> listaEmpleados(){
     	return dao.listarEmpleadosSinContraseña();
     }
+
+	@Override
+	public boolean modificarEmpleado(TransferEmpleado modificado) {
+		return dao.modificarEmpleado(modificado);
+	}
 }

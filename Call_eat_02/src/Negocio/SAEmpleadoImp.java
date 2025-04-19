@@ -65,6 +65,25 @@ public class SAEmpleadoImp implements SAEmpleado {
 			return empleados;
 		return null;//En caso de que no haya ningun empleado aún
 	}
+
+	@Override
+	public boolean modificarEmpleado(TransferEmpleado modificado) {
+	    if (modificado == null || modificado.getId() == null) {
+	        return false;
+	    }
+
+	    return fachadaDaoEmpleado.modificarEmpleado(modificado);
+	}
+
+
+	@Override
+	public boolean eliminaEmpleado(TransferEmpleado empleado) {
+	    if (empleado == null || empleado.getCorreo() == null || empleado.getContraseña() == null) {
+	        return false;
+	    }
+	    return fachadaDaoEmpleado.eliminarEmpleado(empleado);
+	}
+
     
 }
 

@@ -10,4 +10,5 @@ public interface FachadaDAOEmpleado {
     boolean registrarEmpleado(TransferEmpleado empleado);
     boolean eliminarEmpleado(TransferEmpleado empleado);
     List<TransferEmpleado> listaEmpleados();
+    boolean modificarEmpleado(TransferEmpleado modificado);
 }

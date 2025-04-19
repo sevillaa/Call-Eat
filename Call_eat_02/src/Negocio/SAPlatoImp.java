@@ -8,29 +8,16 @@ public class SAPlatoImp implements SAPlato{
 	
 	@Override
 	public boolean crearPlato(TransferPlato plato) {
-		// TODO Auto-generated method stub
-		
-
-		
-		
 		return this.fachadaDaoPlato.crearPlato(plato);
 	}
 
 	@Override
 	public boolean eliminarPlato(TransferPlato plato) {
-		// TODO Auto-generated method stub
-		
-
-		
 		return this.fachadaDaoPlato.eliminarPlato(plato);
 	}
 
 	@Override
 	public TransferPlato buscarPlato(String idPlato) {
-		// TODO Auto-generated method stub
-		
-
-		
 		return this.fachadaDaoPlato.buscarPlato(idPlato);
 	}
 

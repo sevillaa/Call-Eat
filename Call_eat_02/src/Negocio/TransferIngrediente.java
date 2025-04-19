@@ -1,5 +1,7 @@
 package Negocio;
 
+import java.util.Map;
+
 public class TransferIngrediente {
 	
 	protected String id;
@@ -39,6 +41,7 @@ public class TransferIngrediente {
 	public int getCantidad() {
 		return this.cantidad;
 	}
+
 
 
 }

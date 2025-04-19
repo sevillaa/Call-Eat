@@ -51,6 +51,15 @@ public class ControladorImp implements Controlador {
 		return this.fachadaEmpleado.listaEmpleados();
 	}
 	
+	public boolean modificarEmpleado(TransferEmpleado modificado) {
+		return this.fachadaEmpleado.modificaEmpleado(modificado);
+	}
+	
+	public boolean eliminarEmpleado(TransferEmpleado empleado) {
+		return this.fachadaEmpleado.eliminaEmpleado(empleado);
+	}
+
+	
 	//METODOS DE INGREDIENTE:
 	
 	public boolean crearIngrediente(TransferIngrediente ingrediente) {
@@ -63,6 +72,18 @@ public class ControladorImp implements Controlador {
 	
 	public TransferIngrediente buscarIngrediente(String idIngrediente) {
 		return this.fachadaIngrediente.buscarIngrediente(idIngrediente);
+	}
+	
+	public boolean compruebaIngredientes(TransferPlato plato) {
+		return this.fachadaIngrediente.compruebaIngredientes(plato);
+	}
+
+	public void restaIngredientes(TransferPlato plato) {
+		this.fachadaIngrediente.restaIngredientes(plato);
+	}
+
+	public void sumaIngredientes(TransferPlato plato) {
+		this.fachadaIngrediente.sumaIngredientes(plato);
 	}
 	
 	//METODOS DE MESA:
@@ -172,6 +193,7 @@ public class ControladorImp implements Controlador {
         }
         return sb.toString();
     }
+	
     
     
 }
