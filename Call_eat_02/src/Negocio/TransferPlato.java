@@ -4,6 +4,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.ImageIcon;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class TransferPlato {
 
 	protected String id;
@@ -11,18 +15,21 @@ public class TransferPlato {
 	protected Map<String, Integer> ingredientes;
 	protected int precio;
 	protected String categoria;
+	@JsonProperty("ICON_PATH")
+	protected String ICON_PATH;
 
 	public TransferPlato() {
 
 	}
 
 	public TransferPlato(String id, String nombre, Map<String, Integer> ingredientes, int precio,
-			String categoria) {
+			String categoria, String ICON_PATH) {
 		this.id = id;
 		this.nombre = nombre;
 		this.ingredientes = ingredientes;
 		this.precio = precio;
 		this.categoria = categoria;
+		this.ICON_PATH = ICON_PATH;
 	}
 
 	public void setId(String id) {
@@ -63,6 +70,10 @@ public class TransferPlato {
 
 	public String getCategoria() {
 		return this.categoria;
+	}
+	
+	public String getIconPath() {
+		return this.ICON_PATH;
 	}
 
 	@Override

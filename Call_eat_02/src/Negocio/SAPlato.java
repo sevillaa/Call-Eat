@@ -1,5 +1,7 @@
 package Negocio;
 
+import java.util.List;
+
 public interface SAPlato {
 
 	boolean crearPlato(TransferPlato plato);
@@ -7,5 +9,7 @@ public interface SAPlato {
 	boolean eliminarPlato(TransferPlato plato);
 
 	TransferPlato buscarPlato(String idPlato);
+
+	List<TransferPlato> obtenerPlatos();
 
 }

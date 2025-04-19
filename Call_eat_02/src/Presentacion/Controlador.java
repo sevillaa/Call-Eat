@@ -73,6 +73,8 @@ public interface Controlador {
 
 	void accion(int evento, Object datos);
 
+	List<TransferPlato> obtenerPlatos();
+
 	
 
 

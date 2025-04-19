@@ -16,7 +16,7 @@ import Negocio.TransferPlato;
 public class DAOPlatoImp {
 
 	private List<TransferPlato> platos;
-	private static final String FILE_PATH = "platos.json";
+	private static final String FILE_PATH = "carta.json";
 	private ObjectMapper objectMapper = new ObjectMapper();
 	
 	public DAOPlatoImp(){

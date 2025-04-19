@@ -1,5 +1,7 @@
 package Integracion;
 
+import java.util.List;
+
 import Negocio.TransferPlato;
 
 public interface SADAOPlato {
@@ -9,5 +11,7 @@ public interface SADAOPlato {
 	boolean eliminarPlato(TransferPlato plato);
 
 	TransferPlato buscarPlato(String idPlato);
+
+	List<TransferPlato> obtenerPlatos();
 
 }

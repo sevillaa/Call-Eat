@@ -1,10 +1,12 @@
 package Negocio;
 
+import java.util.List;
+import Integracion.FachadaDAOPlato;
 import Integracion.FachadaDAOPlatoImp;
 
 public class SAPlatoImp implements SAPlato{
 
-	private FachadaDAOPlatoImp fachadaDaoPlato = new FachadaDAOPlatoImp();
+	private FachadaDAOPlato fachadaDaoPlato = new FachadaDAOPlatoImp();
 	
 	@Override
 	public boolean crearPlato(TransferPlato plato) {
@@ -19,6 +21,11 @@ public class SAPlatoImp implements SAPlato{
 	@Override
 	public TransferPlato buscarPlato(String idPlato) {
 		return this.fachadaDaoPlato.buscarPlato(idPlato);
+	}
+
+	@Override
+	public List<TransferPlato> obtenerPlatos() {
+		return this.fachadaDaoPlato.obtenerPlatos();
 	}
 
 }

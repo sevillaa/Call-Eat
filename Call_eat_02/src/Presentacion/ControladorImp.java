@@ -25,7 +25,7 @@ public class ControladorImp implements Controlador {
 	private FachadaPlatoImp fachadaPlato = new FachadaPlatoImp();
 	
 	
-	//METODOS DE EMPLEADO:
+	// METODOS DE EMPLEADO:
 	
 	public boolean crearUsuario(TransferEmpleado empleado) {
 		return this.fachadaEmpleado.crearUsuario(empleado);
@@ -60,7 +60,7 @@ public class ControladorImp implements Controlador {
 	}
 
 	
-	//METODOS DE INGREDIENTE:
+	// METODOS DE INGREDIENTE:
 	
 	public boolean crearIngrediente(TransferIngrediente ingrediente) {
 		return this.fachadaIngrediente.crearIngrediente(ingrediente);
@@ -100,7 +100,7 @@ public class ControladorImp implements Controlador {
 		return this.fachadaMesa.buscarMesa(idMesa);
 	}
 	
-	//METODOS DE PEDIDO:
+	// METODOS DE PEDIDO:
 	
 	public boolean crearPedido(TransferPedido pedido) {
 		return this.fachadaPedido.crearPedido(pedido);
@@ -114,7 +114,7 @@ public class ControladorImp implements Controlador {
 		return this.fachadaPedido.buscarPedido(idPedido);
 	}
 	
-	//METODOS DE PLATO:
+	// METODOS DE PLATO:
 	
 	public boolean crearPlato(TransferPlato plato) {
 		return this.fachadaPlato.crearPlato(plato);
@@ -126,6 +126,11 @@ public class ControladorImp implements Controlador {
 	
 	public TransferPlato buscarPlato(String idPlato) {
 		return this.fachadaPlato.buscarPlato(idPlato);
+	}
+	
+	@Override
+	public List<TransferPlato> obtenerPlatos(){
+		return fachadaPlato.obtenerPlatos();
 	}
 
 
