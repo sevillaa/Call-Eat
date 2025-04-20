@@ -3,7 +3,11 @@ package Presentacion;
 import javax.swing.JPanel;
 
 public abstract class GUIGestor extends JPanel{
-    private static GUIGestor instancia;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private static GUIGestor instancia;
 
     public static GUIGestor getInstancia(Controlador controlador,Object datos) {
         if (instancia == null) {
