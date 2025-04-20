@@ -1,5 +1,7 @@
 package Integracion;
 
+import java.util.List;
+
 import Negocio.TransferIngrediente;
 
 public class FachadaDAOIngredienteImp implements FachadaDAOIngrediente {
@@ -16,6 +18,14 @@ public class FachadaDAOIngredienteImp implements FachadaDAOIngrediente {
 
 	public TransferIngrediente buscarIngrediente(String idIngrediente) {
 		return this.saDaoIngrediente.buscarIngrediente(idIngrediente);
+	}
+	@Override
+	public boolean modificarIngrediente(TransferIngrediente modificado) {
+		return this.saDaoIngrediente.modificarIngrediente(modificado);
+	}
+	@Override
+	public List<TransferIngrediente> listaIngredientes() {
+		return saDaoIngrediente.listaIngredientes();
 	}
 
 }

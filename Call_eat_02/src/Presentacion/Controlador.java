@@ -36,6 +36,10 @@ public interface Controlador {
 
 	public TransferIngrediente buscarIngrediente(String idIngrediente);
 	
+	public boolean modificarIngrediente(TransferIngrediente modificado);
+	
+	public List<TransferIngrediente> listaIngredientes();
+	
 	public boolean compruebaIngredientes(TransferPlato plato);
 
 	public void restaIngredientes(TransferPlato plato);
@@ -72,7 +76,7 @@ public interface Controlador {
 	// METODOS DE CONTROLADOR
 
 	void accion(int evento, Object datos);
-
+	String generarCodigoRandom();
 	
 
 

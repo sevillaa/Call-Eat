@@ -3,6 +3,7 @@ package Integracion;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -53,17 +54,20 @@ public class DAOIngredienteImp {
 		return null;
 	}
 
-	public void actualizarIngrediente(TransferIngrediente ingredienteActualizado ) {
+	public boolean actualizarIngrediente(TransferIngrediente ingredienteActualizado ) {
 		try {
 			int i = 0;
 			while (i < ingredientes.size() && !ingredientes.get(i).getId().equals(ingredienteActualizado.getId())) {
 				i++;
 			}
 			ingredientes.set(i, ingredienteActualizado);
+			
 			objectMapper.writeValue(new File(FILE_PATH), ingredientes);
+			return true;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		return false;
 
 	}
 
@@ -95,6 +99,9 @@ public class DAOIngredienteImp {
 			e.printStackTrace();
 			return new ArrayList<>();
 		}
+	}
+	public List<TransferIngrediente> obtenerIngredientes() {
+		return Collections.unmodifiableList(this.ingredientes);
 	}
 
 }

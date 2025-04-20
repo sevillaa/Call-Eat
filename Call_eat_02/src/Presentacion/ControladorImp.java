@@ -73,7 +73,12 @@ public class ControladorImp implements Controlador {
 	public TransferIngrediente buscarIngrediente(String idIngrediente) {
 		return this.fachadaIngrediente.buscarIngrediente(idIngrediente);
 	}
-	
+	public boolean modificarIngrediente(TransferIngrediente modificado) {
+		return this.fachadaIngrediente.modificarIngrediente(modificado);
+	}
+	public List<TransferIngrediente> listaIngredientes(){
+		return this.fachadaIngrediente.listaIngredientes();
+	}
 	public boolean compruebaIngredientes(TransferPlato plato) {
 		return this.fachadaIngrediente.compruebaIngredientes(plato);
 	}
@@ -182,8 +187,8 @@ public class ControladorImp implements Controlador {
             }
         }
     }
-
-    private String generarCodigoRandom() {
+    @Override
+    public String generarCodigoRandom() {
         int length = 8;
         String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         StringBuilder sb = new StringBuilder(length);
@@ -193,6 +198,8 @@ public class ControladorImp implements Controlador {
         }
         return sb.toString();
     }
+
+	
 	
     
     

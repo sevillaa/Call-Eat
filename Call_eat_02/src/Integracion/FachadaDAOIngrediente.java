@@ -1,5 +1,8 @@
 package Integracion;
 
+import java.util.List;
+
+import Negocio.TransferEmpleado;
 import Negocio.TransferIngrediente;
 
 public interface FachadaDAOIngrediente {
@@ -8,5 +11,8 @@ public interface FachadaDAOIngrediente {
 	public boolean eliminarIngrediente(TransferIngrediente ingrediente);
 
 	public TransferIngrediente buscarIngrediente(String idIngrediente);
-
+	
+	public boolean modificarIngrediente(TransferIngrediente modificado);
+	
+	List<TransferIngrediente> listaIngredientes();
 }
