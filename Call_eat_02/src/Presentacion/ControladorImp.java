@@ -138,9 +138,6 @@ public class ControladorImp implements Controlador {
 		return fachadaPlato.obtenerPlatos();
 	}
 
-
-
-
 	// METODOS DE CONTROLLER:
 	
     @Override
@@ -192,6 +189,7 @@ public class ControladorImp implements Controlador {
             }
         }
     }
+    
     @Override
     public String generarCodigoRandom() {
         int length = 8;

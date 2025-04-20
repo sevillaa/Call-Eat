@@ -19,9 +19,10 @@ public class GUICamareroImp extends GUICamarero {
 	private JComboBox<String> selectorMesa;
 	private double total = 0.0;
 
-	private List<String> platosEnPedido = new ArrayList<>();
-
 	private JPanel pedidoListPanel;
+
+	private List<JButton> botonesPlatos = new ArrayList<>();
+	private JPanel platosPanel = new JPanel(new GridLayout(3, 3, 10, 10));
 
 	public GUICamareroImp(Controlador controlador, Object datos) {
 		this.controlador = controlador;
@@ -72,15 +73,16 @@ public class GUICamareroImp extends GUICamarero {
 		// --- DERECHA: Platos y categorías ---
 		JPanel derechaPanel = new JPanel();
 		derechaPanel.setLayout(new BorderLayout());
-		JPanel platosPanel = new JPanel(new GridLayout(3, 3, 10, 10)); // simulación de platos
 
 		// Mock platos
+		JScrollPane scrollPlatos = new JScrollPane(platosPanel);
+		scrollPlatos.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		platosPanel.setPreferredSize(new Dimension(300, 300));
 
-		List<TransferPlato> carta = controlador.obtenerPlatos();
-
-		for (TransferPlato plato : carta) {
+		for (TransferPlato plato : controlador.obtenerPlatos()) {
 
 			JButton botonPlato = new JButton(new ImageIcon(plato.getIconPath()));
+			botonPlato.putClientProperty("categoria", plato.getCategoria());
 
 			botonPlato.addActionListener(e -> {
 				this.agregarPedido(plato);
@@ -89,18 +91,17 @@ public class GUICamareroImp extends GUICamarero {
 			});
 
 			platosPanel.add(botonPlato);
+			botonesPlatos.add(botonPlato);
 		}
 
-		derechaPanel.add(platosPanel, BorderLayout.CENTER);
+		derechaPanel.add(scrollPlatos, BorderLayout.CENTER);
 
-		// --- Botones de categoría ---
+		// Botones de categoría
 		JPanel categoriasPanel = new JPanel(new GridLayout(1, 5));
-		String[] categorias = { "Carta", "Bebidas", "Postres" };
+		String[] categorias = { "Todos", "Platos", "Bebidas", "Postres" };
 		for (String cat : categorias) {
 			JButton btn = new JButton(cat);
-			btn.addActionListener(e -> {
-				JOptionPane.showMessageDialog(frame, "Mostrar categoría: " + cat + "\n(No implementado)");
-			});
+			btn.addActionListener(e -> filtrarPorCategoria(cat));
 			categoriasPanel.add(btn);
 		}
 		derechaPanel.add(categoriasPanel, BorderLayout.SOUTH);
@@ -121,15 +122,6 @@ public class GUICamareroImp extends GUICamarero {
 		frame.add(panelInferior, BorderLayout.SOUTH);
 
 		frame.setVisible(true);
-	}
-
-	private void actualizarPedido() {
-		StringBuilder sb = new StringBuilder();
-		for (String p : platosEnPedido) {
-			sb.append(p).append("\n");
-		}
-		pedidoArea.setText(sb.toString());
-		totalLabel.setText(String.format("Total: %.2f€", total));
 	}
 
 	private void agregarPedido(TransferPlato plato) {
@@ -160,6 +152,30 @@ public class GUICamareroImp extends GUICamarero {
 		pedidoListPanel.add(nuevoPedido);
 		pedidoListPanel.revalidate();
 		pedidoListPanel.repaint();
+	}
+
+	private void filtrarPorCategoria(String cat) {
+		platosPanel.removeAll();
+
+		for (JButton b : botonesPlatos) {
+			String categoriaBoton = (String) b.getClientProperty("categoria");
+			if (cat.equals("Todos") || (categoriaBoton != null && categoriaBoton.equals(cat))) {
+				platosPanel.add(b);
+			}
+		}
+		
+		// Rellenar el espacio vacío con componentes invisibles (si no hay suficientes platos)
+		int totalPlatos = platosPanel.getComponentCount();
+
+		for (int i = totalPlatos; i < 9; i++) {
+			JPanel panelVacio = new JPanel();
+			panelVacio.setOpaque(false);
+			platosPanel.add(panelVacio);
+		}
+		
+		// Actualizar el panel una vez filtrado
+		platosPanel.revalidate();
+		platosPanel.repaint();
 	}
 
 	@Override

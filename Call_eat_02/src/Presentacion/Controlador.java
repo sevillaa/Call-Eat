@@ -70,6 +70,8 @@ public interface Controlador {
 
 	public TransferPlato buscarPlato(String idPlato);
 	
+	public List<TransferPlato> obtenerPlatos();
+	
 	
 	
 	
