@@ -1,5 +1,6 @@
 package Negocio;
 
+import java.util.List;
 import java.util.Map;
 
 import Integracion.FachadaDAOIngredienteImp;
@@ -22,7 +23,13 @@ public class SAIngredienteImp implements SAIngrediente {
 	public TransferIngrediente buscarIngrediente(String idIngrediente) {
 		return this.fachadaDaoIngrediente.buscarIngrediente(idIngrediente);
 	}
-
+	@Override
+	public List<TransferIngrediente> listaIngredientes(){
+		List<TransferIngrediente> ingredientes = fachadaDaoIngrediente.listaIngredientes();
+		if(ingredientes != null)
+			return ingredientes;
+		return null;//En caso de que no haya ningun ingrediente aún
+	}
 	@Override
 	public boolean compruebaIngredientes(TransferPlato plato) {
 		for (Map.Entry<String, Integer> entry : plato.getIngredientes().entrySet()) {
@@ -38,6 +45,14 @@ public class SAIngredienteImp implements SAIngrediente {
 		return true;
 	}
 
+	@Override
+	public boolean modificarIngrediente(TransferIngrediente modificado) {
+		if (modificado == null || modificado.getId() == null) {
+	        return false;
+	    }
+	    return this.fachadaDaoIngrediente.modificarIngrediente(modificado);
+	}
+	
 	@Override
 	public void sumaIngredientes(TransferPlato plato) {
 		for (Map.Entry<String, Integer> entry : plato.getIngredientes().entrySet()) {

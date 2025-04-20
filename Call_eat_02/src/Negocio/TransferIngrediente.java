@@ -41,7 +41,10 @@ public class TransferIngrediente {
 	public int getCantidad() {
 		return this.cantidad;
 	}
-
+	@Override
+	public String toString(){
+		return this.nombre;
+	}
 
 
 }

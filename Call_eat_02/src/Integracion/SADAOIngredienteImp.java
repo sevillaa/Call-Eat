@@ -1,5 +1,7 @@
 package Integracion;
 
+import java.util.List;
+
 import Negocio.TransferIngrediente;
 
 public class SADAOIngredienteImp implements SADAOIngrediente {
@@ -19,6 +21,14 @@ public class SADAOIngredienteImp implements SADAOIngrediente {
 	@Override
 	public TransferIngrediente buscarIngrediente(String idIngrediente) {
 		return dao.buscarIngrediente(idIngrediente);
+	}
+	@Override
+	public boolean modificarIngrediente(TransferIngrediente modificado) {
+		return this.dao.actualizarIngrediente(modificado);
+	}
+	@Override
+	public List<TransferIngrediente> listaIngredientes() {
+		return dao.obtenerIngredientes();
 	}
 
 }

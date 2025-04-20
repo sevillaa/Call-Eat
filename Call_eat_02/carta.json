@@ -9,7 +9,7 @@
       "queso": 1
     },
     "precio": 12,
-    "categoria": "plato",
+    "categoria": "Platos",
     "ICON_PATH": "resources/carta/spaghetti_bolognese.jpeg"
   },
   {
@@ -22,7 +22,7 @@
       "crema": 1
     },
     "precio": 13,
-    "categoria": "plato",
+    "categoria": "Platos",
     "ICON_PATH": "resources/carta/pollo_al_curry.jpeg"
   },
   {
@@ -35,7 +35,7 @@
       "queso": 1
     },
     "precio": 11,
-    "categoria": "plato",
+    "categoria": "Platos",
     "ICON_PATH": "resources/carta/lasana_de_verduras.jpeg"
   },
   {
@@ -46,7 +46,7 @@
       "azucar": 1
     },
     "precio": 2.5,
-    "categoria": "bebida",
+    "categoria": "Bebidas",
     "ICON_PATH": "resources/carta/jugo_de_naranja.jpeg"
   },
   {
@@ -56,7 +56,7 @@
       "refresco_cola": 1
     },
     "precio": 2.8,
-    "categoria": "bebida",
+    "categoria": "Bebidas",
     "ICON_PATH": "resources/carta/coca_cola.jpeg"
   },
   {
@@ -68,7 +68,7 @@
       "azucar": 1
     },
     "precio": 0,
-    "categoria": "bebida",
+    "categoria": "Bebidas",
     "ICON_PATH": "resources/carta/te_helado.jpeg"
   },
   {
@@ -80,7 +80,7 @@
       "azucar": 1
     },
     "precio": 4.5,
-    "categoria": "postre",
+    "categoria": "Postres",
     "ICON_PATH": "resources/carta/tarta_de_queso.jpeg"
   },
   {
@@ -92,7 +92,7 @@
       "azucar": 1
     },
     "precio": 3.5,
-    "categoria": "postre",
+    "categoria": "Postres",
     "ICON_PATH": "resources/carta/helado_de_vainilla.jpeg"
   },
   {
@@ -105,7 +105,48 @@
       "huevo": 1
     },
     "precio": 4,
-    "categoria": "postre",
+    "categoria": "Postres",
     "ICON_PATH": "resources/carta/brownie_de_chocolate.jpeg"
+  },
+  {
+    "id": "D004",
+    "nombre": "Tarta de Manzana",
+    "ingredientes": {
+      "manzana": 1,
+      "azucar": 1,
+      "harina": 1,
+      "canela": 1,
+      "mantequilla": 1
+    },
+    "precio": 4.2,
+    "categoria": "Postres",
+    "ICON_PATH": "resources/carta/tarta_de_manzana.jpeg"
+  },
+  {
+    "id": "D005",
+    "nombre": "Mousse de Chocolate",
+    "ingredientes": {
+      "chocolate": 1,
+      "nata": 1,
+      "azucar": 1,
+      "huevo": 1
+    },
+    "precio": 3.8,
+    "categoria": "Postres",
+    "ICON_PATH": "resources/carta/mousse_de_chocolate.jpeg"
+  },
+  {
+    "id": "D006",
+    "nombre": "Panna Cotta de Frambuesa",
+    "ingredientes": {
+      "nata": 1,
+      "azucar": 1,
+      "vainilla": 1,
+      "gelatina": 1,
+      "frambuesas": 1
+    },
+    "precio": 4.0,
+    "categoria": "Postres",
+    "ICON_PATH": "resources/carta/panna_cotta_frambuesa.jpeg"
   }
 ]

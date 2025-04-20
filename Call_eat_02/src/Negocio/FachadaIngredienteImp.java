@@ -1,6 +1,6 @@
 package Negocio;
 
-
+import java.util.List;
 
 public class FachadaIngredienteImp implements FachadaIngrediente {
 	
@@ -20,7 +20,11 @@ public class FachadaIngredienteImp implements FachadaIngrediente {
 	public TransferIngrediente buscarIngrediente(String idIngrediente) {
 		return this.saIngrediente.buscarIngrediente(idIngrediente);
 	}
-
+	
+	@Override
+	public boolean modificarIngrediente(TransferIngrediente modificado) {
+		return this.saIngrediente.modificarIngrediente(modificado);
+	}
 	@Override
 	public boolean compruebaIngredientes(TransferPlato plato) {
 		return saIngrediente.compruebaIngredientes(plato);
@@ -34,6 +38,11 @@ public class FachadaIngredienteImp implements FachadaIngrediente {
 	@Override
 	public void sumaIngredientes(TransferPlato plato) {
 		saIngrediente.sumaIngredientes(plato);
+	}
+
+	@Override
+	public List<TransferIngrediente> listaIngredientes() {
+		return saIngrediente.listaIngredientes();
 	}
 	
 	
