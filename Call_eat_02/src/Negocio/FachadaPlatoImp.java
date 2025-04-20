@@ -1,5 +1,6 @@
 package Negocio;
 
+import java.util.List;
 
 public class FachadaPlatoImp implements FachadaPlato {
 	
@@ -20,7 +21,10 @@ public class FachadaPlatoImp implements FachadaPlato {
 		return this.saPlato.buscarPlato(idPlato);
 	}
 
-    
+	public List<TransferPlato> obtenerPlatos() {
+		return this.saPlato.obtenerPlatos();
+	}
+
 }
 
 

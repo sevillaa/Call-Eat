@@ -76,8 +76,9 @@ public interface Controlador {
 	// METODOS DE CONTROLADOR
 
 	void accion(int evento, Object datos);
-	String generarCodigoRandom();
 	
+	public  String generarCodigoRandom();
+
 
 
 

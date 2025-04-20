@@ -1,0 +1,111 @@
+[
+  {
+    "id": "P001",
+    "nombre": "Spaghetti Bolognese",
+    "ingredientes": {
+      "spaghetti": 1,
+      "carne_molida": 1,
+      "salsa_tomate": 1,
+      "queso": 1
+    },
+    "precio": 12,
+    "categoria": "plato",
+    "ICON_PATH": "resources/carta/spaghetti_bolognese.jpeg"
+  },
+  {
+    "id": "P002",
+    "nombre": "Pollo al Curry",
+    "ingredientes": {
+      "pollo": 1,
+      "curry": 1,
+      "arroz": 1,
+      "crema": 1
+    },
+    "precio": 13,
+    "categoria": "plato",
+    "ICON_PATH": "resources/carta/pollo_al_curry.jpeg"
+  },
+  {
+    "id": "P003",
+    "nombre": "Lasaña de Verduras",
+    "ingredientes": {
+      "pasta": 1,
+      "espinacas": 1,
+      "zanahoria": 1,
+      "queso": 1
+    },
+    "precio": 11,
+    "categoria": "plato",
+    "ICON_PATH": "resources/carta/lasana_de_verduras.jpeg"
+  },
+  {
+    "id": "B001",
+    "nombre": "Jugo de Naranja",
+    "ingredientes": {
+      "naranja": 1,
+      "azucar": 1
+    },
+    "precio": 2.5,
+    "categoria": "bebida",
+    "ICON_PATH": "resources/carta/jugo_de_naranja.jpeg"
+  },
+  {
+    "id": "B002",
+    "nombre": "Coca Cola",
+    "ingredientes": {
+      "refresco_cola": 1
+    },
+    "precio": 2.8,
+    "categoria": "bebida",
+    "ICON_PATH": "resources/carta/coca_cola.jpeg"
+  },
+  {
+    "id": "B003",
+    "nombre": "Té Helado",
+    "ingredientes": {
+      "te_negro": 1,
+      "limon": 1,
+      "azucar": 1
+    },
+    "precio": 0,
+    "categoria": "bebida",
+    "ICON_PATH": "resources/carta/te_helado.jpeg"
+  },
+  {
+    "id": "D001",
+    "nombre": "Tarta de Queso",
+    "ingredientes": {
+      "queso_crema": 1,
+      "galleta": 1,
+      "azucar": 1
+    },
+    "precio": 4.5,
+    "categoria": "postre",
+    "ICON_PATH": "resources/carta/tarta_de_queso.jpeg"
+  },
+  {
+    "id": "D002",
+    "nombre": "Helado de Vainilla",
+    "ingredientes": {
+      "leche": 1,
+      "vainilla": 1,
+      "azucar": 1
+    },
+    "precio": 3.5,
+    "categoria": "postre",
+    "ICON_PATH": "resources/carta/helado_de_vainilla.jpeg"
+  },
+  {
+    "id": "D003",
+    "nombre": "Brownie de Chocolate",
+    "ingredientes": {
+      "chocolate": 1,
+      "harina": 1,
+      "azucar": 1,
+      "huevo": 1
+    },
+    "precio": 4,
+    "categoria": "postre",
+    "ICON_PATH": "resources/carta/brownie_de_chocolate.jpeg"
+  }
+]

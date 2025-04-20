@@ -1,5 +1,7 @@
 package Integracion;
 
+import java.util.List;
+
 import Negocio.TransferPlato;
 
 public class SADAOPlatoImp implements SADAOPlato {
@@ -19,6 +21,11 @@ public class SADAOPlatoImp implements SADAOPlato {
 	@Override
 	public TransferPlato buscarPlato(String idPlato) {
 		return daoPlato.buscarPlato(idPlato);
+	}
+
+	@Override
+	public List<TransferPlato> obtenerPlatos() {
+		return daoPlato.obtenerPlatos();
 	}
 
 }

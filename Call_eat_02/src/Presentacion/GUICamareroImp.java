@@ -1,6 +1,9 @@
 package Presentacion;
 
 import javax.swing.*;
+
+import Negocio.TransferPlato;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -72,21 +75,27 @@ public class GUICamareroImp extends GUICamarero {
 		JPanel platosPanel = new JPanel(new GridLayout(3, 3, 10, 10)); // simulación de platos
 
 		// Mock platos
-		for (int i = 1; i <= 9; i++) {
-			String nombre = "Plato " + i;
-			double precio = 5.0 + i;
-			JButton botonPlato = new JButton(nombre + " - " + precio + "€");
+
+		List<TransferPlato> carta = controlador.obtenerPlatos();
+
+		for (TransferPlato plato : carta) {
+
+			JButton botonPlato = new JButton(new ImageIcon(plato.getIconPath()));
+
 			botonPlato.addActionListener(e -> {
-				this.agregarPedido(nombre);
-				total += precio;
+				this.agregarPedido(plato);
+				total += plato.getPrecio();
+				totalLabel.setText(String.format("Total: %.2f€", total));
 			});
+
 			platosPanel.add(botonPlato);
 		}
+
 		derechaPanel.add(platosPanel, BorderLayout.CENTER);
 
 		// --- Botones de categoría ---
 		JPanel categoriasPanel = new JPanel(new GridLayout(1, 5));
-		String[] categorias = {"Carta", "Bebidas", "Postres"};
+		String[] categorias = { "Carta", "Bebidas", "Postres" };
 		for (String cat : categorias) {
 			JButton btn = new JButton(cat);
 			btn.addActionListener(e -> {
@@ -123,21 +132,22 @@ public class GUICamareroImp extends GUICamarero {
 		totalLabel.setText(String.format("Total: %.2f€", total));
 	}
 
-	private void agregarPedido(String textoPedido) {
+	private void agregarPedido(TransferPlato plato) {
 		JPanel nuevoPedido = new JPanel(new BorderLayout());
 		nuevoPedido.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
-		JLabel label = new JLabel(textoPedido);
+		JLabel label = new JLabel(plato.getNombre() + " - " + plato.getPrecio() + "€");
 		nuevoPedido.add(label, BorderLayout.CENTER);
 
-		
 		JButton btnEliminar = new JButton("X");
 		btnEliminar.setContentAreaFilled(false);
-		btnEliminar.setBorderPainted(false); 
-		btnEliminar.setFocusPainted(false);         
-		btnEliminar.setOpaque(false);      
+		btnEliminar.setBorderPainted(false);
+		btnEliminar.setFocusPainted(false);
+		btnEliminar.setOpaque(false);
 		btnEliminar.addActionListener(e -> {
 			pedidoListPanel.remove(nuevoPedido);
+			total -= plato.getPrecio();
+			totalLabel.setText(String.format("Total: %.2f€", total));
 			pedidoListPanel.revalidate();
 			pedidoListPanel.repaint();
 		});

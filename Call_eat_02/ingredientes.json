@@ -1,1 +1,121 @@
+<<<<<<< HEAD
 [{"id":"BBBBB","nombre":"Lechuga","cantidad":34},{"id":"CCCCC","nombre":"Pepinillo","cantidad":54},{"id":"DDDDD","nombre":"Cebolla","cantidad":30},{"id":"EEEEE","nombre":"Pan","cantidad":40},{"id":"FFFFF","nombre":"Patata","cantidad":80},{"id":"GGGGG","nombre":"Sal","cantidad":20},{"id":"HHHHH","nombre":"Aceite","cantidad":30},{"id":"IIIII","nombre":"Pollo","cantidad":20},{"id":"V56DTM2E","nombre":"res","cantidad":100},{"id":"F1E9MW8J","nombre":"coca cola","cantidad":10},{"id":"YVVTB5OG","nombre":"pescado","cantidad":4},{"id":"97TDQDNB","nombre":"sprite","cantidad":1},{"id":"W3A7K6VE","nombre":"pepsi","cantidad":4},{"id":"UBJ0448S","nombre":"frijol","cantidad":19},{"id":"P6GL9CAN","nombre":"Mayonesa","cantidad":23}]
+=======
+[
+  {
+    "id": "I001",
+    "nombre": "spaghetti",
+    "cantidad": 50
+  },
+  {
+    "id": "I002",
+    "nombre": "carne_molida",
+    "cantidad": 50
+  },
+  {
+    "id": "I003",
+    "nombre": "salsa_tomate",
+    "cantidad": 50
+  },
+  {
+    "id": "I004",
+    "nombre": "queso",
+    "cantidad": 50
+  },
+  {
+    "id": "I005",
+    "nombre": "pollo",
+    "cantidad": 50
+  },
+  {
+    "id": "I006",
+    "nombre": "curry",
+    "cantidad": 50
+  },
+  {
+    "id": "I007",
+    "nombre": "arroz",
+    "cantidad": 50
+  },
+  {
+    "id": "I008",
+    "nombre": "crema",
+    "cantidad": 50
+  },
+  {
+    "id": "I009",
+    "nombre": "pasta",
+    "cantidad": 50
+  },
+  {
+    "id": "I010",
+    "nombre": "espinacas",
+    "cantidad": 50
+  },
+  {
+    "id": "I011",
+    "nombre": "zanahoria",
+    "cantidad": 50
+  },
+  {
+    "id": "I012",
+    "nombre": "naranja",
+    "cantidad": 50
+  },
+  {
+    "id": "I013",
+    "nombre": "azucar",
+    "cantidad": 50
+  },
+  {
+    "id": "I014",
+    "nombre": "refresco_cola",
+    "cantidad": 50
+  },
+  {
+    "id": "I015",
+    "nombre": "te_negro",
+    "cantidad": 50
+  },
+  {
+    "id": "I016",
+    "nombre": "limon",
+    "cantidad": 50
+  },
+  {
+    "id": "I017",
+    "nombre": "queso_crema",
+    "cantidad": 50
+  },
+  {
+    "id": "I018",
+    "nombre": "galleta",
+    "cantidad": 50
+  },
+  {
+    "id": "I019",
+    "nombre": "leche",
+    "cantidad": 50
+  },
+  {
+    "id": "I020",
+    "nombre": "vainilla",
+    "cantidad": 50
+  },
+  {
+    "id": "I021",
+    "nombre": "chocolate",
+    "cantidad": 50
+  },
+  {
+    "id": "I022",
+    "nombre": "harina",
+    "cantidad": 50
+  },
+  {
+    "id": "I023",
+    "nombre": "huevo",
+    "cantidad": 50
+  }
+]
+>>>>>>> d071ada6799d7d221ea915be038348dc796cf24a
