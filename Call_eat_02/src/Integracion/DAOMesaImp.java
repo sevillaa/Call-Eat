@@ -32,7 +32,7 @@ public class DAOMesaImp {
 
     public boolean crearMesa(TransferMesa mesa) {
         try {
-            mesas.removeAll(mesas);
+           // mesas.removeAll(mesas);
         	if (!mesas.contains(mesa)) {
                 mesas.add(mesa);
                 objectMapper.writeValue(new File(FILE_PATH), mesas);

@@ -98,7 +98,7 @@ public class GUIMesaImp extends GUIMesa {
             }
         });
         
-        actualizar(0, mesas);
+        //actualizar(0, mesas);
     }
 
     @SuppressWarnings("unchecked")
@@ -153,6 +153,7 @@ public class GUIMesaImp extends GUIMesa {
         dialog.setSize(300, 150);
         dialog.setLayout(new BorderLayout(10, 10));
         dialog.setLocationRelativeTo(frame);
+        //dialog.setVisible(true);
 
         JPanel formPanel = new JPanel(new GridLayout(1, 2));
         formPanel.add(new JLabel("Capacidad"));
@@ -178,7 +179,6 @@ public class GUIMesaImp extends GUIMesa {
             controlador.anadirMesa(nuevaMesa);
             dialog.dispose();
         });
-        
         dialog.setVisible(true);
     }
 
