@@ -1,40 +1,47 @@
 package Negocio;
 
+import java.util.List;
 import Integracion.FachadaDAOMesaImp;
 
-public class SAMesaImp implements SAMesa{
+public class SAMesaImp implements SAMesa {
+    private FachadaDAOMesaImp fachadaDaoMesa = new FachadaDAOMesaImp();
 
-	
-	private FachadaDAOMesaImp fachadaDaoMesa = new FachadaDAOMesaImp();
-	
-	@Override
-	public boolean crearMesa(TransferMesa mesa) {
-		// TODO Auto-generated method stub
-		
+    @Override
+    public boolean crearMesa(TransferMesa mesa) {
+        if (mesa.getCapacidad() <= 0) {
+            return false;
+        }
+        return this.fachadaDaoMesa.crearMesa(mesa);
+    }
 
-		
-		
-		return this.fachadaDaoMesa.crearMesa(mesa);
-	}
+    @Override
+    public boolean eliminarMesa(TransferMesa mesa) {
+        if (mesa.isReservada()) {
+            return false;
+        }
+        return this.fachadaDaoMesa.eliminarMesa(mesa);
+    }
 
-	@Override
-	public boolean eliminarMesa(TransferMesa mesa) {
-		// TODO Auto-generated method stub
-		
+    @Override
+    public TransferMesa buscarMesa(String idMesa) {
+        return this.fachadaDaoMesa.buscarMesa(idMesa);
+    }
 
-		
-		
-		return this.fachadaDaoMesa.eliminarMesa(mesa);
-	}
+    @Override
+    public boolean modificarMesa(TransferMesa mesaActualizada) {
+        if (mesaActualizada.getCapacidad() <= 0) {
+            return false;
+        }
+        TransferMesa mesaExistente = buscarMesa(mesaActualizada.getId());
+        if (mesaExistente == null) {
+            return false;
+        }
+        this.fachadaDaoMesa.actualizarMesa(mesaActualizada);
+        return true;
+    }
 
-	@Override
-	public TransferMesa buscarMesa(String idMesa) {
-		// TODO Auto-generated method stub
-		
-
-		
-		
-		return this.fachadaDaoMesa.buscarMesa(idMesa);
-	}
-
+    @Override
+    public List<TransferMesa> obtenerMesas() {
+        return this.fachadaDaoMesa.obtenerMesas();
+    }
 }

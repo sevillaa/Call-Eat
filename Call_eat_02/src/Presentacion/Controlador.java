@@ -9,74 +9,67 @@ import Negocio.TransferPedido;
 import Negocio.TransferPlato;
 
 public interface Controlador {
+    //METODOS DE EMPLEADO:
+    public boolean crearUsuario(TransferEmpleado empleado);
 
-	//METODOS DE EMPLEADO:
+    public boolean accesoCliente(String correo, String contraseña);
 
-	public boolean crearUsuario(TransferEmpleado empleado);
+    public TransferEmpleado accesoClienteSeguro(String correo, String contraseña);
 
-	public boolean accesoCliente(String correo, String contraseña);
+    public String buscarIdUsuario(String correo, String contraseña);
 
-	public TransferEmpleado accesoClienteSeguro(String correo, String contraseña);
+    public boolean borrarCliente(TransferEmpleado empleado);
+    
+    public List<TransferEmpleado> listaEmpleados();
+    
+    public boolean modificarEmpleado(TransferEmpleado modificado);
+    
+    public boolean eliminarEmpleado(TransferEmpleado empleadoAEliminar);
 
-	public String buscarIdUsuario(String correo, String contraseña);
+    // METODOS DE INGREDIENTE:
+    public boolean crearIngrediente(TransferIngrediente ingrediente);
 
-	public boolean borrarCliente(TransferEmpleado empleado);
-	
-	public List<TransferEmpleado> listaEmpleados();
-	
-	public boolean modificarEmpleado(TransferEmpleado modificado);
-	
-	public boolean eliminarEmpleado(TransferEmpleado empleadoAEliminar);
+    public boolean eliminarIngrediente(TransferIngrediente ingrediente);
 
-	// METODOS DE INGREDIENTE:
+    public TransferIngrediente buscarIngrediente(String idIngrediente);
+    
+    public boolean compruebaIngredientes(TransferPlato plato);
 
-	public boolean crearIngrediente(TransferIngrediente ingrediente);
+    public void restaIngredientes(TransferPlato plato);
 
-	public boolean eliminarIngrediente(TransferIngrediente ingrediente);
+    public void sumaIngredientes(TransferPlato plato);
 
-	public TransferIngrediente buscarIngrediente(String idIngrediente);
-	
-	public boolean compruebaIngredientes(TransferPlato plato);
+    // METODOS DE MESA:
+    public boolean crearMesa(TransferMesa mesa);
 
-	public void restaIngredientes(TransferPlato plato);
+    public boolean eliminarMesa(TransferMesa mesa);
 
-	public void sumaIngredientes(TransferPlato plato);
+    public TransferMesa buscarMesa(String idMesa);
+    
+    public List<TransferMesa> obtenerMesas();
 
-	// METODOS DE MESA:
+    public void anadirMesa(TransferMesa nuevaMesa);
 
-	public boolean crearMesa(TransferMesa mesa);
+    public void editarMesa(TransferMesa mesaActualizada);
 
-	public boolean eliminarMesa(TransferMesa mesa);
+    public void mostrarMenuPrincipal();
 
-	public TransferMesa buscarMesa(String idMesa);
+    // METODOS DE PEDIDO:
+    public boolean crearPedido(TransferPedido pedido);
 
-	// METODOS DE PEDIDO:
+    public boolean eliminarPedido(TransferPedido pedido);
 
-	public boolean crearPedido(TransferPedido pedido);
+    public TransferPedido buscarPedido(String idPedido);
 
-	public boolean eliminarPedido(TransferPedido pedido);
+    // METODOS DE PLATO:
+    public boolean crearPlato(TransferPlato plato);
 
-	public TransferPedido buscarPedido(String idPedido);
+    public boolean eliminarPlato(TransferPlato plato);
 
-	// METODOS DE PLATO:
+    public TransferPlato buscarPlato(String idPlato);
 
-	public boolean crearPlato(TransferPlato plato);
+    // METODOS DE CONTROLADOR
+    void accion(int evento, Object datos);
 
-	public boolean eliminarPlato(TransferPlato plato);
-
-	public TransferPlato buscarPlato(String idPlato);
-	
-	
-	
-	
-	// METODOS DE CONTROLADOR
-
-	void accion(int evento, Object datos);
-
-	List<TransferPlato> obtenerPlatos();
-
-	
-
-
-
+    List<TransferPlato> obtenerPlatos();
 }
