@@ -22,6 +22,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 
 import Negocio.TransferEmpleado;
 import Negocio.TransferIngrediente;
@@ -65,6 +66,8 @@ public class InventarioPanel extends JPanel{
         
         JPanel panelBotones = new JPanel(new FlowLayout());
 
+        
+        /////////////////////////BOTON DE CREAR UN NUEVO INGREDIENTE///////////////////////
         JButton btonAnadir = new JButton("Crear");
         btonAnadir.addActionListener(e -> {
             JFrame crearFrame = new JFrame("Crear Ingrediente");
@@ -100,14 +103,14 @@ public class InventarioPanel extends JPanel{
         		else {
         			JOptionPane.showMessageDialog(null, "Error.");
         		}
-        		crearFrame.setVisible(false);
+        		crearFrame.dispose();
+        		SwingUtilities.getWindowAncestor(InventarioPanel.this).dispose();
         		GUIGestor.resetInstancia();
         		GUIGestor.getInstancia(controlador,null);
 ;    		});
     		JButton cancelar = new JButton("Cancelar");
     		cancelar.addActionListener(ee ->{
-    			crearFrame.setVisible(false);
-    			cardLayout.show(panelContenedor, "menu");
+    			crearFrame.dispose();
     		});
             centro.add(texto1);
             centro.add(texto2);
@@ -119,12 +122,7 @@ public class InventarioPanel extends JPanel{
             aux.add(abajo,BorderLayout.PAGE_END);
             
         });
-        
-        
-        
-        
-        
-        
+/////////////////////////BOTON DE AUMENTAR UN INGREDIENTE///////////////////////
         
         JButton btnAumentar = new JButton("Aumentar");
         btnAumentar.addActionListener(e->{        	    	       	
@@ -156,14 +154,14 @@ public class InventarioPanel extends JPanel{
     			TransferIngrediente in=(TransferIngrediente) comboIngredientes.getSelectedItem();    			
     			in.setCantidad(in.getCantidad()+ (int) spinner.getValue());
     			controlador.modificarIngrediente(in);  			
-        		crearFrame.setVisible(false);        		
+    			crearFrame.dispose();
+        		SwingUtilities.getWindowAncestor(InventarioPanel.this).dispose();
         		GUIGestor.resetInstancia();
         		GUIGestor.getInstancia(controlador,null);
     		});
     		JButton cancelar = new JButton("Cancelar");
     		cancelar.addActionListener(ee ->{
-    			crearFrame.setVisible(false);
-    			cardLayout.show(panelContenedor, "menu");
+    			crearFrame.dispose();
     		});
     		centro.add(texto1);
     		centro.add(comboIngredientes);
@@ -175,7 +173,7 @@ public class InventarioPanel extends JPanel{
     		aux.add(abajo,BorderLayout.PAGE_END);
         });
         
-        
+/////////////////////////BOTON DE ELIMINAR UN INGREDIENTE///////////////////////
         JButton btnEliminar= new JButton("Eliminar");
         btnEliminar.addActionListener(e->{
         	JFrame crearFrame = new JFrame("Eliminar Ingrediente");
@@ -203,14 +201,14 @@ public class InventarioPanel extends JPanel{
     		ok.addActionListener(ee ->{    			
     			TransferIngrediente in=(TransferIngrediente) comboIngredientes.getSelectedItem();
     			controlador.eliminarIngrediente(in);
-        		crearFrame.setVisible(false);        		
+    			crearFrame.dispose();
+        		SwingUtilities.getWindowAncestor(InventarioPanel.this).dispose();
         		GUIGestor.resetInstancia();
         		GUIGestor.getInstancia(controlador,null);
     		});
     		JButton cancelar = new JButton("Cancelar");
     		cancelar.addActionListener(ee ->{
-    			crearFrame.setVisible(false);
-    			cardLayout.show(panelContenedor, "menu");
+    			crearFrame.dispose();
     		});
     		centro.add(texto1);
     		centro.add(comboIngredientes);
@@ -219,6 +217,8 @@ public class InventarioPanel extends JPanel{
     		aux.add(centro,BorderLayout.CENTER);
     		aux.add(abajo,BorderLayout.PAGE_END);
         });
+        
+/////////////////////////BOTON DE REGRESAR EL MENU DEL GESTOR///////////////////////
         JButton btnAtras = new JButton("Atrás");
         btnAtras.addActionListener(ev -> {
         	cardLayout.show(panelContenedor, "menu");
