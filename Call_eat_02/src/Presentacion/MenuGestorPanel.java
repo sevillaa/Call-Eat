@@ -79,19 +79,15 @@ public class MenuGestorPanel extends JPanel {
 
         this.add(panelOpciones, BorderLayout.CENTER);
 
-        // Botón para volver o cerrar
+        ////////////////////////// Botón para volver o cerrar//////////////////
         JButton btnVolver = new JButton("Volver al Menú");
         btnVolver.addActionListener(e -> {
-        	JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
-           // if (parentFrame != null) {
-                parentFrame.dispose();
+        	SwingUtilities.getWindowAncestor(this).dispose();
             GUIGestor.resetInstancia();
             new GUIMenuImp(controlador, datos); // Reabre el menú con el usuario logueado
 
         });
 
         this.add(btnVolver, BorderLayout.SOUTH);
-      
-        //frame.setVisible(true);
 	}
 }

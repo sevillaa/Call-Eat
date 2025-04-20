@@ -153,7 +153,9 @@ public class InventarioPanel extends JPanel{
     		ok.addActionListener(ee ->{    			
     			TransferIngrediente in=(TransferIngrediente) comboIngredientes.getSelectedItem();    			
     			in.setCantidad(in.getCantidad()+ (int) spinner.getValue());
-    			controlador.modificarIngrediente(in);  			
+    			if(controlador.modificarIngrediente(in)) {
+    				JOptionPane.showMessageDialog(null, "Cantidad modificada correctamente.");
+    			}
     			crearFrame.dispose();
         		SwingUtilities.getWindowAncestor(InventarioPanel.this).dispose();
         		GUIGestor.resetInstancia();
@@ -200,7 +202,9 @@ public class InventarioPanel extends JPanel{
      		JButton ok = new JButton("Aceptar");
     		ok.addActionListener(ee ->{    			
     			TransferIngrediente in=(TransferIngrediente) comboIngredientes.getSelectedItem();
-    			controlador.eliminarIngrediente(in);
+    			if(controlador.eliminarIngrediente(in)) {
+    				JOptionPane.showMessageDialog(null, "Ingrediente eliminado correctamente.");
+    			}
     			crearFrame.dispose();
         		SwingUtilities.getWindowAncestor(InventarioPanel.this).dispose();
         		GUIGestor.resetInstancia();
