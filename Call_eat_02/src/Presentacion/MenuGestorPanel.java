@@ -140,7 +140,7 @@ public class MenuGestorPanel extends JPanel {
 
         });
         ImageIcon logo = new ImageIcon("resources/logo.png"); 
-        Image locoImagenEscalado = logo.getImage().getScaledInstance(52,52, Image.SCALE_SMOOTH);
+        Image locoImagenEscalado = logo.getImage().getScaledInstance(63,63, Image.SCALE_SMOOTH);
         ImageIcon logoIconoEscalado=new ImageIcon(locoImagenEscalado);
         JLabel etiquetaImagen = new JLabel(logoIconoEscalado);
         
