@@ -59,7 +59,7 @@ public class InventarioPanel extends JPanel{
 		panelBotones.setLayout(new BoxLayout(panelBotones, BoxLayout.Y_AXIS)); 
 		//panelBotones.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 10)); 
 		
-		JLabel tituloPlantilla = new JLabel("Gestión de Inventario", SwingConstants.CENTER);
+		JLabel tituloPlantilla = new JLabel("Inventario", SwingConstants.CENTER);
         tituloPlantilla.setFont(new Font("Arial", Font.BOLD, 20));
         panelLista.add(tituloPlantilla, BorderLayout.NORTH);
         
@@ -113,9 +113,9 @@ public class InventarioPanel extends JPanel{
         btonAnadir.setFont(new Font("Arial",Font.BOLD,15));
         btonAnadir.addActionListener(e -> {
             JFrame crearFrame = new JFrame("Crear Ingrediente");
-            
+            crearFrame.setResizable(false);
+            crearFrame.setSize(400, 200);
             crearFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            crearFrame.setSize(400, 300);
             crearFrame.setLocationRelativeTo(null);
             crearFrame.setVisible(true);
             
@@ -131,8 +131,16 @@ public class InventarioPanel extends JPanel{
             aux.add(titulo, BorderLayout.NORTH);
             
             
-            JPanel centro = new JPanel(new FlowLayout());
+            JPanel centro = new JPanel();
+       	 	centro.setLayout(new BoxLayout(centro,BoxLayout.Y_AXIS));
+       	 	JPanel centroArriba = new JPanel();
+       	 	JPanel centroAbajo= new JPanel();
+       	 	centroArriba.setBackground(Color.white);
+       	 	centroAbajo.setBackground(Color.white);
+       	 	centro.setBackground(Color.white);
             centro.setBackground(Color.WHITE);
+            
+            
             JPanel abajo = new JPanel(new FlowLayout());
             abajo.setBackground(Color.WHITE);
             JLabel texto1 = new JLabel("Nombre : ");
@@ -140,7 +148,7 @@ public class InventarioPanel extends JPanel{
             texto2.setMinimumSize(jtextYcomco);
             texto2.setPreferredSize(jtextYcomco);
             texto2.setMaximumSize(jtextYcomco);
-            JLabel texto3 = new JLabel("Cantidad: ");
+            JLabel texto3 = new JLabel("Cantidad : ");
     		JSpinner spinner = new JSpinner(new SpinnerNumberModel(10, 1, 10000, 1));
     		JButton ok = new JButton("Aceptar");
     		ok.setBackground(new Color(144, 238, 144));
@@ -166,12 +174,14 @@ public class InventarioPanel extends JPanel{
     		cancelar.addActionListener(ee ->{
     			crearFrame.dispose();
     		});
-            centro.add(texto1);
-            centro.add(texto2);
-            centro.add(Box.createHorizontalStrut(100));
-            centro.add(texto3);
-            centro.add(Box.createHorizontalStrut(85));
-            centro.add(spinner);            
+            centroArriba.add(texto1);
+            centroArriba.add(texto2);
+            //centro.add(Box.createHorizontalStrut(100));
+            centroAbajo.add(texto3);
+            centroAbajo.add(Box.createHorizontalStrut(115));
+            centroAbajo.add(spinner);      
+            centro.add(centroArriba);
+            centro.add(centroAbajo);
             abajo.add(cancelar);
             abajo.add(ok);
             aux.add(centro,BorderLayout.CENTER);
@@ -189,18 +199,30 @@ public class InventarioPanel extends JPanel{
         btnAumentar.setFont(new Font("Arial",Font.BOLD,15));
         btnAumentar.addActionListener(e->{        	    	       	
         	JFrame crearFrame = new JFrame("Aumentar Ingrediente");
+        	crearFrame.setResizable(false);
             crearFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            crearFrame.setSize(400, 300);
+            crearFrame.setSize(400, 200);
             crearFrame.setLocationRelativeTo(null);
             crearFrame.setVisible(true);
+            crearFrame.setBackground(Color.white);
+            
             JPanel aux = new JPanel();
             aux.setLayout(new BorderLayout());
+            aux.setBackground(Color.WHITE);
             crearFrame.add(aux);            
             JLabel titulo = new JLabel("Aumentar suministro", SwingConstants.CENTER);
             titulo.setFont(new Font("Arial", Font.BOLD, 20));
             aux.add(titulo, BorderLayout.NORTH);
-        	 JPanel centro = new JPanel(new FlowLayout());
-             JPanel abajo = new JPanel(new FlowLayout());
+        	 //JPanel centro = new JPanel(new FlowLayout());
+        	 JPanel centro = new JPanel();
+        	 centro.setLayout(new BoxLayout(centro,BoxLayout.Y_AXIS));
+        	 JPanel centroArriba = new JPanel();
+        	 JPanel centroAbajo= new JPanel();
+        	 centroArriba.setBackground(Color.white);
+        	 centroAbajo.setBackground(Color.white);
+        	 centro.setBackground(Color.white);
+        	 JPanel abajo = new JPanel(new FlowLayout());
+        	 abajo.setBackground(Color.WHITE);
              JLabel texto1 = new JLabel("Producto : ");
              List<TransferIngrediente> combo = controlador.listaIngredientes();
              TransferIngrediente [] combolist  = new TransferIngrediente[combo.size()];         	
@@ -209,7 +231,10 @@ public class InventarioPanel extends JPanel{
          	}
          	 JComboBox<TransferIngrediente> comboIngredientes = new JComboBox<>(combolist);
          	 comboIngredientes.setEditable(true);
-             JLabel texto3 = new JLabel("Cantidad: ");
+         	comboIngredientes.setMinimumSize(jtextYcomco);
+         	comboIngredientes.setPreferredSize(jtextYcomco);
+         	comboIngredientes.setMaximumSize(jtextYcomco);
+             JLabel texto3 = new JLabel("Cantidad : ");
      		 JSpinner spinner = new JSpinner(new SpinnerNumberModel(10, 1, 10000, 1));    	
      		 //spinner.setMinimumSize(jtextYcomco);
      		 //spinner.setMaximumSize(jtextYcomco);
@@ -236,10 +261,18 @@ public class InventarioPanel extends JPanel{
     		cancelar.addActionListener(ee ->{
     			crearFrame.dispose();
     		});
-    		centro.add(texto1);
-    		centro.add(comboIngredientes);
-    		centro.add(texto3);
-    		centro.add(spinner);
+    		centroArriba.setAlignmentX(CENTER_ALIGNMENT);
+    		centroAbajo.setAlignmentX(CENTER_ALIGNMENT);
+    		centroArriba.setOpaque(false);
+    		centroAbajo.setOpaque(false);
+    		centroArriba.add(texto1);
+    		centroArriba.add(comboIngredientes);
+    		centroAbajo.add(texto3);
+    		centroAbajo.add(Box.createHorizontalStrut(114));
+    		centroAbajo.add(spinner);
+    		centroAbajo.add(Box.createVerticalStrut(20));
+    		centro.add(centroArriba);
+    		centro.add(centroAbajo);
     		abajo.add(cancelar);
     		abajo.add(ok);
     		aux.add(centro,BorderLayout.CENTER);
@@ -257,18 +290,22 @@ public class InventarioPanel extends JPanel{
         
         btnEliminar.addActionListener(e->{
         	JFrame crearFrame = new JFrame("Eliminar Ingrediente");
+        	crearFrame.setResizable(false);
+            crearFrame.setSize(400, 150);
             crearFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            crearFrame.setSize(400, 300);
             crearFrame.setLocationRelativeTo(null);
             crearFrame.setVisible(true);
             JPanel aux = new JPanel();
             aux.setLayout(new BorderLayout());
-            crearFrame.add(aux);            
+            crearFrame.add(aux);         
+            aux.setBackground(Color.white);
             JLabel titulo = new JLabel("¿Quieres eliminar este producto?", SwingConstants.CENTER);
             titulo.setFont(new Font("Arial", Font.BOLD, 20));
             aux.add(titulo, BorderLayout.NORTH);
         	 JPanel centro = new JPanel(new FlowLayout());
              JPanel abajo = new JPanel(new FlowLayout());
+             centro.setBackground(Color.WHITE);
+             abajo.setBackground(Color.WHITE);
              JLabel texto1 = new JLabel("Producto");
              List<TransferIngrediente> combo = controlador.listaIngredientes();
              TransferIngrediente [] combolist  = new TransferIngrediente[combo.size()];         	
