@@ -124,6 +124,7 @@ public class EmpleadosGestorPanel extends JPanel{
 
                 // Crear frame para editar
                 JFrame editarFrame = new JFrame("Modificar Empleado");
+                editarFrame.setResizable(false);
                 editarFrame.setSize(400, 350);
                 editarFrame.setLocationRelativeTo(null);
                 editarFrame.setLayout(new GridLayout(6, 2, 10, 10));
