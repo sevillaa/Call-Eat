@@ -10,6 +10,7 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -52,16 +53,16 @@ public class InventarioPanel extends JPanel{
 		//this.setSize(1000, 500);
 		this.setLayout(new BorderLayout());
 		JPanel panelSuperior = new JPanel(new BorderLayout());
-		JPanel panelLista = new JPanel(new BorderLayout());
-		panelLista.setBackground(Color.white);
-		JPanel panelBotones = new JPanel();
+		JPanel panelCentral = new JPanel(new BorderLayout());
+		panelCentral.setBackground(Color.white);
+		JPanel panelBotones = new JPanel(new FlowLayout());
 		panelBotones.setBackground(Color.WHITE);
-		panelBotones.setLayout(new BoxLayout(panelBotones, BoxLayout.Y_AXIS)); 
+		//panelBotones.setLayout(new BoxLayout(panelBotones, BoxLayout.Y_AXIS)); 
 		//panelBotones.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 10)); 
 		
 		JLabel tituloPlantilla = new JLabel("Inventario", SwingConstants.CENTER);
         tituloPlantilla.setFont(new Font("Arial", Font.BOLD, 20));
-        panelLista.add(tituloPlantilla, BorderLayout.NORTH);
+        panelCentral.add(tituloPlantilla, BorderLayout.NORTH);
         
         
         List<TransferIngrediente> ingredientes = controlador.listaIngredientes();
@@ -96,21 +97,22 @@ public class InventarioPanel extends JPanel{
         
         
         JScrollPane scrollTabla = new JScrollPane(tabla);
-        panelLista.add(scrollTabla, BorderLayout.CENTER);
-        this.add(panelLista,BorderLayout.CENTER);
+        panelCentral.add(scrollTabla, BorderLayout.CENTER);
+        //this.add(panelLista,BorderLayout.CENTER);
         
         //JPanel panelBotones = new JPanel(new FlowLayout());
 
         Dimension botonDimension = new Dimension(150, 40); // Tamaño común para los botones
         Dimension jtextYcomco = new Dimension(200,25);
+        
         /////////////////////////BOTON DE CREAR UN NUEVO INGREDIENTE///////////////////////
         JButton btonAnadir = new JButton("Crear");
-        btonAnadir.setPreferredSize(botonDimension);
-        btonAnadir.setMinimumSize(botonDimension);
-        btonAnadir.setMaximumSize(botonDimension);
-        btonAnadir.setBackground(new Color(144, 238, 144)); 
+       // btonAnadir.setPreferredSize(botonDimension);
+        //btonAnadir.setMinimumSize(botonDimension);
+        //btonAnadir.setMaximumSize(botonDimension);
+        btonAnadir.setBackground(new Color(50, 205, 50)); 
         btonAnadir.setForeground(Color.WHITE);
-        btonAnadir.setFont(new Font("Arial",Font.BOLD,15));
+        btonAnadir.setFont(new Font("Arial",Font.BOLD,13));
         btonAnadir.addActionListener(e -> {
             JFrame crearFrame = new JFrame("Crear Ingrediente");
             crearFrame.setResizable(false);
@@ -151,7 +153,7 @@ public class InventarioPanel extends JPanel{
             JLabel texto3 = new JLabel("Cantidad : ");
     		JSpinner spinner = new JSpinner(new SpinnerNumberModel(10, 1, 10000, 1));
     		JButton ok = new JButton("Aceptar");
-    		ok.setBackground(new Color(144, 238, 144));
+    		ok.setBackground(new Color(50, 205, 50));
     		ok.setFont(new Font("Arial",Font.BOLD,15));
     		ok.setForeground(Color.WHITE);
     		ok.addActionListener(ee ->{
@@ -166,7 +168,7 @@ public class InventarioPanel extends JPanel{
         		SwingUtilities.getWindowAncestor(InventarioPanel.this).dispose();
         		GUIGestor.resetInstancia();
         		GUIGestor.getInstancia(controlador,null);
-;    		});
+    		});
     		JButton cancelar = new JButton("Cancelar");
     		cancelar.setBackground(Color.GRAY);
     		cancelar.setFont(new Font("Arial",Font.BOLD,15));
@@ -191,12 +193,12 @@ public class InventarioPanel extends JPanel{
 /////////////////////////BOTON DE AUMENTAR UN INGREDIENTE///////////////////////
         
         JButton btnAumentar = new JButton("Aumentar");
-        btnAumentar.setPreferredSize(botonDimension);
-        btnAumentar.setMinimumSize(botonDimension);
-        btnAumentar.setMaximumSize(botonDimension);
+        //btnAumentar.setPreferredSize(botonDimension);
+        //btnAumentar.setMinimumSize(botonDimension);
+        //btnAumentar.setMaximumSize(botonDimension);
         btnAumentar.setBackground(new Color(0, 128, 0)); 
         btnAumentar.setForeground(Color.WHITE);
-        btnAumentar.setFont(new Font("Arial",Font.BOLD,15));
+        btnAumentar.setFont(new Font("Arial",Font.BOLD,13));
         btnAumentar.addActionListener(e->{        	    	       	
         	JFrame crearFrame = new JFrame("Aumentar Ingrediente");
         	crearFrame.setResizable(false);
@@ -281,12 +283,12 @@ public class InventarioPanel extends JPanel{
         
 /////////////////////////BOTON DE ELIMINAR UN INGREDIENTE///////////////////////
         JButton btnEliminar= new JButton("Eliminar");
-        btnEliminar.setPreferredSize(botonDimension);
-        btnEliminar.setMinimumSize(botonDimension);
-        btnEliminar.setMaximumSize(botonDimension);
+       // btnEliminar.setPreferredSize(botonDimension);
+        //btnEliminar.setMinimumSize(botonDimension);
+       // btnEliminar.setMaximumSize(botonDimension);
         btnEliminar.setBackground(new Color(255, 69, 58));
         btnEliminar.setForeground(Color.WHITE);
-        btnEliminar.setFont(new Font("Arial",Font.BOLD,15));
+        btnEliminar.setFont(new Font("Arial",Font.BOLD,13));
         
         btnEliminar.addActionListener(e->{
         	JFrame crearFrame = new JFrame("Eliminar Ingrediente");
@@ -314,7 +316,7 @@ public class InventarioPanel extends JPanel{
          	}
          	 JComboBox<TransferIngrediente> comboIngredientes = new JComboBox<>(combolist);
          	 comboIngredientes.setEditable(true);   		 
-     		JButton ok = new JButton("Aceptar");
+     		JButton ok = new JButton("Eliminar");
      		ok.setBackground(new Color(255, 69, 58));
     		ok.setFont(new Font("Arial",Font.BOLD,15));
     		ok.setForeground(Color.WHITE);
@@ -369,14 +371,14 @@ public class InventarioPanel extends JPanel{
         panelSuperior.add(btnVolver, BorderLayout.LINE_START);
         panelSuperior.setBackground(new Color(100, 180, 255));
         panelSuperior.add(etiquetaImagen,BorderLayout.LINE_END);
-        panelBotones.add(Box.createVerticalStrut(70));  // Espacio superior
+        //panelBotones.add(Box.createVerticalStrut(70));  // Espacio superior
         panelBotones.add(btonAnadir); // Primer botón
-        panelBotones.add(Box.createVerticalStrut(10));  // Espacio entre botones
+       // panelBotones.add(Box.createVerticalStrut(10));  // Espacio entre botones
         panelBotones.add(btnAumentar); // Segundo botón
-        panelBotones.add(Box.createVerticalStrut(10));  // Espacio entre botones
+        //panelBotones.add(Box.createVerticalStrut(10));  // Espacio entre botones
         panelBotones.add(btnEliminar); // Tercer botón
-        
+        panelCentral.add(panelBotones,BorderLayout.SOUTH);
         this.add(panelSuperior,BorderLayout.PAGE_START);
-        this.add(panelBotones, BorderLayout.LINE_END);
+        this.add(panelCentral, BorderLayout.CENTER);
 	}
 }

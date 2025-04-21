@@ -2,11 +2,15 @@ package Presentacion;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -41,12 +45,14 @@ public class EmpleadosGestorPanel extends JPanel{
         plantillaFrame.setSize(700, 500);
         plantillaFrame.setLocationRelativeTo(null);
         plantillaFrame.setLayout(new BorderLayout());*/
-		this.setSize(1000, 500);
+		//this.setSize(700, 500);
         //this.setLocationRelativeTo(null);
         this.setLayout(new BorderLayout());
+        JPanel panelSuperior =new JPanel(new BorderLayout());//panel de boton atras y logo
+        JPanel panelCentral=new JPanel(new BorderLayout());
         JLabel tituloPlantilla = new JLabel("Gestión de Plantilla", SwingConstants.CENTER);
         tituloPlantilla.setFont(new Font("Arial", Font.BOLD, 20));
-        this.add(tituloPlantilla, BorderLayout.NORTH);
+        panelCentral.add(tituloPlantilla, BorderLayout.NORTH);
 
         // Obtener la lista de empleados desde el controlador
         List<TransferEmpleado> empleados = controlador.listaEmpleados();
@@ -65,13 +71,19 @@ public class EmpleadosGestorPanel extends JPanel{
 
         JTable tabla = new JTable(datosEmpleados, columnas);
         JScrollPane scrollTabla = new JScrollPane(tabla);
-        this.add(scrollTabla, BorderLayout.CENTER);
+        panelCentral.add(scrollTabla, BorderLayout.CENTER);
 
         // Panel inferior con botones
         JPanel panelBotones = new JPanel(new FlowLayout());
 
-        JButton btnAñadir = new JButton("Añadir Empleado");
-        btnAñadir.addActionListener(ev -> {
+        JButton btonAnadir = new JButton("Añadir Empleado");
+        //btonAnadir.setPreferredSize(botonDimension);
+       // btonAnadir.setMinimumSize(botonDimension);
+       // btonAnadir.setMaximumSize(botonDimension);
+        btonAnadir.setBackground(new Color(50, 205, 50)); 
+        btonAnadir.setForeground(Color.WHITE);
+        btonAnadir.setFont(new Font("Arial",Font.BOLD,13));
+        btonAnadir.addActionListener(ev -> {
             JFrame registroFrame = new JFrame("Registrar Empleado");
             registroFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             registroFrame.setSize(400, 300);
@@ -92,6 +104,9 @@ public class EmpleadosGestorPanel extends JPanel{
         });
 
         JButton btnModificar = new JButton("Modificar Empleado");
+        btnModificar.setBackground(new Color(0, 128, 0)); 
+        btnModificar.setForeground(Color.WHITE);
+        btnModificar.setFont(new Font("Arial",Font.BOLD,13));
         btnModificar.addActionListener(ev -> {
             int filaSeleccionada = tabla.getSelectedRow();
             if (filaSeleccionada != -1) {
@@ -164,6 +179,9 @@ public class EmpleadosGestorPanel extends JPanel{
 
 
         JButton btnEliminar = new JButton("Eliminar Empleado");
+        btnEliminar.setBackground(new Color(255, 69, 58));
+        btnEliminar.setForeground(Color.WHITE);
+        btnEliminar.setFont(new Font("Arial",Font.BOLD,13));
         btnEliminar.addActionListener(ev -> {
             int filaSeleccionada = tabla.getSelectedRow();
             if (filaSeleccionada != -1) {
@@ -203,19 +221,39 @@ public class EmpleadosGestorPanel extends JPanel{
         });
 
 
-        JButton btnAtras = new JButton("Atrás");
-        btnAtras.addActionListener(ev -> {
+        ImageIcon volverIcono = new ImageIcon("resources/botonAtras.png");
+        Image volverIconoImagen = volverIcono.getImage().getScaledInstance(35,35, Image.SCALE_SMOOTH);
+        JButton btnVolver = new JButton("Volver",new ImageIcon(volverIconoImagen));
+        btnVolver.setFont(new Font("Arial",Font.BOLD,10));
+        btnVolver.setForeground(Color.white);
+        btnVolver.setPreferredSize(new Dimension(110,20));
+        btnVolver.setContentAreaFilled(false); // elimina el fondo estirado
+        btnVolver.setBorderPainted(false);    // elimina el borde
+        btnVolver.setFocusPainted(false);     // quita ese borde de foco azul
+        btnVolver.setHorizontalAlignment(SwingConstants.CENTER);
+        btnVolver.setVerticalAlignment(SwingConstants.CENTER);
+        btnVolver.setHorizontalTextPosition(SwingConstants.CENTER);
+        btnVolver.setVerticalTextPosition(SwingConstants.BOTTOM);
+        btnVolver.addActionListener(ev -> {
            // plantillaFrame.dispose(); // Cerrar ventana de plantilla
            // frame.setVisible(true);  // Volver a mostrar el panel gestor
         	cardLayout.show(panelContenedor, "menu");
         });
-
-        panelBotones.add(btnAñadir);
+        ImageIcon logo = new ImageIcon("resources/logo.png"); 
+        Image locoImagenEscalado = logo.getImage().getScaledInstance(63,63, Image.SCALE_SMOOTH);
+        ImageIcon logoIconoEscalado=new ImageIcon(locoImagenEscalado);
+        JLabel etiquetaImagen = new JLabel(logoIconoEscalado);
+        
+        panelSuperior.add(btnVolver, BorderLayout.LINE_START);
+        panelSuperior.setBackground(new Color(100, 180, 255));
+        panelSuperior.add(etiquetaImagen,BorderLayout.LINE_END);
+        panelBotones.add(btonAnadir);
         panelBotones.add(btnModificar);
         panelBotones.add(btnEliminar);
-        panelBotones.add(btnAtras);
-
-        this.add(panelBotones, BorderLayout.SOUTH);
+        
+        panelCentral.add(panelBotones, BorderLayout.SOUTH);
+        this.add(panelSuperior,BorderLayout.PAGE_START);
+        this.add(panelCentral);
         this.setVisible(true);
 	}
 }
