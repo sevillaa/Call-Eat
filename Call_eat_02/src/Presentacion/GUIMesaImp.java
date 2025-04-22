@@ -15,7 +15,7 @@ public class GUIMesaImp extends GUIMesa {
     private TransferMesa mesaSeleccionada;
 
     @SuppressWarnings("unchecked")
-    public GUIMesaImp(Controlador controlador, Object datos) {
+	public GUIMesaImp(Controlador controlador, Object datos) {
         this.controlador = controlador;
 
         // Validar que datos sea una lista de TransferMesa
@@ -69,6 +69,7 @@ public class GUIMesaImp extends GUIMesa {
         btnVolver.addActionListener(e -> {
             frame.dispose();
             resetInstancia();
+            new GUIMenuImp(controlador, datos); // Reabre el menú con el usuario logueado
             //controlador.mostrarMenuPrincipal();
         });
         
