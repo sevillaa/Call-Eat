@@ -1,5 +1,8 @@
 package Integracion;
 
+import java.util.Date;
+import java.util.List;
+
 import Negocio.TransferPedido;
 
 public class SADAOPedidoImp implements SADAOPedido {
@@ -22,6 +25,12 @@ public class SADAOPedidoImp implements SADAOPedido {
 	public TransferPedido buscarPedido(String idpedido) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<TransferPedido> listaPedidos(Date fecha1, Date fecha2) {
+    	return dao.listarPedidosPorFechas(fecha1,fecha2);
+
 	}
 
 }

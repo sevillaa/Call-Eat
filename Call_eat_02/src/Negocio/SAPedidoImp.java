@@ -1,5 +1,8 @@
 package Negocio;
 
+import java.util.Date;
+import java.util.List;
+
 import Integracion.FachadaDAOPedidoImp;
 
 public class SAPedidoImp implements SAPedido{
@@ -37,5 +40,17 @@ public class SAPedidoImp implements SAPedido{
 		
 		return this.fachadaDaoPedido.buscarPedido(idpedido);
 	}
+
+	@Override
+	public List<TransferPedido> listaPedidos(Date fecha1, Date fecha2) {
+		List<TransferPedido> pedidos = fachadaDaoPedido.listaPedidos(fecha1,fecha2);
+		if(pedidos != null)
+			return pedidos;
+		return null;//En caso de que no haya ningun pedido aún
+	}
+	
+
+	
+	
 
 }

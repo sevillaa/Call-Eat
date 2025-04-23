@@ -10,7 +10,8 @@ import java.util.List;
 
 public class GUIGestorImp extends GUIGestor {
 
-    private JFrame frame;
+    private static final long serialVersionUID = 1L;
+	private JFrame frame;
     private Controlador controlador;
     private Object datos;
     private CardLayout cardLayout;
@@ -39,14 +40,14 @@ public class GUIGestorImp extends GUIGestor {
         PlatosPanel platosPanel = new PlatosPanel(panelContenedor, cardLayout, controlador);
         EmpleadosGestorPanel empleadosGestorPanel = new EmpleadosGestorPanel(panelContenedor, cardLayout, controlador,datos);
         InventarioPanel inventarioPanel = new InventarioPanel(panelContenedor, cardLayout, controlador);
-        //IngresosPanel ingresosPanel = new IngresosPanel(panelContenedor,cardLayout,controlador);
+        IngresosPanel ingresosPanel = new IngresosPanel(panelContenedor,cardLayout,controlador);
         
         // Agregar paneles al contenedor con un identificador único para cada uno
         panelContenedor.add(menuGestorPanel, "menu");
         panelContenedor.add(platosPanel, "platos");
         panelContenedor.add(inventarioPanel, "inventario");
         panelContenedor.add(empleadosGestorPanel,"empleados");
-        //panelContenedor.add(ingresosPanel,"ingresos");  para los ingresos
+        panelContenedor.add(ingresosPanel,"ingresos");
         
         // Añadir el panel contenedor a la ventana
         frame.add(panelContenedor);

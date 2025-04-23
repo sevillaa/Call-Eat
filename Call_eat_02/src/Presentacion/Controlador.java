@@ -1,5 +1,6 @@
 package Presentacion;
 
+import java.util.Date;
 import java.util.List;
 
 import Negocio.TransferEmpleado;
@@ -61,6 +62,8 @@ public interface Controlador {
 	public boolean eliminarPedido(TransferPedido pedido);
 
 	public TransferPedido buscarPedido(String idPedido);
+	
+	public List<TransferPedido> listaPedidos(Date fecha1, Date fecha2);
 
 	// METODOS DE PLATO:
 

@@ -9,5 +9,6 @@
 	<classpathentry kind="lib" path="JARs/jackson-annotations-2.18.3.jar"/>
 	<classpathentry kind="lib" path="JARs/jackson-core-2.18.3.jar"/>
 	<classpathentry kind="lib" path="JARs/jackson-databind-2.18.3.jar"/>
+	<classpathentry kind="lib" path="JARs/jcalendar-1.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -1,5 +1,6 @@
 package Presentacion;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -117,6 +118,10 @@ public class ControladorImp implements Controlador {
 	
 	public TransferPedido buscarPedido(String idPedido) {
 		return this.fachadaPedido.buscarPedido(idPedido);
+	}
+	
+	public List<TransferPedido> listaPedidos(Date fecha1, Date fecha2){
+		return this.fachadaPedido.listaPedidos(fecha1,fecha2);
 	}
 	
 	// METODOS DE PLATO:

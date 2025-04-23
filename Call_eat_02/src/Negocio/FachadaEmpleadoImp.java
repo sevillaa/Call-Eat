@@ -46,6 +46,8 @@ public class FachadaEmpleadoImp implements FachadaEmpleado {
 		return saEmpleado.eliminaEmpleado(empleado);
 	}
 
+	
+
 
     
 }
