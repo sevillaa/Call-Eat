@@ -53,19 +53,20 @@ public class LoginPanel extends JPanel {
         JPanel panelContrasena =new JPanel();
         panelContrasena.setLayout(new BoxLayout(panelContrasena,BoxLayout.X_AXIS));
         
-        JLabel lblCorreo = new JLabel("Correo:");
+        JLabel lblCorreo = new JLabel("Correo: ");
         txtCorreo = new JTextField();
         txtCorreo.setMinimumSize(d);
         txtCorreo.setPreferredSize(d);
         txtCorreo.setMaximumSize(d);
-        JLabel lblContraseña = new JLabel("Contraseña:");
+        JLabel lblContraseña = new JLabel("Contraseña: ");
         txtContraseña = new JPasswordField();
         txtContraseña.setMinimumSize(d);
         txtContraseña.setPreferredSize(d);
         txtContraseña.setMaximumSize(d);
         JButton btnIniciar = new JButton("Iniciar Sesión");
-        JButton btnVolver = new JButton("Volver");
-        
+        btnIniciar.setBackground(new Color(100, 180, 255));
+        btnIniciar.setFont(new Font("Arial",Font.BOLD,15));
+        btnIniciar.setForeground(Color.WHITE);
         // Acción del botón "Iniciar Sesión"
         btnIniciar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -83,7 +84,10 @@ public class LoginPanel extends JPanel {
                 //JOptionPane.showMessageDialog(LoginPanel.this, "Intento de login para: " + correo);
             }
         });
-        
+        JButton btnVolver = new JButton("Volver");
+        btnVolver.setBackground(Color.GRAY);
+        btnVolver.setFont(new Font("Arial",Font.BOLD,15));
+        btnVolver.setForeground(Color.WHITE);
         // Acción del botón "Volver": regresa al panel de inicio
         btnVolver.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -108,13 +112,17 @@ public class LoginPanel extends JPanel {
         txtCorreo.setAlignmentY(BOTTOM_ALIGNMENT);
         panelContrasena.add(lblContraseña);
         panelContrasena.add(txtContraseña);
+        panelCentral.add(Box.createRigidArea(new Dimension(0,10)));
         panelCentral.add(titulo);
+        panelCentral.add(Box.createRigidArea(new Dimension(0,10)));
         panelCentral.add(panelCorreo);
+        panelCentral.add(Box.createRigidArea(new Dimension(0,5)));
         panelCentral.add(panelContrasena);
-       
+       panelCentral.add(panelInferior);
+       //panelCentral.add(btnIniciar);
         add(panelSuperior,BorderLayout.NORTH);
         add(panelCentral,BorderLayout.CENTER);
-        add(panelInferior,BorderLayout.SOUTH);
+        //add(panelInferior,BorderLayout.SOUTH);
         
     }
 }
