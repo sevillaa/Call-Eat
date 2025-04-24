@@ -231,8 +231,11 @@ public class EmpleadosGestorPanel extends JPanel{
                         boolean eliminado = controlador.eliminarEmpleado(empleadoAEliminar);
                         if (eliminado) {
                             JOptionPane.showMessageDialog(null, "Empleado eliminado correctamente.");
-                           // plantillaFrame.dispose(); // recarga la tabla
-                            new GUIGestorImp(controlador, datos);
+                           
+                            cargarEmpleados();
+                            //JOptionPane.getFrameForComponent(btnEliminar).dispose(); 
+                            
+                            
                         } else {
                             JOptionPane.showMessageDialog(null, "Error al eliminar el empleado.");
                         }

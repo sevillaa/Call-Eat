@@ -11,20 +11,19 @@ public class SADAOPedidoImp implements SADAOPedido {
 
 	@Override
 	public boolean crearPedido(TransferPedido pedido) {
-		// TODO Auto-generated method stub
-		return false;
+		return dao.crearPedido(pedido);
 	}
 
 	@Override
 	public boolean eliminarPedido(TransferPedido pedido) {
-		// TODO Auto-generated method stub
-		return false;
+		return dao.eliminarPedido(pedido);
+
 	}
 
 	@Override
 	public TransferPedido buscarPedido(String idpedido) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.buscarPedido(idpedido);
+
 	}
 
 	@Override

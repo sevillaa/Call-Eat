@@ -23,7 +23,11 @@ public class GUIMenuImp extends GUIMenu {
         frame.setSize(600, 400);
         frame.setLocationRelativeTo(null);
         frame.setLayout(new BorderLayout());
-
+        JPanel panelBotonesArriba=new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JPanel panelBotonesAbajo=new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JPanel panelSuperior=new JPanel(new BorderLayout());
+        JPanel panelPrincipal=new JPanel();
+        panelPrincipal.setLayout(new BoxLayout(panelPrincipal,BoxLayout.Y_AXIS));
         // Determinar el nombre a mostrar en el mensaje de bienvenida
         String nombreUsuario;
         if (usuario instanceof TransferEmpleado) {
@@ -35,52 +39,59 @@ public class GUIMenuImp extends GUIMenu {
         frame.add(bienvenida, BorderLayout.NORTH);
 
         // Panel principal con cuatro secciones
-        JPanel panelPrincipal = new JPanel(new GridLayout(1, 4)); // Cambié el layout para 4 secciones
+        //JPanel panelPrincipal = new JPanel(new GridLayout(1, 4)); // Cambié el layout para 4 secciones
 
         // Sección izquierda: Panel Gestor
-        JPanel panelGestor = new JPanel();
+        //JPanel panelGestor = new JPanel();
         JButton botonGestor = new JButton("Panel Gestor");
         botonGestor.addActionListener(e -> {
             frame.dispose();
             new GUIGestorImp(controlador, usuario);
         });
-        panelGestor.add(botonGestor);
+        panelBotonesArriba.add(botonGestor);
 
         // Sección central: Panel Camarero
-        JPanel panelCamarero = new JPanel();
+        //JPanel panelCamarero = new JPanel();
         JButton botonCamarero = new JButton("Panel Camarero");
         botonCamarero.addActionListener(e -> {
             frame.dispose();
             new GUICamareroImp(controlador, usuario);
         });
-        panelCamarero.add(botonCamarero);
+        panelBotonesArriba.add(botonCamarero);
 
         // Sección derecha: Panel Cocina
-        JPanel panelCocina = new JPanel();
+        //JPanel panelCocina = new JPanel();
         JButton botonCocina = new JButton("Panel Cocina");
         botonCocina.addActionListener(e -> {
             frame.dispose();
             new GUICocinaImp(controlador, usuario);
             JOptionPane.showMessageDialog(frame, "Acción para Panel Cocina (a implementar)");
         });
-        panelCocina.add(botonCocina);
+        panelBotonesAbajo.add(botonCocina);
 
         // Nueva sección: Panel Mesas
-        JPanel panelMesas = new JPanel();
+       // JPanel panelMesas = new JPanel();
         JButton botonMesas = new JButton("Ver Mesas");
         botonMesas.addActionListener(e -> {
             // Aquí se debería abrir GUIMesasImp
             frame.dispose();
             new GUIMesaImp(controlador, usuario);  // Esto abrirá el panel de las mesas
         });
-        panelMesas.add(botonMesas);
+        panelBotonesAbajo.add(botonMesas);
 
         // Agregar los paneles al panel principal
-        panelPrincipal.add(panelGestor);
-        panelPrincipal.add(panelCamarero);
-        panelPrincipal.add(panelCocina);
-        panelPrincipal.add(panelMesas);  // Añadido el panel de mesas
+        //panelSuperior.add(btnVolver, BorderLayout.LINE_START);
+        ImageIcon logo = new ImageIcon("resources/logo.png"); 
+        Image locoImagenEscalado = logo.getImage().getScaledInstance(63,63, Image.SCALE_SMOOTH);
+        ImageIcon logoIconoEscalado=new ImageIcon(locoImagenEscalado);
+        JLabel etiquetaImagen = new JLabel(logoIconoEscalado);
+        
+        panelSuperior.setBackground(new Color(100, 180, 255));
+        panelSuperior.add(etiquetaImagen,BorderLayout.LINE_END);
+        panelPrincipal.add(panelBotonesArriba);
+        panelPrincipal.add(panelBotonesAbajo);
         frame.add(panelPrincipal, BorderLayout.CENTER);
+        frame.add(panelSuperior,BorderLayout.NORTH);
 
         // Botón de cerrar sesión
         JButton cerrarSesionButton = new JButton("Cerrar Sesión");

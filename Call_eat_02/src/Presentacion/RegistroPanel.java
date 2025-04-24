@@ -74,7 +74,7 @@ public class RegistroPanel extends JPanel {
         btnVolver.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	JOptionPane.getFrameForComponent(btnVolver).dispose();  
-                //cardLayout.show(panelContenedor, "inicio"); NO FUNCIONA
+                
             	
             }
         });
