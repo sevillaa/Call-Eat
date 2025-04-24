@@ -209,8 +209,8 @@ public class EmpleadosGestorPanel extends JPanel{
                         boolean eliminado = controlador.eliminarEmpleado(empleadoAEliminar);
                         if (eliminado) {
                             JOptionPane.showMessageDialog(null, "Empleado eliminado correctamente.");
-                           /*crearFrame.dispose();
-                   		SwingUtilities.getWindowAncestor(InventarioPanel.this).dispose();*/
+                           //crearFrame.dispose();
+                   		SwingUtilities.getWindowAncestor(this).dispose();
                 		GUIGestor.resetInstancia();
                 		//GUIGestor.getInstancia(controlador,null);
                             new GUIGestorImp(controlador, datos);
