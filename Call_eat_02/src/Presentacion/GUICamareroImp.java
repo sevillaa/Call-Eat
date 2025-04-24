@@ -80,6 +80,14 @@ public class GUICamareroImp extends GUICamarero {
 
 		// Informacion de pedido + boton de tramitar
 		JPanel infoPedido = new JPanel(new GridLayout(4, 1));
+		////////REVISAR///////////
+		///////////REVISAR///////////
+		///////////REVISAR///////////
+		///////////REVISAR///////////
+		///////////REVISAR///////////
+		///////////REVISAR///////////
+////////REVISAR///////////
+///	TODO
 		selectorMesa = new JComboBox<>(new String[] { "Mesa 1", "Mesa 2", "Mesa 3", "Para llevar" });
 		infoPedido.add(new JLabel("Mesa:"));
 		infoPedido.add(selectorMesa);

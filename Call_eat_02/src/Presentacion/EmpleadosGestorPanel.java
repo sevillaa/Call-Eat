@@ -21,6 +21,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 
 import Negocio.TransferEmpleado;
 
@@ -208,7 +209,10 @@ public class EmpleadosGestorPanel extends JPanel{
                         boolean eliminado = controlador.eliminarEmpleado(empleadoAEliminar);
                         if (eliminado) {
                             JOptionPane.showMessageDialog(null, "Empleado eliminado correctamente.");
-                           // plantillaFrame.dispose(); // recarga la tabla
+                           /*crearFrame.dispose();
+                   		SwingUtilities.getWindowAncestor(InventarioPanel.this).dispose();*/
+                		GUIGestor.resetInstancia();
+                		//GUIGestor.getInstancia(controlador,null);
                             new GUIGestorImp(controlador, datos);
                         } else {
                             JOptionPane.showMessageDialog(null, "Error al eliminar el empleado.");
