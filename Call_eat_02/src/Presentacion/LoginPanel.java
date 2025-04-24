@@ -65,7 +65,7 @@ public class LoginPanel extends JPanel {
         txtContraseña.setMaximumSize(d);
         JButton btnIniciar = new JButton("Iniciar Sesión");
         btnIniciar.setBackground(new Color(100, 180, 255));
-        btnIniciar.setFont(new Font("Arial",Font.BOLD,15));
+        btnIniciar.setFont(new Font("Arial",Font.BOLD,20));
         btnIniciar.setForeground(Color.WHITE);
         // Acción del botón "Iniciar Sesión"
         btnIniciar.addActionListener(new ActionListener() {
@@ -86,7 +86,7 @@ public class LoginPanel extends JPanel {
         });
         JButton btnVolver = new JButton("Volver");
         btnVolver.setBackground(Color.GRAY);
-        btnVolver.setFont(new Font("Arial",Font.BOLD,15));
+        btnVolver.setFont(new Font("Arial",Font.BOLD,20));
         btnVolver.setForeground(Color.WHITE);
         // Acción del botón "Volver": regresa al panel de inicio
         btnVolver.addActionListener(new ActionListener() {
@@ -118,6 +118,7 @@ public class LoginPanel extends JPanel {
         panelCentral.add(panelCorreo);
         panelCentral.add(Box.createRigidArea(new Dimension(0,5)));
         panelCentral.add(panelContrasena);
+        panelCentral.add(Box.createRigidArea(new Dimension(0,20)));
        panelCentral.add(panelInferior);
        //panelCentral.add(btnIniciar);
         add(panelSuperior,BorderLayout.NORTH);
