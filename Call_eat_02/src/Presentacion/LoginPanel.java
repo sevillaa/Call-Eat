@@ -1,7 +1,14 @@
 package Presentacion;
 
+import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
@@ -25,14 +32,37 @@ public class LoginPanel extends JPanel {
     
     private void initComponents() {
         // Usamos un GridLayout para organizar los componentes
-        setLayout(new GridLayout(3, 2, 10, 10));
+        setLayout(new BorderLayout());
+        JPanel panelSuperior=new JPanel(new BorderLayout());
+        JPanel panelCentral=new JPanel();
+        JPanel panelInferior=new JPanel(new FlowLayout(FlowLayout.CENTER));
+        panelCentral.setLayout(new BoxLayout(panelCentral,BoxLayout.Y_AXIS));
+        
+        JLabel tituloLabel = new JLabel("         Call&Eat", SwingConstants.CENTER);
+        tituloLabel.setFont(new Font("Arial", Font.BOLD, 25));
+        tituloLabel.setForeground(Color.WHITE);
+        
+        Dimension d = new Dimension(200,25);
+        
+        JLabel titulo =new JLabel("Iniciar Sesión",SwingConstants.CENTER);
+        titulo.setFont(new Font("Arial", Font.BOLD,15));
+        titulo.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JPanel panelCorreo =new JPanel();
+        panelCorreo.setLayout(new BoxLayout(panelCorreo,BoxLayout.X_AXIS));
+        JPanel panelContrasena =new JPanel();
+        panelContrasena.setLayout(new BoxLayout(panelContrasena,BoxLayout.X_AXIS));
         
         JLabel lblCorreo = new JLabel("Correo:");
         txtCorreo = new JTextField();
-        
+        txtCorreo.setMinimumSize(d);
+        txtCorreo.setPreferredSize(d);
+        txtCorreo.setMaximumSize(d);
         JLabel lblContraseña = new JLabel("Contraseña:");
         txtContraseña = new JPasswordField();
-        
+        txtContraseña.setMinimumSize(d);
+        txtContraseña.setPreferredSize(d);
+        txtContraseña.setMaximumSize(d);
         JButton btnIniciar = new JButton("Iniciar Sesión");
         JButton btnVolver = new JButton("Volver");
         
@@ -60,13 +90,31 @@ public class LoginPanel extends JPanel {
                 cardLayout.show(panelContenedor, "inicio");
             }
         });
-        
+        ImageIcon logoIcon = new ImageIcon("resources/logo.png");
+        Image imagenLogoEscalada = logoIcon.getImage().getScaledInstance(63, 63, Image.SCALE_SMOOTH);
+        JLabel logoLabel=new JLabel(new ImageIcon(imagenLogoEscalada));
+        panelSuperior.setBackground(new Color(100, 180, 255));
+        panelSuperior.add(logoLabel,BorderLayout.LINE_END);
+        panelSuperior.add(tituloLabel,BorderLayout.CENTER);
         // Agregamos los componentes
-        add(lblCorreo);
-        add(txtCorreo);
-        add(lblContraseña);
-        add(txtContraseña);
-        add(btnVolver);
-        add(btnIniciar);
+       // panelCorreo.setAlignmentY(BOTTOM_ALIGNMENT);
+        //panelContrasena.setAlignmentY(TOP_ALIGNMENT);
+        panelInferior.add(btnVolver);
+        panelInferior.add(btnIniciar);
+        panelCorreo.add(lblCorreo);
+        panelCorreo.add(Box.createRigidArea(new Dimension(25,0)));
+        panelCorreo.add(txtCorreo);
+        lblCorreo.setAlignmentY(BOTTOM_ALIGNMENT);
+        txtCorreo.setAlignmentY(BOTTOM_ALIGNMENT);
+        panelContrasena.add(lblContraseña);
+        panelContrasena.add(txtContraseña);
+        panelCentral.add(titulo);
+        panelCentral.add(panelCorreo);
+        panelCentral.add(panelContrasena);
+       
+        add(panelSuperior,BorderLayout.NORTH);
+        add(panelCentral,BorderLayout.CENTER);
+        add(panelInferior,BorderLayout.SOUTH);
+        
     }
 }
