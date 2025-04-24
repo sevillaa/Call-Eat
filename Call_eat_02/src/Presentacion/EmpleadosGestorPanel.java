@@ -12,6 +12,7 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -21,7 +22,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
 
 import Negocio.TransferEmpleado;
 
@@ -32,6 +32,9 @@ public class EmpleadosGestorPanel extends JPanel{
 	private Controlador controlador;
 	private JFrame frame;
 	private Object datos;
+	
+	private JTable tabla;
+	private List<TransferEmpleado> empleados;
 
 	public EmpleadosGestorPanel(JPanel panelContenedor, CardLayout cardLayout, Controlador controlador, Object datos) {
 		this.panelContenedor = panelContenedor;
@@ -39,6 +42,23 @@ public class EmpleadosGestorPanel extends JPanel{
         this.controlador = controlador;
         this.datos=datos;
         initComponents();
+	}
+	
+	private void cargarEmpleados() {
+	    empleados = controlador.listaEmpleados();
+
+	    String[] columnas = {"ID", "Nombre", "Correo", "Rol"};
+	    Object[][] datosEmpleados = new Object[empleados.size()][4];
+
+	    for (int i = 0; i < empleados.size(); i++) {
+	        TransferEmpleado empleado = empleados.get(i);
+	        datosEmpleados[i][0] = empleado.getId();
+	        datosEmpleados[i][1] = empleado.getNombre();
+	        datosEmpleados[i][2] = empleado.getCorreo();
+	        datosEmpleados[i][3] = empleado.getRol();
+	    }
+
+	    tabla.setModel(new javax.swing.table.DefaultTableModel(datosEmpleados, columnas));
 	}
 	
 	private void initComponents() {
@@ -56,21 +76,11 @@ public class EmpleadosGestorPanel extends JPanel{
         panelCentral.add(tituloPlantilla, BorderLayout.NORTH);
 
         // Obtener la lista de empleados desde el controlador
-        List<TransferEmpleado> empleados = controlador.listaEmpleados();
+       
+
+        tabla = new JTable();
+        cargarEmpleados();
         
-        // Crear la tabla con los empleados
-        String[] columnas = {"ID", "Nombre", "Correo", "Rol"};
-        Object[][] datosEmpleados = new Object[empleados.size()][4];
-
-        for (int i = 0; i < empleados.size(); i++) {
-            TransferEmpleado empleado = empleados.get(i);
-            datosEmpleados[i][0] = empleado.getId();
-            datosEmpleados[i][1] = empleado.getNombre();
-            datosEmpleados[i][2] = empleado.getCorreo();
-            datosEmpleados[i][3] = empleado.getRol();
-        }
-
-        JTable tabla = new JTable(datosEmpleados, columnas);
         JScrollPane scrollTabla = new JScrollPane(tabla);
         panelCentral.add(scrollTabla, BorderLayout.CENTER);
 
@@ -102,6 +112,14 @@ public class EmpleadosGestorPanel extends JPanel{
 
             // Mostrar directamente el panel de registro
             cardLayout.show(panelContenedor, "registro");
+            
+            registroFrame.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosed(java.awt.event.WindowEvent e) {
+                    cargarEmpleados();
+                }
+            });
+            
         });
 
         JButton btnModificar = new JButton("Modificar Empleado");
@@ -132,7 +150,9 @@ public class EmpleadosGestorPanel extends JPanel{
 
                 JTextField campoNombre = new JTextField(nombre);
                 JTextField campoCorreo = new JTextField(correo);
-                JTextField campoRol = new JTextField(rol);
+                
+                JComboBox<String> campoRolo =  new JComboBox<>(new String[] {"Camarero", "Cocinero", "Gerente"});
+                
                 JPasswordField campoContraseña = new JPasswordField(contraseña); // editable
 
                 editarFrame.add(new JLabel("ID:"));
@@ -145,7 +165,7 @@ public class EmpleadosGestorPanel extends JPanel{
                 editarFrame.add(campoCorreo);
 
                 editarFrame.add(new JLabel("Rol:"));
-                editarFrame.add(campoRol);
+                editarFrame.add(campoRolo);
 
                 editarFrame.add(new JLabel("Contraseña:"));
                 editarFrame.add(campoContraseña);
@@ -157,9 +177,9 @@ public class EmpleadosGestorPanel extends JPanel{
                     TransferEmpleado modificado = new TransferEmpleado(
                         id,
                         campoNombre.getText(),
-                        campoCorreo.getText(),
-                        campoRol.getText(),
-                        nuevaContraseña
+                        campoCorreo.getText(), 
+                        nuevaContraseña,
+                        (String) campoRolo.getSelectedItem()
                     );
 
                     controlador.modificarEmpleado(modificado);
@@ -167,7 +187,9 @@ public class EmpleadosGestorPanel extends JPanel{
                     editarFrame.dispose();
                    // plantillaFrame.dispose();
                     JOptionPane.showMessageDialog(frame, "Empleado modificado correctamente.");
-                    frame.setVisible(true);
+                    
+                    cargarEmpleados();
+                
                 });
 
                 editarFrame.add(new JLabel()); // Espacio
@@ -209,11 +231,7 @@ public class EmpleadosGestorPanel extends JPanel{
                         boolean eliminado = controlador.eliminarEmpleado(empleadoAEliminar);
                         if (eliminado) {
                             JOptionPane.showMessageDialog(null, "Empleado eliminado correctamente.");
-                           //crearFrame.dispose();
-                   		SwingUtilities.getWindowAncestor(this).dispose();
-                   		
-                		GUIGestor.resetInstancia();
-                		//GUIGestor.getInstancia(controlador,null);
+                           // plantillaFrame.dispose(); // recarga la tabla
                             new GUIGestorImp(controlador, datos);
                         } else {
                             JOptionPane.showMessageDialog(null, "Error al eliminar el empleado.");

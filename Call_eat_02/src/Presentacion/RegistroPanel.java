@@ -63,13 +63,19 @@ public class RegistroPanel extends JPanel {
                 // Mostramos un mensaje de confirmación
                 JOptionPane.showMessageDialog(RegistroPanel.this, 
                     "Intento de registro para: " + nombre + " con rol: " + rol);
+                       JOptionPane.getFrameForComponent(btnVolver).dispose();         
             }
         });
+        
+        
+        
         
         // Acción del botón "Volver": regresa al panel de inicio
         btnVolver.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                cardLayout.show(panelContenedor, "inicio");
+            	JOptionPane.getFrameForComponent(btnVolver).dispose();  
+                //cardLayout.show(panelContenedor, "inicio"); NO FUNCIONA
+            	
             }
         });
         
@@ -85,10 +91,6 @@ public class RegistroPanel extends JPanel {
         add(btnVolver);
         add(btnRegistrar);
     }
+    
+    
 }
-
-
-
-
-
-
