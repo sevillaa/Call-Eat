@@ -26,7 +26,7 @@ public class RegistroPanel extends JPanel {
     }
     
     private void initComponents() {
-    	//////////////
+    	//////////////////
         setLayout(new GridLayout(5, 2, 10, 10));  // Cambiamos a 5 filas para incluir el rol
         
         JLabel lblNombre = new JLabel("Nombre:");
