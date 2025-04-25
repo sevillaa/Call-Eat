@@ -11,4 +11,7 @@ public abstract class GUIEmpleado{
     }
 
     public abstract void actualizar(int evento, Object datos);
+    public static void resetInstancia() {
+        instancia = null;
+    }
 }
