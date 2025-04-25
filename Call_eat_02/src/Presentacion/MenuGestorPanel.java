@@ -89,6 +89,30 @@ public class MenuGestorPanel extends JPanel {
             // controlador.accion(Eventos.MOSTRAR_INVENTARIO, null);
         	cardLayout.show(panelContenedor,"inventario");
         });
+        
+        ImageIcon iconoOriginalPlato = new ImageIcon("resources/Botones_menu_gestor/gestorPlatos.png");
+        Image imagenEscaladaPlatos = iconoOriginalPlato.getImage().getScaledInstance(110, 110, Image.SCALE_SMOOTH);
+        JButton btnPlatos = new JButton("Platillos",new ImageIcon(imagenEscaladaPlatos));
+        btnPlatos.setPreferredSize(new Dimension(100, 100));
+        btnPlatos.setContentAreaFilled(false); // elimina el fondo estirado
+        btnPlatos.setBorderPainted(false);    // elimina el borde
+        btnPlatos.setFocusPainted(false);     // quita ese borde de foco azul
+        btnPlatos.setHorizontalAlignment(SwingConstants.CENTER);
+        btnPlatos.setVerticalAlignment(SwingConstants.CENTER);
+        btnPlatos.setHorizontalTextPosition(SwingConstants.CENTER);
+        btnPlatos.setVerticalTextPosition(SwingConstants.BOTTOM);
+        btnPlatos.addActionListener(e -> {
+            // En el futuro se puede abrir un panel para filtrar pedidos, etc.
+        	/*
+        	 * Este apartado deberia poder filtrar de la base de datos de pedidos para poder obtener 
+        	 * un registro de beenficios mensuales/diarios
+        	 */
+            //JOptionPane.showMessageDialog(frame, "Actividad económica aún no implementada");
+        	cardLayout.show(panelContenedor,"platos");
+            // controlador.accion(Eventos.MOSTRAR_ESTADISTICAS, null);
+        });
+        
+        
         ImageIcon iconoOriginal3 = new ImageIcon("resources/Botones_menu_gestor/ingresos.png");
         Image imagenEscalada3 = iconoOriginal3.getImage().getScaledInstance(110, 110, Image.SCALE_SMOOTH);
         JButton btnActividadEconomica = new JButton("Ingresos",new ImageIcon(imagenEscalada3));
@@ -113,6 +137,7 @@ public class MenuGestorPanel extends JPanel {
 
         panelOpciones.add(btnPlantilla);
         panelOpciones.add(btnInventario);
+        panelOpciones.add(btnPlatos);
         panelOpciones.add(btnActividadEconomica);
         panelOpciones.setBackground(Color.WHITE);
         this.add(panelOpciones, BorderLayout.CENTER);

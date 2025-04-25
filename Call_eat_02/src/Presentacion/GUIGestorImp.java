@@ -27,7 +27,7 @@ public class GUIGestorImp extends GUIGestor {
     	
     	frame = new JFrame("Gestor");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(500, 400); // Tamaño fijo para mantener uniformidad
+        frame.setSize(800, 400); // Tamaño fijo para mantener uniformidad
         frame.setLocationRelativeTo(null);
 
         // Panel contenedor con CardLayout para gestionar las diferentes vistas
