@@ -122,6 +122,7 @@ public class GUICocinaImp extends GUICocina {
         btnCompletado.addActionListener(e -> {
             pedido.setPreparado(true);
             controlador.modificarPedido(pedido);
+            controlador.eliminarPedido(pedido); // Pondría solo esta porque sino el JSON de pedidos se va llenando
             cargarPedidos();
         });
 
