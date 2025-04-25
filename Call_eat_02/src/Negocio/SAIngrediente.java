@@ -10,6 +10,8 @@ public interface SAIngrediente {
 
 	TransferIngrediente buscarIngrediente(String idIngrediente);
 	
+	TransferIngrediente buscarIngredientePorNombre(String nombreIngrediente);
+	
 	public List<TransferIngrediente> listaIngredientes();
 	
 	public boolean modificarIngrediente(TransferIngrediente modificado);
@@ -19,5 +21,7 @@ public interface SAIngrediente {
 	void restaIngredientes(TransferPlato plato);
 
 	void sumaIngredientes(TransferPlato plato);
+
+	
 
 }

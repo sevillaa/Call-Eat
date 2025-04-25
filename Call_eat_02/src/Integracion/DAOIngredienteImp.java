@@ -104,4 +104,16 @@ public class DAOIngredienteImp {
 		return Collections.unmodifiableList(this.ingredientes);
 	}
 
+	public TransferIngrediente buscarIngredientePorNombre(String nombreIngrediente) {
+		List<TransferIngrediente> ingredientes = obtenerTodos();
+
+		for (TransferIngrediente ingrediente : ingredientes) {
+			if (ingrediente.getNombre().equals(nombreIngrediente)) {
+				return ingrediente;
+			}
+		}
+
+		return null;
+	}
+
 }

@@ -23,6 +23,12 @@ public class SAIngredienteImp implements SAIngrediente {
 	public TransferIngrediente buscarIngrediente(String idIngrediente) {
 		return this.fachadaDaoIngrediente.buscarIngrediente(idIngrediente);
 	}
+	
+	@Override
+	public TransferIngrediente buscarIngredientePorNombre(String nombreIngrediente) {
+		return this.fachadaDaoIngrediente.buscarIngredientePorNombre(nombreIngrediente);
+	}
+	
 	@Override
 	public List<TransferIngrediente> listaIngredientes(){
 		List<TransferIngrediente> ingredientes = fachadaDaoIngrediente.listaIngredientes();
@@ -36,7 +42,7 @@ public class SAIngredienteImp implements SAIngrediente {
 			String nombre = entry.getKey();
 			int cantidadNecesaria = entry.getValue();
 
-			TransferIngrediente ing = buscarIngrediente(nombre);
+			TransferIngrediente ing = buscarIngredientePorNombre(nombre);
 
 			if (ing == null || ing.getCantidad() < cantidadNecesaria) {
 				return false;
@@ -59,8 +65,9 @@ public class SAIngredienteImp implements SAIngrediente {
 			String nombre = entry.getKey();
 			int cantidad = entry.getValue();
 
-			TransferIngrediente ing = buscarIngrediente(nombre);
+			TransferIngrediente ing = buscarIngredientePorNombre(nombre);
 			ing.setCantidad(ing.getCantidad() + cantidad);
+			modificarIngrediente(ing);
 		}
 	}
 
@@ -70,8 +77,9 @@ public class SAIngredienteImp implements SAIngrediente {
 			String nombre = entry.getKey();
 			int cantidad = entry.getValue();
 
-			TransferIngrediente ing = buscarIngrediente(nombre);
+			TransferIngrediente ing = buscarIngredientePorNombre(nombre);
 			ing.setCantidad(ing.getCantidad() - cantidad);
+			modificarIngrediente(ing);
 		}
 	}
 

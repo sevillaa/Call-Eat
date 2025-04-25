@@ -16,4 +16,6 @@ public interface SADAOIngrediente {
 	public boolean modificarIngrediente(TransferIngrediente modificado);
 	
 	List<TransferIngrediente> listaIngredientes();
+
+	TransferIngrediente buscarIngredientePorNombre(String nombreIngrediente);
 }
