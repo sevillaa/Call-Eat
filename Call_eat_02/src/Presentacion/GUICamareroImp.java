@@ -109,12 +109,11 @@ public class GUICamareroImp extends GUICamarero {
             pedido.setPlatos(new ArrayList<>(platosSeleccionados));  // Copiamos lista de platos
             pedido.setMetodoPago(pagarConTarjeta);  // True = tarjeta, False = efectivo
 
-            // Tipo de entrega: true = en local, false = domicilio
-            boolean tipoLocal = !"Para llevar".equals(selectorMesa.getSelectedItem());
-            pedido.setTipo(tipoLocal);
-            if (!tipoLocal) {
-                pedido.setDireccion("Domicilio");  // Direccion ficticia o recoger de usuario
-            }
+         // Siempre se guarda el destino en el campo direccion, sea mesa o para llevar
+            String seleccionMesa = selectorMesa.getSelectedItem().toString();
+            pedido.setDireccion(seleccionMesa);
+            pedido.setTipo(!"Para llevar".equals(seleccionMesa)); // true si es una mesa, false si es para llevar
+
 
             pedido.setNotas("");  // Campo de notas vacío por ahora
             pedido.setPreparado(false);  // Inicialmente no preparado
@@ -234,9 +233,30 @@ public class GUICamareroImp extends GUICamarero {
                     JOptionPane.QUESTION_MESSAGE);
             if (opcion == JOptionPane.YES_OPTION) {
                 JOptionPane.showMessageDialog(frame, "¡Pedido confirmado! El pago ha sido realizado.");
-                frame.dispose();
+
+                // 🔄 Reiniciar datos del pedido
+                platosSeleccionados.clear();
+                total = 0.0;
+                totalPedido.setText("Total: 0.00€");
+
+                // Limpiar paneles visuales
+                pedidosPanel.removeAll();
+                pedidosPanelAux.removeAll();
+                pedidosPanel.revalidate();
+                pedidosPanel.repaint();
+                pedidosPanelAux.revalidate();
+                pedidosPanelAux.repaint();
+
+                // Reset de selección de mesa y checkboxes
+                selectorMesa.setSelectedIndex(0);
+                pagarConTarjeta = false;
+                pedidoADomicilio = false;
+
+                // Mostrar de nuevo el panel principal del camarero
+                cardLayout.show(cards, "camarero");
             }
         });
+
         panelBotones.add(btnPagar);
         panelDerecho.add(panelBotones);
 

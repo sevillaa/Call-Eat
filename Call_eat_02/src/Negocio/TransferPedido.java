@@ -14,11 +14,12 @@ public class TransferPedido {
 	protected String direccion;
 	protected String notas;
 	protected boolean preparado;
+	private String mesa;
 	
 public TransferPedido(){
 		
 	}
-	public TransferPedido(String id, Date fecha, List<TransferPlato> platos,boolean metodopago, boolean tipo, String direccion, String notas,boolean preparado){
+	public TransferPedido(String id, Date fecha, List<TransferPlato> platos,boolean metodopago, boolean tipo, String direccion, String notas,boolean preparado,String mesa){
 		this.id = id ; 
 		this.fecha = fecha;
 		SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm");
@@ -29,8 +30,17 @@ public TransferPedido(){
 		this.direccion = direccion;
 		this.notas = notas;
 		this.preparado = preparado;
+		this.mesa = mesa;
+		
 	}
 	
+	public String getMesa() {
+		return mesa;
+	}
+	
+	public void setMesa(String mesa) {
+		this.mesa = mesa;
+	}
 	public String getId() {
         return id;
     }
