@@ -23,7 +23,9 @@ public class FachadaPedidoImp implements FachadaPedido {
 		return saPedido.listaPedidos(fecha1,fecha2);
 	}
 
-    
+    public boolean modificarPedido(TransferPedido pedido) {
+    	return this.saPedido.modificarPedido(pedido);
+    }
 }
 
 

@@ -124,6 +124,10 @@ public class ControladorImp implements Controlador {
 		return this.fachadaPedido.listaPedidos(fecha1,fecha2);
 	}
 	
+	public boolean modificarPedido(TransferPedido pedido) {
+		return this.fachadaPedido.modificarPedido(pedido);
+	}
+	
 	// METODOS DE PLATO:
 	
 	public boolean crearPlato(TransferPlato plato) {

@@ -24,5 +24,9 @@ public class FachadaDAOPedidoImp implements FachadaDAOPedido {
 	public List<TransferPedido> listaPedidos(Date fecha1, Date fecha2) {
 		return saDaoPedido.listaPedidos(fecha1,fecha2);
 	}
+	
+	public boolean modificarPedido(TransferPedido pedidoActualizado) {
+		return saDaoPedido.modificarPedido(pedidoActualizado);
+	}
 
 }

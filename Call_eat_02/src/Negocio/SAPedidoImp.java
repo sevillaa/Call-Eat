@@ -48,9 +48,15 @@ public class SAPedidoImp implements SAPedido{
 			return pedidos;
 		return null;//En caso de que no haya ningun pedido aún
 	}
-	
 
-	
-	
+	@Override
+	public boolean modificarPedido(TransferPedido pedido) {
+	    if (pedido == null || pedido.getId() == null) {
+	        return false;
+	    }
+	    return this.fachadaDaoPedido.modificarPedido(pedido);
+	}
+
+
 
 }

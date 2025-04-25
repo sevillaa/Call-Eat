@@ -64,6 +64,8 @@ public interface Controlador {
 	public TransferPedido buscarPedido(String idPedido);
 	
 	public List<TransferPedido> listaPedidos(Date fecha1, Date fecha2);
+	
+	public boolean modificarPedido(TransferPedido pedido);
 
 	// METODOS DE PLATO:
 

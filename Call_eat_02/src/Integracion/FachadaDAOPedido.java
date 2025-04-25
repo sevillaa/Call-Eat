@@ -9,4 +9,6 @@ public interface FachadaDAOPedido {
 	public boolean eliminarPedido(TransferPedido pedido);
 
 	public TransferPedido buscarPedido(String idpedido);
+	
+	public boolean modificarPedido(TransferPedido pedidoActualizado);
 }

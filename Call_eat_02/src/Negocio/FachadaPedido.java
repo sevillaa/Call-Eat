@@ -6,4 +6,6 @@ public interface FachadaPedido {
 	public boolean eliminarPedido(TransferPedido pedido);
 
 	public TransferPedido buscarPedido(String idpedido);
+	
+	public boolean modificarPedido(TransferPedido pedido);
 }

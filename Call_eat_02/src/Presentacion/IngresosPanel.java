@@ -62,7 +62,7 @@ public class IngresosPanel extends JPanel {
 
 		for (int i = 0; i < pedidos.size(); i++) {
 			TransferPedido pedido = pedidos.get(i);
-			datosEmpleados[i][0] = pedido.getID();
+			datosEmpleados[i][0] = pedido.getId();
 			datosEmpleados[i][1] = pedido.getFecha();
 			datosEmpleados[i][2] = pedido.getHora();
 			

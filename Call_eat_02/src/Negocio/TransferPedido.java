@@ -5,37 +5,38 @@ import java.util.Date;
 import java.util.List;
 
 public class TransferPedido {
-	protected String ID; 
+	protected String id; 
 	protected Date fecha;
 	protected String hora;
 	protected List<TransferPlato> platos;
 	protected boolean tipo;
-	protected boolean metodopago;
+	protected boolean metodoPago;
 	protected String direccion;
 	protected String notas;
-	
+	protected boolean preparado;
 	
 public TransferPedido(){
 		
 	}
-	public TransferPedido(String id, Date fecha, List<TransferPlato> platos,boolean metodopago, boolean tipo, String direccion, String notas ){
-		this.ID = id ; 
+	public TransferPedido(String id, Date fecha, List<TransferPlato> platos,boolean metodopago, boolean tipo, String direccion, String notas,boolean preparado){
+		this.id = id ; 
 		this.fecha = fecha;
 		SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm");
 		this.hora = formatoHora.format(fecha);
 		this.platos = platos; 
-		this.metodopago = metodopago; //true = Efectivo; false = targeta
+		this.metodoPago = metodopago; //true = Efectivo; false = targeta
 		this.tipo = tipo; //true = Aqui; false = domicilio
 		this.direccion = direccion;
 		this.notas = notas;
+		this.preparado = preparado;
 	}
 	
-	public String getID() {
-        return ID;
+	public String getId() {
+        return id;
     }
 
-    public void setID(String ID) {
-        this.ID = ID;
+    public void setId(String ID) {
+        this.id = ID;
     }
 
     public Date getFecha() {
@@ -53,11 +54,11 @@ public TransferPedido(){
     }
     
     public void setMetodoPago(boolean metodo) {
-        this.metodopago = metodo;
+        this.metodoPago = metodo;
     }
     
     public boolean getMetodoPago() {
-		return this.metodopago;
+		return this.metodoPago;
 	}
     
     public void setTipo(boolean tipo) {
@@ -96,5 +97,13 @@ public TransferPedido(){
     public void setNotas(String notas) {
         this.notas = notas;
     }
-	
+    
+    public boolean getPreparado() {
+    	return this.preparado;
+    }
+    public void setPreparado(boolean estado) {
+    	this.preparado = estado;
+    }
+    
+    
 }

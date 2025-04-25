@@ -12,5 +12,7 @@ public interface SAPedido {
 	TransferPedido buscarPedido(String idpedido);
 	
 	public List<TransferPedido> listaPedidos(Date fecha1, Date fecha2);
+	
+	public boolean modificarPedido(TransferPedido pedido);
 
 }

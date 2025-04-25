@@ -17,7 +17,13 @@ public class DAOPedidoImp {
     private static final String FILE_PATH = "pedidos.json";
     private ObjectMapper objectMapper = new ObjectMapper();
     
+    
     public DAOPedidoImp() {
+    	 objectMapper.configure(
+    		com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,
+    		false
+    	);
+    	
         try {
             File file = new File(FILE_PATH);
             if (file.exists()) {
@@ -60,25 +66,53 @@ public class DAOPedidoImp {
 
     public TransferPedido buscarPedido(String idpedido) {
         for (TransferPedido pedido : pedidos) {
-            if (pedido.getID().equals(idpedido)) {
+            if (pedido.getId().equals(idpedido)) {
                 return pedido;
             }
         }
         return null;
 	}
-
     public List<TransferPedido> listarPedidosPorFechas(Date fecha1, Date fecha2) {
+        // Si no se pasa ningún límite, devolvemos todos los pedidos
+        if (fecha1 == null && fecha2 == null) {
+            return new ArrayList<>(pedidos);
+        }
+
         List<TransferPedido> filtrados = new ArrayList<>();
         for (TransferPedido pedido : pedidos) {
             Date fechaPedido = pedido.getFecha();
-            if (fechaPedido != null && !fechaPedido.before(fecha1) && !fechaPedido.after(fecha2)) {
+            if (fechaPedido == null) continue;
+
+            boolean despuesDeInicio = (fecha1 == null) || !fechaPedido.before(fecha1);
+            boolean antesDeFin   = (fecha2 == null) || !fechaPedido.after(fecha2);
+
+            if (despuesDeInicio && antesDeFin) {
                 filtrados.add(pedido);
             }
         }
         return filtrados;
     }
-    
 
+
+    
+    public boolean modificarPedido(TransferPedido pedidoActualizado) {
+        for (int i = 0; i < pedidos.size(); i++) {
+            TransferPedido actual = pedidos.get(i);
+            if (actual.getId().equals(pedidoActualizado.getId())) {
+                pedidos.set(i, pedidoActualizado);  // Sobrescribe el pedido anterior
+                try {
+                    objectMapper.writeValue(new File(FILE_PATH), pedidos); // Guarda los cambios
+                    return true;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return false; // No se encontró el pedido
+    }
+
+    
+    
     public List<TransferPedido> obtenerTodosLosPedidos() {
         return Collections.unmodifiableList(this.pedidos);
     }

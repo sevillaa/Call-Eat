@@ -15,5 +15,7 @@ public interface SADAOPedido {
 
 	List<TransferPedido> listaPedidos(Date fecha1, Date fecha2);
 
+	boolean modificarPedido(TransferPedido pedidoActualizado);
+
 
 }

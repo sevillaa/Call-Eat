@@ -31,5 +31,8 @@ public class SADAOPedidoImp implements SADAOPedido {
     	return dao.listarPedidosPorFechas(fecha1,fecha2);
 
 	}
-
+	@Override
+	public boolean modificarPedido(TransferPedido pedidoActualizado) {
+		return dao.modificarPedido(pedidoActualizado);
+	}
 }
