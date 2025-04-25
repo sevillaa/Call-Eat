@@ -8,6 +8,8 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -30,6 +32,7 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
@@ -39,6 +42,8 @@ import Negocio.TransferIngrediente;
 public class InventarioPanel extends JPanel{
 	
 	private JPanel panelContenedor;
+	private JFrame frame;
+	private JTable table;
     private CardLayout cardLayout;
 	private Controlador controlador;
 	
@@ -48,27 +53,11 @@ public class InventarioPanel extends JPanel{
 		this.controlador=controlador;
 		initComponents();
 	}
-	
-	private void initComponents() {
-		//this.setSize(1000, 500);
-		this.setLayout(new BorderLayout());
-		JPanel panelSuperior = new JPanel(new BorderLayout());
-		JPanel panelCentral = new JPanel(new BorderLayout());
-		panelCentral.setBackground(Color.white);
-		JPanel panelBotones = new JPanel(new FlowLayout());
-		panelBotones.setBackground(Color.WHITE);
-		//panelBotones.setLayout(new BoxLayout(panelBotones, BoxLayout.Y_AXIS)); 
-		//panelBotones.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 10)); 
+	private void cargarIngredientes() {
 		
-		JLabel tituloPlantilla = new JLabel("Inventario", SwingConstants.CENTER);
-        tituloPlantilla.setFont(new Font("Arial", Font.BOLD, 20));
-        panelCentral.add(tituloPlantilla, BorderLayout.NORTH);
-        
-        
-        List<TransferIngrediente> ingredientes = controlador.listaIngredientes();
-        
-        // Crear la tabla con los empleados
-        String[] columnas = {"Nombre de producto", "Cantidad"};
+	    List<TransferIngrediente> ingredientes = controlador.listaIngredientes();
+
+	    String[] columnas = {"Nombre de producto", "Cantidad"};
         Object[][] datosIngredientes = new Object[ingredientes.size()][2];
 
         for (int i = 0; i < ingredientes.size(); i++) {
@@ -76,10 +65,10 @@ public class InventarioPanel extends JPanel{
             datosIngredientes[i][0] = ingrediente.getNombre();
             datosIngredientes[i][1]= ingrediente.getCantidad();
         }
-        JTable tabla = new JTable(datosIngredientes, columnas);
+        //table.setModel(datosIngredientes, columnas);
         
-        
-        TableColumnModel columnModel = tabla.getColumnModel();
+        table.setModel(new DefaultTableModel(datosIngredientes, columnas));
+        TableColumnModel columnModel = table.getColumnModel();
         TableColumn col1 = columnModel.getColumn(0); // Columna 1 (Nombre de producto)
         TableColumn col2 = columnModel.getColumn(1); // Columna 2 (Cantidad)
         
@@ -91,12 +80,46 @@ public class InventarioPanel extends JPanel{
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
         renderer.setHorizontalAlignment(SwingConstants.CENTER);  // Centra el contenido
         col2.setCellRenderer(renderer);  // Aplica el renderizador a la columna "Cantidad"
+	    //tabla.setModel(new javax.swing.table.DefaultTableModel(datosEmpleados, columnas));
+	}
+	private void initComponents() {
+		//this.setSize(1000, 500);
+		this.setLayout(new BorderLayout());
+		JPanel panelSuperior = new JPanel(new BorderLayout());
+		JPanel panelCentral = new JPanel(new BorderLayout());
+		panelCentral.setBackground(Color.white);
+		JPanel panelBotones = new JPanel(new FlowLayout());
+		panelBotones.setBackground(new Color(173, 216, 230));
+		//panelBotones.setLayout(new BoxLayout(panelBotones, BoxLayout.Y_AXIS)); 
+		//panelBotones.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 10)); 
+		
+		JLabel tituloPlantilla = new JLabel("Inventario", SwingConstants.CENTER);
+        tituloPlantilla.setFont(new Font("Arial", Font.BOLD, 20));
+        panelCentral.add(tituloPlantilla, BorderLayout.NORTH);
+        
+        /*
+        List<TransferIngrediente> ingredientes = controlador.listaIngredientes();
+        
+        // Crear la tabla con los empleados
+        String[] columnas = {"Nombre de producto", "Cantidad"};
+        Object[][] datosIngredientes = new Object[ingredientes.size()][2];
+
+        for (int i = 0; i < ingredientes.size(); i++) {
+            TransferIngrediente ingrediente = ingredientes.get(i);
+            datosIngredientes[i][0] = ingrediente.getNombre();
+            datosIngredientes[i][1]= ingrediente.getCantidad();
+        }*/
+        //JTable tabla = new JTable(datosIngredientes, columnas);
+        //table=new JTable();
+        table=new JTable();
+        cargarIngredientes();
         
         
         
         
         
-        JScrollPane scrollTabla = new JScrollPane(tabla);
+        
+        JScrollPane scrollTabla = new JScrollPane(table);
         panelCentral.add(scrollTabla, BorderLayout.CENTER);
         //this.add(panelLista,BorderLayout.CENTER);
         
@@ -164,10 +187,18 @@ public class InventarioPanel extends JPanel{
         		else {
         			JOptionPane.showMessageDialog(null, "Error.");
         		}
+        		
+        		crearFrame.addWindowListener(new WindowAdapter() {
+        			@Override
+        			public void windowClosed(WindowEvent e) {
+                        cargarIngredientes();
+                    }
+        			
+        		});
         		crearFrame.dispose();
-        		SwingUtilities.getWindowAncestor(InventarioPanel.this).dispose();
-        		GUIGestor.resetInstancia();
-        		GUIGestor.getInstancia(controlador,null);
+        		//SwingUtilities.getWindowAncestor(InventarioPanel.this).dispose();
+        		//GUIGestor.resetInstancia();
+        		//GUIGestor.getInstancia(controlador,null);
     		});
     		JButton cancelar = new JButton("Cancelar");
     		cancelar.setBackground(Color.GRAY);
@@ -236,6 +267,10 @@ public class InventarioPanel extends JPanel{
          	comboIngredientes.setMinimumSize(jtextYcomco);
          	comboIngredientes.setPreferredSize(jtextYcomco);
          	comboIngredientes.setMaximumSize(jtextYcomco);
+         	if(table.getSelectedRow()!=-1) {
+         		int fila=table.getSelectedRow();
+         		comboIngredientes.setSelectedItem(combolist[fila]);
+         	}
              JLabel texto3 = new JLabel("Cantidad : ");
      		 JSpinner spinner = new JSpinner(new SpinnerNumberModel(10, 1, 10000, 1));    	
      		 //spinner.setMinimumSize(jtextYcomco);
@@ -251,10 +286,17 @@ public class InventarioPanel extends JPanel{
     			if(controlador.modificarIngrediente(in)) {
     				JOptionPane.showMessageDialog(null, "Cantidad modificada correctamente.");
     			}
-    			crearFrame.dispose();
-        		SwingUtilities.getWindowAncestor(InventarioPanel.this).dispose();
-        		GUIGestor.resetInstancia();
-        		GUIGestor.getInstancia(controlador,null);
+    			crearFrame.addWindowListener(new WindowAdapter() {
+        			@Override
+        			public void windowClosed(WindowEvent e) {
+                        cargarIngredientes();
+                    }
+        			
+        		});
+        		crearFrame.dispose();
+        		//SwingUtilities.getWindowAncestor(InventarioPanel.this).dispose();
+        		//GUIGestor.resetInstancia();
+        		//GUIGestor.getInstancia(controlador,null);
     		});
     		JButton cancelar = new JButton("Cancelar");
     		cancelar.setBackground(Color.GRAY);
@@ -316,6 +358,10 @@ public class InventarioPanel extends JPanel{
          	}
          	 JComboBox<TransferIngrediente> comboIngredientes = new JComboBox<>(combolist);
          	 comboIngredientes.setEditable(true);   		 
+         	if(table.getSelectedRow()!=-1) {
+         		int fila=table.getSelectedRow();
+         		comboIngredientes.setSelectedItem(combolist[fila]);
+         	}
      		JButton ok = new JButton("Eliminar");
      		ok.setBackground(new Color(255, 69, 58));
     		ok.setFont(new Font("Arial",Font.BOLD,15));
@@ -325,10 +371,14 @@ public class InventarioPanel extends JPanel{
     			if(controlador.eliminarIngrediente(in)) {
     				JOptionPane.showMessageDialog(null, "Ingrediente eliminado correctamente.");
     			}
-    			crearFrame.dispose();
-        		SwingUtilities.getWindowAncestor(InventarioPanel.this).dispose();
-        		GUIGestor.resetInstancia();
-        		GUIGestor.getInstancia(controlador,null);
+    			crearFrame.addWindowListener(new WindowAdapter() {
+        			@Override
+        			public void windowClosed(WindowEvent e) {
+                        cargarIngredientes();
+                    }
+        			
+        		});
+        		crearFrame.dispose();
     		});
     		JButton cancelar = new JButton("Cancelar");
     		cancelar.setBackground(Color.GRAY);
