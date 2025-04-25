@@ -234,7 +234,7 @@ public class GUICamareroImp extends GUICamarero {
             if (opcion == JOptionPane.YES_OPTION) {
                 JOptionPane.showMessageDialog(frame, "¡Pedido confirmado! El pago ha sido realizado.");
 
-                // 🔄 Reiniciar datos del pedido
+                // Reiniciar datos del pedido
                 platosSeleccionados.clear();
                 total = 0.0;
                 totalPedido.setText("Total: 0.00€");
