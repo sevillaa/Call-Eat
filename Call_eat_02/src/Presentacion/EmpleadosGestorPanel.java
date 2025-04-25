@@ -8,8 +8,13 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.HashMap;
 import java.util.List;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -32,7 +37,6 @@ public class EmpleadosGestorPanel extends JPanel{
 	private Controlador controlador;
 	private JFrame frame;
 	private Object datos;
-	
 	private JTable tabla;
 	private List<TransferEmpleado> empleados;
 
@@ -127,6 +131,34 @@ public class EmpleadosGestorPanel extends JPanel{
         btnModificar.setForeground(Color.WHITE);
         btnModificar.setFont(new Font("Arial",Font.BOLD,13));
         btnModificar.addActionListener(ev -> {
+        	
+        	JFrame framePrincipal=new JFrame("Modificar Empleado");
+        	framePrincipal.setSize(400, 350);
+        	framePrincipal.setLayout(new BorderLayout());
+        	framePrincipal.setLocationRelativeTo(null);
+        	 framePrincipal.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            JPanel panelCentro=new JPanel();
+            panelCentro.setLayout(new BoxLayout(panelCentro,BoxLayout.Y_AXIS));
+            JPanel panelCentro1=new JPanel();
+            JPanel panelCentro2=new JPanel();
+            JPanel panelCentro3=new JPanel();
+            JPanel panelCentro4=new JPanel();
+            JPanel panelCentro5=new JPanel();
+            JPanel panelInferior=new JPanel(new FlowLayout(FlowLayout.CENTER));
+            JPanel panelArriba=new JPanel(new FlowLayout(FlowLayout.CENTER));
+            panelInferior.setBackground(new Color(173, 216, 230));
+            panelArriba.setBackground(Color.WHITE);
+            framePrincipal.setBackground(Color.white);
+            panelCentro1.setBackground(Color.white);
+            panelCentro2.setBackground(Color.white);
+            panelCentro3.setBackground(Color.white);
+            panelCentro4.setBackground(Color.white);
+            panelCentro5.setBackground(Color.WHITE);
+            panelCentro.setBackground(Color.white);
+            JLabel tituloPrincipal = new JLabel("Modificar usuario", SwingConstants.CENTER);
+            tituloPrincipal.setFont(new Font("Arial", Font.BOLD, 20));
+            //panelPrincipal.add(tituloPrincipal,BorderLayout.NORTH);
+            
             int filaSeleccionada = tabla.getSelectedRow();
             if (filaSeleccionada != -1) {
                 // Obtener datos del empleado seleccionado
@@ -140,37 +172,48 @@ public class EmpleadosGestorPanel extends JPanel{
                 // 1. Si tabla no la tiene, puedes buscarla desde el objeto original
                 TransferEmpleado empleado = empleados.get(filaSeleccionada); // <- Usa esto
                 String contraseña = empleado.getContraseña(); // <- si tienes getter
-
-                // Crear frame para editar
-                JFrame editarFrame = new JFrame("Modificar Empleado");
-                editarFrame.setResizable(false);
-                editarFrame.setSize(400, 350);
-                editarFrame.setLocationRelativeTo(null);
-                editarFrame.setLayout(new GridLayout(6, 2, 10, 10));
-
+                
+                
+                Dimension d = new Dimension(200,25);
+                
+                JLabel lblID = new JLabel("ID:       ");
+                JLabel lblIDvalor = new JLabel(String.valueOf(id));
+                
+                JLabel lblNombre = new JLabel("Nombre:      ");
                 JTextField campoNombre = new JTextField(nombre);
+                campoNombre.setMinimumSize(d);
+                campoNombre.setPreferredSize(d);
+                campoNombre.setMaximumSize(d);
+                              
+                JLabel lblCorreo = new JLabel("Correo:       ");
                 JTextField campoCorreo = new JTextField(correo);
+                campoCorreo.setMinimumSize(d);
+                campoCorreo.setPreferredSize(d);
+                campoCorreo.setMaximumSize(d);
+                               
+                JLabel lblRol = new JLabel("Rol:              ");
+                JComboBox<String> campoRol =  new JComboBox<>(new String[] {"Camarero", "Cocinero", "Gerente"});
+                campoRol.setMinimumSize(d);
+                campoRol.setPreferredSize(d);
+                campoRol.setMaximumSize(d);
                 
-                JComboBox<String> campoRolo =  new JComboBox<>(new String[] {"Camarero", "Cocinero", "Gerente"});
-                
+                JLabel lblContrasena = new JLabel("Contraseña: ");
                 JPasswordField campoContraseña = new JPasswordField(contraseña); // editable
-
-                editarFrame.add(new JLabel("ID:"));
-                editarFrame.add(new JLabel(String.valueOf(id)));
-
-                editarFrame.add(new JLabel("Nombre:"));
-                editarFrame.add(campoNombre);
-
-                editarFrame.add(new JLabel("Correo:"));
-                editarFrame.add(campoCorreo);
-
-                editarFrame.add(new JLabel("Rol:"));
-                editarFrame.add(campoRolo);
-
-                editarFrame.add(new JLabel("Contraseña:"));
-                editarFrame.add(campoContraseña);
-
+                campoContraseña.setMinimumSize(d);
+                campoContraseña.setPreferredSize(d);
+                campoContraseña.setMaximumSize(d);
+                
+                JButton btnCancelar = new JButton("Cancelar");
+                btnCancelar.setBackground(Color.gray); 
+                btnCancelar.setFont(new Font("Arial",Font.BOLD,15));
+                btnCancelar.setForeground(Color.WHITE);
+                btnCancelar.addActionListener(e->{
+                	framePrincipal.dispose();                	
+                });
                 JButton btnGuardar = new JButton("Guardar Cambios");
+                btnGuardar.setBackground(new Color(0, 128, 0)); 
+                btnGuardar.setFont(new Font("Arial",Font.BOLD,15));
+                btnGuardar.setForeground(Color.WHITE);
                 btnGuardar.addActionListener(evGuardar -> {
                     String nuevaContraseña = new String(campoContraseña.getPassword());
 
@@ -179,28 +222,50 @@ public class EmpleadosGestorPanel extends JPanel{
                         campoNombre.getText(),
                         campoCorreo.getText(), 
                         nuevaContraseña,
-                        (String) campoRolo.getSelectedItem()
+                        (String) campoRol.getSelectedItem()
                     );
 
                     controlador.modificarEmpleado(modificado);
 
-                    editarFrame.dispose();
+                    framePrincipal.dispose();
                    // plantillaFrame.dispose();
                     JOptionPane.showMessageDialog(frame, "Empleado modificado correctamente.");
                     
                     cargarEmpleados();
                 
                 });
-
-                editarFrame.add(new JLabel()); // Espacio
-                editarFrame.add(btnGuardar);
-
-                editarFrame.setVisible(true);
-            } else {
-                JOptionPane.showMessageDialog(null, "Selecciona un empleado primero.");
+                framePrincipal.setVisible(true);
+                panelArriba.add(tituloPrincipal);
+                panelInferior.add(btnCancelar);
+                panelInferior.add(btnGuardar);
+         		panelCentro1.add(lblID);
+         		panelCentro1.add(lblIDvalor);
+         		panelCentro2.add(lblNombre);
+         		panelCentro2.add(campoNombre);
+         		panelCentro3.add(lblCorreo);
+         		panelCentro3.add(campoCorreo);
+         		panelCentro4.add(lblRol);
+         		panelCentro4.add(campoRol);
+         		panelCentro5.add(lblContrasena);
+         		panelCentro5.add(campoContraseña);
+         		panelCentro.add(Box.createVerticalGlue());
+         		panelCentro.add(panelCentro1);
+         		panelCentro.add(panelCentro2);
+         		panelCentro.add(panelCentro3);
+         		panelCentro.add(panelCentro4);
+         		panelCentro.add(panelCentro5);
+         		panelCentro.add(Box.createVerticalGlue());
+         		framePrincipal.add(panelArriba,BorderLayout.NORTH);
+         		framePrincipal.add(panelCentro,BorderLayout.CENTER);
+         		framePrincipal.add(panelInferior,BorderLayout.SOUTH);
             }
+            else {
+            	JOptionPane.showMessageDialog(null, "Selecciona un empleado primero.");
+            	
+            }
+            //panelInferior.add(btnCancelar);
+     		
         });
-
 
         JButton btnEliminar = new JButton("Eliminar Empleado");
         btnEliminar.setBackground(new Color(255, 69, 58));
@@ -274,6 +339,7 @@ public class EmpleadosGestorPanel extends JPanel{
         panelSuperior.add(btnVolver, BorderLayout.LINE_START);
         panelSuperior.setBackground(new Color(100, 180, 255));
         panelSuperior.add(etiquetaImagen,BorderLayout.LINE_END);
+        panelBotones.setBackground(new Color(173, 216, 230));
         panelBotones.add(btonAnadir);
         panelBotones.add(btnModificar);
         panelBotones.add(btnEliminar);

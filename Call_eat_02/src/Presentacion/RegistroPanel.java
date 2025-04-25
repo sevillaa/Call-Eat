@@ -10,7 +10,7 @@ import javax.swing.*;
 public class RegistroPanel extends JPanel {
 
     private static final long serialVersionUID = 1L;
-    private JTextField txtNombre;
+	private JTextField txtNombre;
     private JTextField txtCorreo;
     private JPasswordField txtContraseña;
     private JComboBox<String> cmbRol;  // Añadimos el JComboBox para seleccionar el rol
@@ -50,8 +50,6 @@ public class RegistroPanel extends JPanel {
                 String correo = txtCorreo.getText();
                 String contraseña = new String(txtContraseña.getPassword());
                 String rol = (String) cmbRol.getSelectedItem();  // Obtenemos el rol seleccionado
-                
-                // Validación de correo (debe contener un "@")
                 if (!correo.contains("@")) {
                     JOptionPane.showMessageDialog(RegistroPanel.this, "El correo debe contener un '@'.", "Error de correo", JOptionPane.ERROR_MESSAGE);
                     return;  // Detiene el proceso de registro
@@ -62,8 +60,6 @@ public class RegistroPanel extends JPanel {
                     JOptionPane.showMessageDialog(RegistroPanel.this, "La contraseña debe tener al menos 8 caracteres.", "Error de contraseña", JOptionPane.ERROR_MESSAGE);
                     return;  // Detiene el proceso de registro
                 }
-
-                // Si pasa las validaciones, procede con el registro
                 HashMap<String, String> datos = new HashMap<>();
                 datos.put("nombre", nombre);
                 datos.put("correo", correo);
@@ -76,14 +72,19 @@ public class RegistroPanel extends JPanel {
                 // Mostramos un mensaje de confirmación
                 JOptionPane.showMessageDialog(RegistroPanel.this, 
                     "Intento de registro para: " + nombre + " con rol: " + rol);
-                JOptionPane.getFrameForComponent(btnVolver).dispose();         
+                       JOptionPane.getFrameForComponent(btnVolver).dispose();         
             }
         });
+        
+        
+        
         
         // Acción del botón "Volver": regresa al panel de inicio
         btnVolver.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.getFrameForComponent(btnVolver).dispose();  
+            	JOptionPane.getFrameForComponent(btnVolver).dispose();  
+                
+            	
             }
         });
         
@@ -99,4 +100,14 @@ public class RegistroPanel extends JPanel {
         add(btnVolver);
         add(btnRegistrar);
     }
+    
+    
 }
+
+
+
+
+
+
+
+
