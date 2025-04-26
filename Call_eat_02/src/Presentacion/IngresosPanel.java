@@ -37,7 +37,7 @@ public class IngresosPanel extends JPanel {
 	private JPanel panelContenedor;
 	private CardLayout cardLayout;
 	private Controlador controlador;
-	private JFrame frame;
+	private JTable tabla;
 	private List<TransferPedido> pedidos;
 
 	public IngresosPanel(JPanel panelContenedor, CardLayout cardLayout, Controlador controlador) {
@@ -48,43 +48,42 @@ public class IngresosPanel extends JPanel {
 		initComponents();
 	}
 
+
+	/** Crea (o actualiza) el model de la tabla con el contenido de `pedidos`. */
+	private void cargarPedidosEnTabla() {
+	    String[] columnas = { "ID", "Fecha", "Hora", "Pago", "Tipo", "Dirección" };
+	    Object[][] datos = new Object[pedidos.size()][6];
+
+	    for (int i = 0; i < pedidos.size(); i++) {
+	        TransferPedido p = pedidos.get(i);
+	        datos[i][0] = p.getId();
+	        datos[i][1] = p.getFecha().toString();
+	        datos[i][2] = p.getHora();
+	        datos[i][3] = p.getMetodoPago() ? "Efectivo" : "Tarjeta";
+	        datos[i][4] = p.getTipo()       ? "Aquí"     : "Domicilio";
+	        datos[i][5] = p.getDireccion();
+	    }
+
+	    tabla.setModel(new javax.swing.table.DefaultTableModel(datos, columnas));
+	}
+
+
 	private void initComponents() {
 		this.setLayout(new BorderLayout());
 		JPanel panelSuperior = new JPanel(new BorderLayout());// panel de boton atras y logo
+		
 		JPanel panelCentral = new JPanel(new BorderLayout());
 		JLabel tituloPlantilla = new JLabel("Vista de Ingresos", SwingConstants.CENTER);
 		tituloPlantilla.setFont(new Font("Arial", Font.BOLD, 20));
 		panelCentral.add(tituloPlantilla, BorderLayout.NORTH);
+		
 
-		// Crear la tabla con los empleados
-		String[] columnas = { "ID", "Nombre", "Correo", "Rol" };
-		Object[][] datosEmpleados = new Object[pedidos.size()][6];
-
-		for (int i = 0; i < pedidos.size(); i++) {
-			TransferPedido pedido = pedidos.get(i);
-			datosEmpleados[i][0] = pedido.getId();
-			datosEmpleados[i][1] = pedido.getFecha();
-			datosEmpleados[i][2] = pedido.getHora();
-			
-			if(pedido.getMetodoPago()) {
-				datosEmpleados[i][3] = "Efectivo";
-			} else {
-				datosEmpleados[i][3] = "Targeta";
-			}
-			
-			if(pedido.getTipo()) {
-				datosEmpleados[i][4] = "Aqui";
-			} else {
-				datosEmpleados[i][4] = "Domicilio";
-			}
-			datosEmpleados[i][5] = pedido.getDireccion();
-
-		}
-
-		JTable tabla = new JTable(datosEmpleados, columnas);
+		tabla = new JTable();
+		cargarPedidosEnTabla();
 		JScrollPane scrollTabla = new JScrollPane(tabla);
 		panelCentral.add(scrollTabla, BorderLayout.CENTER);
-
+		
+		
 		JPanel panelFiltros = new JPanel(new FlowLayout());
 	    JLabel dateText = new JLabel("Selecciona 2 fechas");
 	    JDateChooser dateChooser1 = new JDateChooser();
@@ -95,7 +94,11 @@ public class IngresosPanel extends JPanel {
 		btnBuscar.setForeground(Color.WHITE);
 		btnBuscar.setFont(new Font("Arial", Font.BOLD, 13));
 		btnBuscar.addActionListener(e -> {
-			pedidos = controlador.listaPedidos(dateChooser1.getDate(), dateChooser2.getDate());
+			
+			Date inicio = dateChooser1.getDate();
+		    Date fin    = dateChooser2.getDate();
+		    pedidos = controlador.listaPedidos(inicio, fin);
+		    cargarPedidosEnTabla();
 		});
 		
 		panelFiltros.add(dateText);
@@ -129,7 +132,7 @@ public class IngresosPanel extends JPanel {
 		panelSuperior.add(btnVolver, BorderLayout.LINE_START);
 		panelSuperior.setBackground(new Color(100, 180, 255));
 		panelSuperior.add(etiquetaImagen, BorderLayout.LINE_END);
-		panelCentral.add(panelFiltros, BorderLayout.CENTER);
+		panelCentral.add(panelFiltros, BorderLayout.SOUTH);
 		
 		this.add(panelSuperior, BorderLayout.PAGE_START);
 		this.add(panelCentral);
