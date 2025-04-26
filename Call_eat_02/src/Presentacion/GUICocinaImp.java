@@ -35,7 +35,7 @@ public class GUICocinaImp extends GUICocina {
         JButton btnVolver = new JButton("Volver al Menú");
         btnVolver.addActionListener(e -> {
             frame.dispose();
-            new GUIMenuImp(controlador, datos);
+            new GUIMenuPrincipalImp(controlador, datos);
         });
 
         JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.RIGHT));

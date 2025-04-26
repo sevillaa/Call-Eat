@@ -7,18 +7,35 @@ import javax.swing.*;
 
 import Negocio.TransferMesa;
 
-public class GUIMesaImp extends GUIMesa {
-    private final Controlador controlador;
-    private final JFrame frame;
-    private final JPanel panelMesas;
-    private List<TransferMesa> mesas;
-    private TransferMesa mesaSeleccionada;
+public class MesasPanel extends JPanel {
 
-    @SuppressWarnings("unchecked")
-	public GUIMesaImp(Controlador controlador, Object datos) {
+    private static final long serialVersionUID = 1L;
+	private JPanel panelContenedor;
+	private CardLayout cardLayout;
+	private Controlador controlador;
+	private Object datos;
+	private JPanel panelMesas;
+	private List<TransferMesa> mesas;
+	private TransferMesa mesaSeleccionada;
+
+
+	public MesasPanel(CardLayout cardLayout, JPanel panelContenedor, Controlador controlador, Object datos) {
+    	this.panelContenedor = panelContenedor;
+        this.cardLayout = cardLayout;
         this.controlador = controlador;
-
-        // Validar que datos sea una lista de TransferMesa
+        this.datos=datos;
+        
+        initComponentes();
+        
+    }
+        
+    private void initComponentes(){
+    	mesas = controlador.listaMesas();
+    	/*
+    	 * ESTO LO TIENES QUE HACER EN EL DAO AQUI NO
+    	 * 
+    	 * 
+    	 * // Validar que datos sea una lista de TransferMesa
         if (datos instanceof List) {
             try {
                 this.mesas = (List<TransferMesa>) datos;
@@ -29,29 +46,45 @@ public class GUIMesaImp extends GUIMesa {
         } else {
             //JOptionPane.showMessageDialog(null, "Error: Se esperaba una lista de mesas, pero se recibió: " + (datos != null ? datos.getClass().getSimpleName() : "null"), "Error", JOptionPane.ERROR_MESSAGE);
             this.mesas = new ArrayList<>();
-        }
+        }*/
+    	
+    	this.setLayout(new BorderLayout());
 
-        // Configuración básica del frame
-        frame = new JFrame("Estado de Mesas");
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setSize(800, 600);
+        JPanel panelSuperior =new JPanel(new BorderLayout());//panel de boton atras y logo
         
-        // Panel principal
-        JPanel mainPanel = new JPanel(new BorderLayout());
-        mainPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        ImageIcon volverIcono = new ImageIcon("resources/botonAtras.png");
+        Image volverIconoImagen = volverIcono.getImage().getScaledInstance(35,35, Image.SCALE_SMOOTH);
+        JButton btnVolver = new JButton("Volver",new ImageIcon(volverIconoImagen));
+        btnVolver.setFont(new Font("Arial",Font.BOLD,10));
+        btnVolver.setForeground(Color.white);
+        btnVolver.setPreferredSize(new Dimension(110,20));
+        btnVolver.setContentAreaFilled(false); // elimina el fondo estirado
+        btnVolver.setBorderPainted(false);    // elimina el borde
+        btnVolver.setFocusPainted(false);     // quita ese borde de foco azul
+        btnVolver.setHorizontalAlignment(SwingConstants.CENTER);
+        btnVolver.setVerticalAlignment(SwingConstants.CENTER);
+        btnVolver.setHorizontalTextPosition(SwingConstants.CENTER);
+        btnVolver.setVerticalTextPosition(SwingConstants.BOTTOM);
+        btnVolver.addActionListener(ev -> {
+        	cardLayout.show(panelContenedor, "menu");
+        });
         
-        // Título
-        JLabel titleLabel = new JLabel("Seleccionar Mesa", SwingConstants.CENTER);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 16));
-        mainPanel.add(titleLabel, BorderLayout.NORTH);
+        ImageIcon logo = new ImageIcon("resources/logo.png"); 
+        Image locoImagenEscalado = logo.getImage().getScaledInstance(63,63, Image.SCALE_SMOOTH);
+        ImageIcon logoIconoEscalado=new ImageIcon(locoImagenEscalado);
+        JLabel etiquetaImagen = new JLabel(logoIconoEscalado);
         
-        // Panel para las mesas (3 columnas)
-        panelMesas = new JPanel(new GridLayout(0, 3, 10, 10));
-        JScrollPane scrollPane = new JScrollPane(panelMesas);
-        mainPanel.add(scrollPane, BorderLayout.CENTER);
+        panelSuperior.add(btnVolver, BorderLayout.LINE_START);
+        panelSuperior.setBackground(new Color(100, 180, 255));
+        panelSuperior.add(etiquetaImagen,BorderLayout.LINE_END);
         
-        // Panel de botones de acción (Añadir, Editar, Eliminar)
+        this.add(panelSuperior,BorderLayout.PAGE_START);
+        
+        
+        
+     // Panel de botones de acción (Añadir, Editar, Eliminar)
         JPanel actionPanel = new JPanel(new GridLayout(3, 1, 5, 5));
+        actionPanel.setBackground(Color.gray);
         JButton btnAnadir = new JButton("Añadir");
         btnAnadir.setBackground(new Color(144, 238, 144)); // Verde claro
         JButton btnEditar = new JButton("Editar");
@@ -62,51 +95,38 @@ public class GUIMesaImp extends GUIMesa {
         actionPanel.add(btnAnadir);
         actionPanel.add(btnEditar);
         actionPanel.add(btnEliminar);
-        mainPanel.add(actionPanel, BorderLayout.EAST);
         
-        // Botón de volver
-        JButton btnVolver = new JButton("Volver al Menú");
-        btnVolver.addActionListener(e -> {
-            frame.dispose();
-            resetInstancia();
-            new GUIMenuImp(controlador, datos); // Reabre el menú con el usuario logueado
-            //controlador.mostrarMenuPrincipal();
-        });
+        this.add(actionPanel,BorderLayout.LINE_END);
         
-        JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        bottomPanel.add(btnVolver);
-        mainPanel.add(bottomPanel, BorderLayout.SOUTH); // Corrección: Usar bottomPanel
-        mainPanel.add(bottomPanel, BorderLayout.SOUTH);
-        
-        frame.add(mainPanel);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-        
-        // Añadir listeners para los botones
         btnAnadir.addActionListener(e -> mostrarDialogoAnadir());
         btnEditar.addActionListener(e -> {
             if (mesaSeleccionada == null) {
-                JOptionPane.showMessageDialog(frame, "Por favor, seleccione una mesa para editar", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Por favor, seleccione una mesa para editar", "Advertencia", JOptionPane.WARNING_MESSAGE);
             } else {
                 mostrarDialogoEditar();
             }
         });
         btnEliminar.addActionListener(e -> {
             if (mesaSeleccionada == null) {
-                JOptionPane.showMessageDialog(frame, "Por favor, seleccione una mesa para eliminar", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Por favor, seleccione una mesa para eliminar", "Advertencia", JOptionPane.WARNING_MESSAGE);
             } else {
                 mostrarDialogoEliminar();
             }
         });
         
         //actualizar(0, mesas);
-    }
-
+        
+       // this.add(panelMesas, BorderLayout.CENTER);
+        
+    	
+    }   
+    
+    /*
     @SuppressWarnings("unchecked")
-    @Override
-    public void actualizar(int evento, Object datos) {
+	public void actualizar(int evento, Object datos) {
         SwingUtilities.invokeLater(() -> {
-            panelMesas.removeAll();
+           
+        	//panelMesas.removeAll();
             
             // Validar nuevamente los datos en el método actualizar
             if (datos instanceof List) {
@@ -148,12 +168,13 @@ public class GUIMesaImp extends GUIMesa {
             panelMesas.repaint();
         });
     }
+    */
 
     private void mostrarDialogoAnadir() {
-        JDialog dialog = new JDialog(frame, "Añadir Mesa", true);
+        JDialog dialog = new JDialog();
         dialog.setSize(300, 150);
         dialog.setLayout(new BorderLayout(10, 10));
-        dialog.setLocationRelativeTo(frame);
+        dialog.setLocationRelativeTo(this);
         //dialog.setVisible(true);
 
         JPanel formPanel = new JPanel(new GridLayout(1, 2));
@@ -177,17 +198,17 @@ public class GUIMesaImp extends GUIMesa {
             int capacidad = (int) capacidadSpinner.getValue();
             String id = String.valueOf(mesas.size() + 1); // Generar ID automáticamente
             TransferMesa nuevaMesa = new TransferMesa(id, capacidad);
-            //controlador.anadirMesa(nuevaMesa);
+            controlador.crearMesa(nuevaMesa);
             dialog.dispose();
         });
         dialog.setVisible(true);
     }
 
     private void mostrarDialogoEditar() {
-        JDialog dialog = new JDialog(frame, "Editar Mesa", true);
+        JDialog dialog = new JDialog();
         dialog.setSize(300, 150);
         dialog.setLayout(new BorderLayout(10, 10));
-        dialog.setLocationRelativeTo(frame);
+        dialog.setLocationRelativeTo(this);
 
         JPanel formPanel = new JPanel(new GridLayout(1, 2));
         formPanel.add(new JLabel("Capacidad"));
@@ -218,10 +239,10 @@ public class GUIMesaImp extends GUIMesa {
     }
 
     private void mostrarDialogoEliminar() {
-        JDialog dialog = new JDialog(frame, "¿Eliminar Mesa?", true);
+        JDialog dialog = new JDialog();
         dialog.setSize(300, 100);
         dialog.setLayout(new FlowLayout());
-        dialog.setLocationRelativeTo(frame);
+        dialog.setLocationRelativeTo(this);
 
         JButton btnCancelar = new JButton("Cancelar");
         JButton btnEliminar = new JButton("Eliminar");
@@ -241,8 +262,7 @@ public class GUIMesaImp extends GUIMesa {
         dialog.setVisible(true);
     }
 
-    @Override
     public void dispose() {
-        frame.dispose();
+        this.dispose();
     }
 }

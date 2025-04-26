@@ -54,6 +54,8 @@ public interface Controlador {
 	public boolean eliminarMesa(TransferMesa mesa);
 
 	public TransferMesa buscarMesa(String idMesa);
+	
+	public List<TransferMesa> listaMesas();
 
 	// METODOS DE PEDIDO:
 
@@ -85,6 +87,7 @@ public interface Controlador {
 	void accion(int evento, Object datos);
 	
 	public  String generarCodigoRandom();
+
 
 
 
