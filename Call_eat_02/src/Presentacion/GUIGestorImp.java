@@ -37,13 +37,16 @@ public class GUIGestorImp extends GUIGestor {
         // Se asume que InicioPanel, LoginPanel y RegistroPanel están implementados
         
         MenuGestorPanel menuGestorPanel = new MenuGestorPanel(cardLayout,panelContenedor,controlador,datos);
+        MesasPanel mesasPanel = new MesasPanel(cardLayout,panelContenedor,controlador,datos); 
         PlatosPanel platosPanel = new PlatosPanel(panelContenedor, cardLayout, controlador);
+        
         EmpleadosGestorPanel empleadosGestorPanel = new EmpleadosGestorPanel(panelContenedor, cardLayout, controlador,datos);
         InventarioPanel inventarioPanel = new InventarioPanel(panelContenedor, cardLayout, controlador);
         IngresosPanel ingresosPanel = new IngresosPanel(panelContenedor,cardLayout,controlador);
         
         // Agregar paneles al contenedor con un identificador único para cada uno
         panelContenedor.add(menuGestorPanel, "menu");
+        panelContenedor.add(mesasPanel, "mesas");
         panelContenedor.add(platosPanel, "platos");
         panelContenedor.add(inventarioPanel, "inventario");
         panelContenedor.add(empleadosGestorPanel,"empleados");

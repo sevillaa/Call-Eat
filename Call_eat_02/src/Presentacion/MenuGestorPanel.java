@@ -112,6 +112,28 @@ public class MenuGestorPanel extends JPanel {
             // controlador.accion(Eventos.MOSTRAR_ESTADISTICAS, null);
         });
         
+        //ImageIcon iconoOriginalPlato = new ImageIcon("resources/Botones_menu_gestor/gestorPlatos.png");
+        //Image imagenEscaladaPlatos = iconoOriginalPlato.getImage().getScaledInstance(110, 110, Image.SCALE_SMOOTH);
+        JButton btnMesas = new JButton("Mesas"/*,new ImageIcon(imagenEscaladaPlatos)*/);
+        btnMesas.setPreferredSize(new Dimension(100, 100));
+        btnMesas.setContentAreaFilled(false); // elimina el fondo estirado
+        btnMesas.setBorderPainted(false);    // elimina el borde
+        btnMesas.setFocusPainted(false);     // quita ese borde de foco azul
+        btnMesas.setHorizontalAlignment(SwingConstants.CENTER);
+        btnMesas.setVerticalAlignment(SwingConstants.CENTER);
+        btnMesas.setHorizontalTextPosition(SwingConstants.CENTER);
+        btnMesas.setVerticalTextPosition(SwingConstants.BOTTOM);
+        btnMesas.addActionListener(e -> {
+            // En el futuro se puede abrir un panel para filtrar pedidos, etc.
+        	/*
+        	 * Este apartado deberia poder filtrar de la base de datos de pedidos para poder obtener 
+        	 * un registro de beenficios mensuales/diarios
+        	 */
+            //JOptionPane.showMessageDialog(frame, "Actividad económica aún no implementada");
+        	cardLayout.show(panelContenedor,"mesas");
+            // controlador.accion(Eventos.MOSTRAR_ESTADISTICAS, null);
+        });
+        
         
         ImageIcon iconoOriginal3 = new ImageIcon("resources/Botones_menu_gestor/ingresos.png");
         Image imagenEscalada3 = iconoOriginal3.getImage().getScaledInstance(110, 110, Image.SCALE_SMOOTH);
@@ -138,6 +160,7 @@ public class MenuGestorPanel extends JPanel {
         panelOpciones.add(btnPlantilla);
         panelOpciones.add(btnInventario);
         panelOpciones.add(btnPlatos);
+        panelOpciones.add(btnMesas);
         panelOpciones.add(btnActividadEconomica);
         panelOpciones.setBackground(Color.WHITE);
         this.add(panelOpciones, BorderLayout.CENTER);
@@ -161,7 +184,7 @@ public class MenuGestorPanel extends JPanel {
         btnVolver.addActionListener(e -> {
         	SwingUtilities.getWindowAncestor(this).dispose();
             GUIGestor.resetInstancia();
-            new GUIMenuImp(controlador, datos); // Reabre el menú con el usuario logueado
+            new GUIMenuPrincipalImp(controlador, datos); // Reabre el menú con el usuario logueado
 
         });
         ImageIcon logo = new ImageIcon("resources/logo.png"); 

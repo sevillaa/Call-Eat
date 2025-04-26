@@ -21,7 +21,7 @@ public class FachadaMesaImp implements FachadaMesa {
         return this.saMesa.modificarMesa(mesaActualizada);
     }
 
-    public List<TransferMesa> obtenerMesas() {
-        return this.saMesa.obtenerMesas();
-    }
+	public List<TransferMesa> listaMesas() {
+		return this.saMesa.obtenerMesas();
+	}
 }

@@ -48,9 +48,9 @@ package Presentacion;
              JOptionPane.showMessageDialog(frame, "Inicio de sesión exitoso");
              frame.dispose();
              // Se reinicia la instancia del menú mediante un método público en GUIMenu
-             GUIMenu.resetInstancia();
+             GUIMenuPrincipal.resetInstancia();
              // Se crea o se recupera la instancia del menú, pasando el controlador y los datos del usuario
-             GUIMenu.getInstancia(controlador, datos);
+             GUIMenuPrincipal.getInstancia(controlador, datos);
          } else {
              // Puedes incluir otros eventos aquí
              cardLayout.show(panelContenedor, "inicio");

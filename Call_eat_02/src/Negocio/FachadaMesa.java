@@ -11,5 +11,5 @@ public interface FachadaMesa {
 
     public boolean modificarMesa(TransferMesa mesaActualizada);
 
-    public List<TransferMesa> obtenerMesas();
+    public List<TransferMesa> listaMesas();
 }

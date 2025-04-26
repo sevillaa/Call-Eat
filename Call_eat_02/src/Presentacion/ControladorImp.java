@@ -106,6 +106,11 @@ public class ControladorImp implements Controlador {
 		return this.fachadaMesa.buscarMesa(idMesa);
 	}
 	
+	@Override
+	public List<TransferMesa> listaMesas() {
+		return this.fachadaMesa.listaMesas();
+	}
+	
 	// METODOS DE PEDIDO:
 	
 	public boolean crearPedido(TransferPedido pedido) {
@@ -210,9 +215,5 @@ public class ControladorImp implements Controlador {
         }
         return sb.toString();
     }
-
-	
-	
-    
     
 }

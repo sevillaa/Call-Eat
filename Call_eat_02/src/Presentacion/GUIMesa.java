@@ -3,7 +3,7 @@ package Presentacion;
 import java.util.List;
 
 import Negocio.TransferMesa;
-
+/*
 public abstract class GUIMesa {
     private static GUIMesa instancia;
 
@@ -22,3 +22,4 @@ public abstract class GUIMesa {
 
     public abstract void dispose();
 }
+*/

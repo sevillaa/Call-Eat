@@ -4,13 +4,13 @@ import javax.swing.*;
 import java.awt.*;
 import Negocio.TransferEmpleado; // Asegúrate de que este import existe
 
-public class GUIMenuImp extends GUIMenu {
+public class GUIMenuPrincipalImp extends GUIMenuPrincipal {
 
     private JFrame frame;
     private Controlador controlador;
     private Object usuario;
 
-    public GUIMenuImp(Controlador controlador, Object datos) {
+    public GUIMenuPrincipalImp(Controlador controlador, Object datos) {
         this.controlador = controlador;
         this.usuario = datos;
         initGUI();
@@ -71,7 +71,7 @@ public class GUIMenuImp extends GUIMenu {
         JButton botonGestor = new JButton("Panel Gestor");
         botonGestor.setBackground(new Color(100, 180, 255));
         botonGestor.setFont(new Font("Arial",Font.BOLD,20));
-        botonGestor.setForeground(Color.WHITE);
+        botonGestor.setForeground(Color.black);
         botonGestor.addActionListener(e -> {
             frame.dispose();
             new GUIGestorImp(controlador, usuario);
@@ -83,7 +83,7 @@ public class GUIMenuImp extends GUIMenu {
         JButton botonCamarero = new JButton("Panel Camarero");
         botonCamarero.setBackground(new Color(100, 180, 255));
         botonCamarero.setFont(new Font("Arial",Font.BOLD,20));
-        botonCamarero.setForeground(Color.WHITE);
+        botonCamarero.setForeground(Color.black);
         botonCamarero.addActionListener(e -> {
             frame.dispose();
             new GUICamareroImp(controlador, usuario);
@@ -95,7 +95,7 @@ public class GUIMenuImp extends GUIMenu {
         JButton botonCocina = new JButton("Panel Cocina");
         botonCocina.setBackground(new Color(100, 180, 255));
         botonCocina.setFont(new Font("Arial",Font.BOLD,20));
-        botonCocina.setForeground(Color.WHITE);
+        botonCocina.setForeground(Color.black);
         botonCocina.addActionListener(e -> {
             frame.dispose();
             new GUICocinaImp(controlador, usuario);
@@ -107,11 +107,11 @@ public class GUIMenuImp extends GUIMenu {
         JButton botonMesas = new JButton("Panel Mesas");
         botonMesas.setBackground(new Color(100, 180, 255));
         botonMesas.setFont(new Font("Arial",Font.BOLD,20));
-        botonMesas.setForeground(Color.WHITE);
+        botonMesas.setForeground(Color.black);
         botonMesas.addActionListener(e -> {
             // Aquí se debería abrir GUIMesasImp
             frame.dispose();
-            new GUIMesaImp(controlador, usuario);  // Esto abrirá el panel de las mesas
+            new ReservarMesaPanel(controlador, usuario);
         });
         panelMesas.add(botonMesas,BorderLayout.CENTER);
 
@@ -139,10 +139,10 @@ public class GUIMenuImp extends GUIMenu {
         JButton cerrarSesionButton = new JButton("Cerrar Sesión");
         cerrarSesionButton.setBackground(Color.gray); 
         cerrarSesionButton.setFont(new Font("Arial",Font.BOLD,15));
-        cerrarSesionButton.setForeground(Color.WHITE);
+        cerrarSesionButton.setForeground(Color.black);
         cerrarSesionButton.addActionListener(e -> {
             frame.dispose();
-            GUIMenu.resetInstancia();  // Método que reinicia la instancia del menú
+            GUIMenuPrincipal.resetInstancia();  // Método que reinicia la instancia del menú
             GUIEmpleado.resetInstancia();
             GUIEmpleado.getInstancia(controlador, null);
         });
