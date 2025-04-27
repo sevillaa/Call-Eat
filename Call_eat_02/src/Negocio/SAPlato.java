@@ -11,5 +11,7 @@ public interface SAPlato {
 	TransferPlato buscarPlato(String idPlato);
 
 	List<TransferPlato> obtenerPlatos();
+	
+	void actualizarPlato(TransferPlato plato);
 
 }

@@ -73,8 +73,19 @@ public class GUIMenuPrincipalImp extends GUIMenuPrincipal {
         botonGestor.setFont(new Font("Arial",Font.BOLD,20));
         botonGestor.setForeground(Color.black);
         botonGestor.addActionListener(e -> {
-            frame.dispose();
-            new GUIGestorImp(controlador, usuario);
+        	
+        	if(((TransferEmpleado) usuario).getRol().equals("Gerente")) {
+        		 frame.dispose();
+                 new GUIGestorImp(controlador, usuario);
+        	} else {
+        		JOptionPane.showMessageDialog(
+        	            frame,
+        	            "No tienes el rol necesario para esta vista.",
+        	            "Advertencia",
+        	            JOptionPane.WARNING_MESSAGE
+        	        );
+
+        	}
         });
         panelGestor.add(botonGestor,BorderLayout.CENTER);
 
@@ -85,8 +96,20 @@ public class GUIMenuPrincipalImp extends GUIMenuPrincipal {
         botonCamarero.setFont(new Font("Arial",Font.BOLD,20));
         botonCamarero.setForeground(Color.black);
         botonCamarero.addActionListener(e -> {
-            frame.dispose();
-            new GUICamareroImp(controlador, usuario);
+        	
+        	if(((TransferEmpleado) usuario).getRol().equals("Gerente") || ((TransferEmpleado) usuario).getRol().equals("Camarero")) {
+        		frame.dispose();
+                new GUICamareroImp(controlador, usuario);
+       	} else {
+       		JOptionPane.showMessageDialog(
+       	            frame,
+       	            "No tienes el rol necesario para esta vista.",
+       	            "Advertencia",
+       	            JOptionPane.WARNING_MESSAGE
+       	        );
+
+       	}
+
         });
         panelCamarero.add(botonCamarero,BorderLayout.CENTER);
 
@@ -97,8 +120,19 @@ public class GUIMenuPrincipalImp extends GUIMenuPrincipal {
         botonCocina.setFont(new Font("Arial",Font.BOLD,20));
         botonCocina.setForeground(Color.black);
         botonCocina.addActionListener(e -> {
-            frame.dispose();
-            new GUICocinaImp(controlador, usuario);
+        	
+        	if(((TransferEmpleado) usuario).getRol().equals("Gerente") || ((TransferEmpleado) usuario).getRol().equals("Cocinero")) {
+        		frame.dispose();
+                new GUICocinaImp(controlador, usuario);
+       	} else {
+       		JOptionPane.showMessageDialog(
+       	            frame,
+       	            "No tienes el rol necesario para esta vista.",
+       	            "Advertencia",
+       	            JOptionPane.WARNING_MESSAGE
+       	        );
+
+       	}
         });
         panelCocina.add(botonCocina,BorderLayout.CENTER);
 
@@ -109,9 +143,19 @@ public class GUIMenuPrincipalImp extends GUIMenuPrincipal {
         botonMesas.setFont(new Font("Arial",Font.BOLD,20));
         botonMesas.setForeground(Color.black);
         botonMesas.addActionListener(e -> {
-            // Aquí se debería abrir GUIMesasImp
-            frame.dispose();
-            new ReservarMesaPanel(controlador, usuario);
+            
+        	if(((TransferEmpleado) usuario).getRol().equals("Gerente") || ((TransferEmpleado) usuario).getRol().equals("Camarero")) {
+        		frame.dispose();
+                new ReservarMesaPanel(controlador, usuario);
+       	} else {
+       		JOptionPane.showMessageDialog(
+       	            frame,
+       	            "No tienes el rol necesario para esta vista.",
+       	            "Advertencia",
+       	            JOptionPane.WARNING_MESSAGE
+       	        );
+
+       	}
         });
         panelMesas.add(botonMesas,BorderLayout.CENTER);
 

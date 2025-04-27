@@ -38,7 +38,7 @@ public class GUIGestorImp extends GUIGestor {
         
         MenuGestorPanel menuGestorPanel = new MenuGestorPanel(cardLayout,panelContenedor,controlador,datos);
         MesasPanel mesasPanel = new MesasPanel(cardLayout,panelContenedor,controlador,datos); 
-        PlatosPanel platosPanel = new PlatosPanel(panelContenedor, cardLayout, controlador);
+        PlatillosPanel platillosPanel = new PlatillosPanel(panelContenedor, cardLayout, controlador);
         
         EmpleadosGestorPanel empleadosGestorPanel = new EmpleadosGestorPanel(panelContenedor, cardLayout, controlador,datos);
         InventarioPanel inventarioPanel = new InventarioPanel(panelContenedor, cardLayout, controlador);
@@ -47,7 +47,7 @@ public class GUIGestorImp extends GUIGestor {
         // Agregar paneles al contenedor con un identificador único para cada uno
         panelContenedor.add(menuGestorPanel, "menu");
         panelContenedor.add(mesasPanel, "mesas");
-        panelContenedor.add(platosPanel, "platos");
+        panelContenedor.add(platillosPanel, "platos");
         panelContenedor.add(inventarioPanel, "inventario");
         panelContenedor.add(empleadosGestorPanel,"empleados");
         panelContenedor.add(ingresosPanel,"ingresos");

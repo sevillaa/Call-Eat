@@ -2,7 +2,6 @@ package Presentacion;
 
 import javax.swing.*;
 import Negocio.TransferPlato;
-import Negocio.TransferMesa;
 import Negocio.TransferPedido;
 
 import java.awt.*;
@@ -94,16 +93,7 @@ public class GUICamareroImp extends GUICamarero {
 
 		// Panel inferior con información de mesa y total
 		JPanel infoPedido = new JPanel(new GridLayout(4, 1));
-
-		List<TransferMesa> mesas = controlador.listaMesas();
-		String[] idsMesas = new String[mesas.size()];
-		
-		for (int i = 0; i < mesas.size(); i++) {
-		    idsMesas[i] = "Mesa: " + i + 1;
-		}
-
-		selectorMesa = new JComboBox<>(idsMesas);
-		
+		selectorMesa = new JComboBox<>(new String[] { "Mesa 1", "Mesa 2", "Mesa 3", "Para llevar" });
 		infoPedido.add(new JLabel("Mesa:"));
 		infoPedido.add(selectorMesa);
 

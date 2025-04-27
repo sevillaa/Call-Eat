@@ -1,6 +1,8 @@
 package Presentacion;
 
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
@@ -14,9 +16,12 @@ public class MesasPanel extends JPanel {
 	private CardLayout cardLayout;
 	private Controlador controlador;
 	private Object datos;
-	private JPanel panelMesas;
+	//private JPanel panelMesas;
 	private List<TransferMesa> mesas;
 	private TransferMesa mesaSeleccionada;
+	private JPanel PanelMesas;
+	private List<JButton> botonesMesas = new ArrayList<>();
+	private JButton botonMesaSeleccionado;
 
 
 	public MesasPanel(CardLayout cardLayout, JPanel panelContenedor, Controlador controlador, Object datos) {
@@ -31,23 +36,6 @@ public class MesasPanel extends JPanel {
         
     private void initComponentes(){
     	mesas = controlador.listaMesas();
-    	/*
-    	 * ESTO LO TIENES QUE HACER EN EL DAO AQUI NO
-    	 * 
-    	 * 
-    	 * // Validar que datos sea una lista de TransferMesa
-        if (datos instanceof List) {
-            try {
-                this.mesas = (List<TransferMesa>) datos;
-            } catch (ClassCastException e) {
-                JOptionPane.showMessageDialog(null, "Error: Los datos proporcionados no son una lista de mesas.", "Error", JOptionPane.ERROR_MESSAGE);
-                this.mesas = new ArrayList<>();
-            }
-        } else {
-            //JOptionPane.showMessageDialog(null, "Error: Se esperaba una lista de mesas, pero se recibió: " + (datos != null ? datos.getClass().getSimpleName() : "null"), "Error", JOptionPane.ERROR_MESSAGE);
-            this.mesas = new ArrayList<>();
-        }*/
-    	
     	this.setLayout(new BorderLayout());
 
         JPanel panelSuperior =new JPanel(new BorderLayout());//panel de boton atras y logo
@@ -113,62 +101,40 @@ public class MesasPanel extends JPanel {
                 mostrarDialogoEliminar();
             }
         });
+      
         
-        //actualizar(0, mesas);
+     // Panel Mesas
+        PanelMesas = new JPanel(new GridLayout(0, 4, 10, 10));
+        JScrollPane scrollPanelMesas = new JScrollPane(PanelMesas, 
+            JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, 
+            JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPanelMesas.setPreferredSize(new Dimension(600, 400)); // Tamaño fijo para el JScrollPane
+        this.add(scrollPanelMesas, BorderLayout.CENTER);
+
+        // Añadir botones iniciales
+        for (TransferMesa m : controlador.listaMesas()) {
+        	creaBotones(m);
+        }
+        PanelMesas.revalidate();
+        PanelMesas.repaint();
+        scrollPanelMesas.revalidate(); // Asegura que el JScrollPane se actualice
         
-       // this.add(panelMesas, BorderLayout.CENTER);
         
-    	
+        scrollPanelMesas.addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentResized(ComponentEvent e) {
+				int alturaBoton = scrollPanelMesas.getViewport().getHeight() / 2;
+				int anchuraBoton = (scrollPanelMesas.getViewport().getWidth()) / 4;
+
+				for (JButton boton : botonesMesas) {
+					boton.setPreferredSize(new Dimension(anchuraBoton, alturaBoton));
+					boton.setMaximumSize(new Dimension(anchuraBoton, alturaBoton));
+				}
+				PanelMesas.revalidate();
+			}
+		});
+        
     }   
-    
-    /*
-    @SuppressWarnings("unchecked")
-	public void actualizar(int evento, Object datos) {
-        SwingUtilities.invokeLater(() -> {
-           
-        	//panelMesas.removeAll();
-            
-            // Validar nuevamente los datos en el método actualizar
-            if (datos instanceof List) {
-                try {
-                    this.mesas = (List<TransferMesa>) datos;
-                } catch (ClassCastException e) {
-                    JOptionPane.showMessageDialog(null, "Error al actualizar: Los datos no son una lista de mesas.", "Error", JOptionPane.ERROR_MESSAGE);
-                    this.mesas = new ArrayList<>();
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "Error al actualizar: Se esperaba una lista de mesas, pero se recibió: " + (datos != null ? datos.getClass().getSimpleName() : "null"), "Error", JOptionPane.ERROR_MESSAGE);
-                this.mesas = new ArrayList<>();
-            }
-
-            for (TransferMesa mesa : mesas) {
-                JPanel mesaPanel = new JPanel(new BorderLayout());
-                mesaPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-                JLabel label = new JLabel("Mesa: " + mesa.getId() + "\nCapacidad: " + mesa.getCapacidad());
-                label.setHorizontalAlignment(SwingConstants.CENTER);
-                mesaPanel.add(label, BorderLayout.CENTER);
-
-                // Añadir listener para seleccionar la mesa al hacer clic
-                mesaPanel.addMouseListener(new java.awt.event.MouseAdapter() {
-                    @Override
-                    public void mouseClicked(java.awt.event.MouseEvent evt) {
-                        mesaSeleccionada = mesa;
-                        // Resaltar la mesa seleccionada
-                        for (Component component : panelMesas.getComponents()) {
-                            component.setBackground(null);
-                        }
-                        mesaPanel.setBackground(new Color(173, 216, 230)); // Color de selección (azul claro)
-                    }
-                });
-
-                panelMesas.add(mesaPanel);
-            }
-
-            panelMesas.revalidate();
-            panelMesas.repaint();
-        });
-    }
-    */
 
     private void mostrarDialogoAnadir() {
         JDialog dialog = new JDialog();
@@ -199,6 +165,9 @@ public class MesasPanel extends JPanel {
             String id = String.valueOf(mesas.size() + 1); // Generar ID automáticamente
             TransferMesa nuevaMesa = new TransferMesa(id, capacidad);
             controlador.crearMesa(nuevaMesa);
+            creaBotones(nuevaMesa);
+        	PanelMesas.revalidate();
+        	PanelMesas.repaint();
             dialog.dispose();
         });
         dialog.setVisible(true);
@@ -253,16 +222,30 @@ public class MesasPanel extends JPanel {
         
         btnCancelar.addActionListener(e -> dialog.dispose());
         btnEliminar.addActionListener(e -> {
-            controlador.eliminarMesa(mesaSeleccionada);
+        	controlador.eliminarMesa(mesaSeleccionada);
             mesaSeleccionada = null; // Limpiar selección
-            panelMesas.repaint();
+            this.PanelMesas.remove(botonMesaSeleccionado);
+            PanelMesas.revalidate();
+            PanelMesas.repaint();
             dialog.dispose();
         });
         
         dialog.setVisible(true);
     }
 
-    public void dispose() {
-        this.dispose();
+    // Método auxiliar para crear y configurar botones de mesa
+    private void creaBotones(TransferMesa mesa) {
+        JButton botonMesa = new JButton("Mesa " + mesa.getId() + " Capacidad " + mesa.getCapacidad());
+        botonMesa.setBackground(Color.WHITE);
+        botonMesa.addActionListener(e -> {
+            if (botonMesaSeleccionado != null) {
+                botonMesaSeleccionado.setBackground(Color.WHITE);
+            }
+            mesaSeleccionada = mesa;
+            botonMesaSeleccionado = botonMesa;
+            botonMesaSeleccionado.setBackground(new Color(173, 216, 230));
+        });
+        botonesMesas.add(botonMesa);
+        PanelMesas.add(botonMesa);
     }
 }

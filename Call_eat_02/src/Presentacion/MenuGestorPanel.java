@@ -112,9 +112,9 @@ public class MenuGestorPanel extends JPanel {
             // controlador.accion(Eventos.MOSTRAR_ESTADISTICAS, null);
         });
         
-        //ImageIcon iconoOriginalPlato = new ImageIcon("resources/Botones_menu_gestor/gestorPlatos.png");
-        //Image imagenEscaladaPlatos = iconoOriginalPlato.getImage().getScaledInstance(110, 110, Image.SCALE_SMOOTH);
-        JButton btnMesas = new JButton("Mesas"/*,new ImageIcon(imagenEscaladaPlatos)*/);
+        ImageIcon iconoOriginalMesa = new ImageIcon("resources/mesa.png");
+        Image imagenEscaladaMesa = iconoOriginalMesa.getImage().getScaledInstance(110, 110, Image.SCALE_SMOOTH);
+        JButton btnMesas = new JButton("Mesas",new ImageIcon(imagenEscaladaMesa));
         btnMesas.setPreferredSize(new Dimension(100, 100));
         btnMesas.setContentAreaFilled(false); // elimina el fondo estirado
         btnMesas.setBorderPainted(false);    // elimina el borde
