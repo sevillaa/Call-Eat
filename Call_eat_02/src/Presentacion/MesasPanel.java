@@ -199,7 +199,11 @@ public class MesasPanel extends JPanel {
         btnEditar.addActionListener(e -> {
             int capacidad = (int) capacidadSpinner.getValue();
             mesaSeleccionada.setCapacidad(capacidad);
-            //controlador.editarMesa(mesaSeleccionada);
+            if (botonMesaSeleccionado != null) {
+                botonMesaSeleccionado.setText("Mesa " + mesaSeleccionada.getId() + " Capacidad " + capacidad);
+            }
+            PanelMesas.revalidate();
+            PanelMesas.repaint();
             mesaSeleccionada = null; // Limpiar selección
             dialog.dispose();
         });
