@@ -134,15 +134,17 @@ public class ControladorImp implements Controlador {
 	}
 	
 	// METODOS DE PLATO:
-	
+	@Override
 	public boolean crearPlato(TransferPlato plato) {
 		return this.fachadaPlato.crearPlato(plato);
 	}
 	
+	@Override
 	public boolean eliminarPlato(TransferPlato plato) {
 		return this.fachadaPlato.eliminarPlato(plato);
 	}
 	
+	@Override
 	public TransferPlato buscarPlato(String idPlato) {
 		return this.fachadaPlato.buscarPlato(idPlato);
 	}
@@ -150,6 +152,11 @@ public class ControladorImp implements Controlador {
 	@Override
 	public List<TransferPlato> obtenerPlatos(){
 		return fachadaPlato.obtenerPlatos();
+	}
+	
+	@Override
+	public void actualizarPlato(TransferPlato plato) {
+		fachadaPlato.actualizarPlato(plato);
 	}
 
 	// METODOS DE CONTROLLER:

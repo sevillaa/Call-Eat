@@ -28,4 +28,9 @@ public class SAPlatoImp implements SAPlato{
 		return this.fachadaDaoPlato.obtenerPlatos();
 	}
 
+	@Override
+	public void actualizarPlato(TransferPlato plato) {
+		fachadaDaoPlato.actualizarPlato(plato);
+	}
+
 }
