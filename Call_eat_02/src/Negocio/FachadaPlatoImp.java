@@ -20,9 +20,15 @@ public class FachadaPlatoImp implements FachadaPlato {
 	public TransferPlato buscarPlato(String idPlato) {
 		return this.saPlato.buscarPlato(idPlato);
 	}
-
+	
+	@Override
 	public List<TransferPlato> obtenerPlatos() {
 		return this.saPlato.obtenerPlatos();
+	}
+
+	@Override
+	public void actualizarPlato(TransferPlato plato) {
+		saPlato.actualizarPlato(plato);
 	}
 
 }

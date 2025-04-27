@@ -79,6 +79,8 @@ public interface Controlador {
 	
 	public List<TransferPlato> obtenerPlatos();
 	
+	public void actualizarPlato(TransferPlato plato);
+	
 	
 	
 	

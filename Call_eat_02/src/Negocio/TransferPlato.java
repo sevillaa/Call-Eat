@@ -1,35 +1,32 @@
 package Negocio;
 
-import java.util.Collections;
-import java.util.List;
+
 import java.util.Map;
-
-import javax.swing.ImageIcon;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 
 public class TransferPlato {
 
 	protected String id;
 	protected String nombre;
 	protected Map<String, Integer> ingredientes;
-	protected int precio;
+	protected double precio;
 	protected String categoria;
-	@JsonProperty("ICON_PATH")
-	protected String ICON_PATH;
+	protected String iconPath;
 
 	public TransferPlato() {
 
 	}
 
 	public TransferPlato(String id, String nombre, Map<String, Integer> ingredientes, int precio,
-			String categoria, String ICON_PATH) {
+			String categoria, String iconPath) {
 		this.id = id;
 		this.nombre = nombre;
 		this.ingredientes = ingredientes;
 		this.precio = precio;
 		this.categoria = categoria;
-		this.ICON_PATH = ICON_PATH;
+		this.iconPath = iconPath;
 	}
 
 	public void setId(String id) {
@@ -56,11 +53,11 @@ public class TransferPlato {
 		return ingredientes;
 	}
 
-	public void setPrecio(int precio) {
-		this.precio = precio;
+	public void setPrecio(double d) {
+		this.precio = d;
 	}
 
-	public int getPrecio() {
+	public double getPrecio() {
 		return this.precio;
 	}
 
@@ -73,7 +70,7 @@ public class TransferPlato {
 	}
 	
 	public String getIconPath() {
-		return this.ICON_PATH;
+		return this.iconPath;
 	}
 
 	@Override

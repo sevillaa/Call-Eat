@@ -13,5 +13,6 @@ public interface SADAOPlato {
 	TransferPlato buscarPlato(String idPlato);
 
 	List<TransferPlato> obtenerPlatos();
-
+	
+	void actualizarPlato(TransferPlato plato);
 }

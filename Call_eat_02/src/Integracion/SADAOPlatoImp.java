@@ -5,7 +5,7 @@ import java.util.List;
 import Negocio.TransferPlato;
 
 public class SADAOPlatoImp implements SADAOPlato {
-	
+
 	DAOPlatoImp daoPlato = new DAOPlatoImp();
 
 	@Override
@@ -26,6 +26,11 @@ public class SADAOPlatoImp implements SADAOPlato {
 	@Override
 	public List<TransferPlato> obtenerPlatos() {
 		return daoPlato.obtenerPlatos();
+	}
+
+	@Override
+	public void actualizarPlato(TransferPlato plato) {
+		daoPlato.actualizarPlato(plato);
 	}
 
 }

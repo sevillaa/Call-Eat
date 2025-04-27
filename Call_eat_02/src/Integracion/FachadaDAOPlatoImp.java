@@ -27,4 +27,9 @@ public class FachadaDAOPlatoImp implements FachadaDAOPlato  {
 	public List<TransferPlato> obtenerPlatos() {
 		return saDaoPlato.obtenerPlatos();
 	}
+
+	@Override
+	public void actualizarPlato(TransferPlato plato) {
+		saDaoPlato.actualizarPlato(plato);
+	}
 }

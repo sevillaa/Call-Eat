@@ -6,6 +6,8 @@ import Negocio.TransferPlato;
 
 public interface FachadaDAOPlato {
 	public boolean crearPlato(TransferPlato plato);
+	
+	public void actualizarPlato(TransferPlato plato);
 
 	public TransferPlato buscarPlato(String idPlato);
 
