@@ -1,1 +1,4 @@
-[{"id":"1","capacidad":11,"disponible":true,"reservada":false,"tiempoReserva":0},{"id":"2","capacidad":12,"disponible":true,"reservada":false,"tiempoReserva":0},{"id":"3","capacidad":2,"disponible":true,"reservada":false,"tiempoReserva":0},{"id":"4","capacidad":4,"disponible":true,"reservada":false,"tiempoReserva":0}]
+[{"id":"1","capacidad":2,"disponible":true,"reservada":false,"tiempoReserva":0},
+{"id":"2","capacidad":4,"disponible":true,"reservada":false,"tiempoReserva":0},
+{"id":"3","capacidad":5,"disponible":true,"reservada":false,"tiempoReserva":0},
+{"id":"4","capacidad":6,"disponible":true,"reservada":false,"tiempoReserva":0}]
