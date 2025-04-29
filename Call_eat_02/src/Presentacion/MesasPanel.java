@@ -15,7 +15,7 @@ public class MesasPanel extends JPanel {
 	private JPanel panelContenedor;
 	private CardLayout cardLayout;
 	private Controlador controlador;
-	private Object datos;
+	//private Object datos;
 	//private JPanel panelMesas;
 	private List<TransferMesa> mesas;
 	private TransferMesa mesaSeleccionada;
@@ -24,11 +24,11 @@ public class MesasPanel extends JPanel {
 	private JButton botonMesaSeleccionado;
 
 
-	public MesasPanel(CardLayout cardLayout, JPanel panelContenedor, Controlador controlador, Object datos) {
+	public MesasPanel(CardLayout cardLayout, JPanel panelContenedor, Controlador controlador) {
     	this.panelContenedor = panelContenedor;
         this.cardLayout = cardLayout;
         this.controlador = controlador;
-        this.datos=datos;
+        //this.datos=datos;
         
         initComponentes();
         
@@ -205,6 +205,7 @@ public class MesasPanel extends JPanel {
             PanelMesas.revalidate();
             PanelMesas.repaint();
             mesaSeleccionada = null; // Limpiar selección
+            botonMesaSeleccionado = null;
             dialog.dispose();
         });
         
