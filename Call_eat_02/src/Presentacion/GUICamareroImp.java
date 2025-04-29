@@ -119,20 +119,29 @@ public class GUICamareroImp extends GUICamarero {
 
 		// Creamos botones de plato dinámicamente desde el controlador
 		for (TransferPlato plato : controlador.obtenerPlatos()) {
-			JButton botonPlato = new JButton();
-			ImageIcon icon = new ImageIcon(plato.getIconPath());
-			icon = new ImageIcon(icon.getImage().getScaledInstance(300, 300, Image.SCALE_SMOOTH));
-			botonPlato.setIcon(icon);
-			botonPlato.putClientProperty("categoria", plato.getCategoria());
-			botonPlato.addActionListener(ev -> {
-				// Cuando se pulsa, agregamos plato al pedido
-				agregarPedido(plato);
-				total += plato.getPrecio(); // Incrementamos total
-				totalPedido.setText(String.format("Total: %.2f€", total));
-			});
-			botonesPlatos.add(botonPlato);
-			platosPanel.add(botonPlato);
+		    JButton botonPlato = new JButton();
+		    ImageIcon icon = new ImageIcon(plato.getIconPath());
+		    icon = new ImageIcon(icon.getImage().getScaledInstance(300, 300, Image.SCALE_SMOOTH));
+		    botonPlato.setIcon(icon);
+		    botonPlato.putClientProperty("categoria", plato.getCategoria());
+		    botonPlato.addActionListener(ev -> {
+		        // Verificamos si hay suficientes ingredientes para el plato
+		        if (controlador.compruebaIngredientes(plato)) {
+		            // Si hay ingredientes, agregamos el plato al pedido
+		            agregarPedido(plato);
+		            total += plato.getPrecio(); // Incrementamos el total
+		            totalPedido.setText(String.format("Total: %.2f€", total));
+		        } else {
+		            // Si no hay ingredientes, mostramos un mensaje de advertencia
+		            JOptionPane.showMessageDialog(frame, 
+		                "No se puede añadir el plato '" + plato.getNombre() + "'\nFaltan ingredientes.",
+		                "Plato no disponible", JOptionPane.WARNING_MESSAGE);
+		        }
+		    });
+		    botonesPlatos.add(botonPlato);
+		    platosPanel.add(botonPlato);
 		}
+
 
 		// Ajuste dinámico de tamaño de botones al redimensionar
 		scrollPlatos.addComponentListener(new ComponentAdapter() {
