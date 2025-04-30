@@ -93,7 +93,15 @@ public class GUICamareroImp extends GUICamarero {
 
 		// Panel inferior con información de mesa y total
 		JPanel infoPedido = new JPanel(new GridLayout(4, 1));
-		selectorMesa = new JComboBox<>(new String[] { "Mesa 1", "Mesa 2", "Mesa 3", "Para llevar" });
+		
+		String[] mesas = new String[controlador.listaMesas().size()];
+		
+		for (int i = 0; i < controlador.listaMesas().size(); i++){
+			mesas[i] = "Mesa " + (i + 1);
+		}
+		
+		selectorMesa = new JComboBox<>(mesas);
+		
 		infoPedido.add(new JLabel("Mesa:"));
 		infoPedido.add(selectorMesa);
 
