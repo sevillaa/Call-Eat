@@ -224,6 +224,9 @@ public class PlatillosPanel extends JPanel {
             jtextNombre.setMinimumSize(dimension);
             jtextNombre.setPreferredSize(dimension);
             jtextNombre.setMaximumSize(dimension);
+            
+            JLabel cantidadPrecio = new JLabel("Precio : ");
+    		JSpinner spinnerPrecio = new JSpinner(new SpinnerNumberModel(10, 1, 10000, 1));
             /*
             
             JPanel aux = new JPanel();

@@ -117,7 +117,24 @@ public class ReservarMesaPanel extends JPanel {
                     JOptionPane.showMessageDialog(null, "Error al actualizar: Los datos no son una lista de mesas.", "Error", JOptionPane.ERROR_MESSAGE);
                     this.mesas = new ArrayList<>();
                 }
-             
+                
+                
+                long tiempoLimite = 30 * 60 * 1000; // 30 minutos en milisegundos
+
+                for (TransferMesa mesa : mesas) {
+                    if (!mesa.isDisponible()) {
+                        long tiempoReserva = mesa.getTiempoReserva();
+                        if (tiempoReserva > 0 && (System.currentTimeMillis() - tiempoReserva) >= tiempoLimite) {
+                            // La reserva ha caducado, liberamos la mesa
+                            mesa.setReservada(false);
+                            mesa.setDisponible(true);
+                            mesa.setTiempoReserva(0);
+                            controlador.buscarMesa(mesa.getId()).setReservada(false);
+                            controlador.buscarMesa(mesa.getId()).setDisponible(true);
+                            controlador.buscarMesa(mesa.getId()).setTiempoReserva(0);
+                        }
+                    }
+                }
 
             for (TransferMesa mesa : mesas) {
                 JButton mesaButton = new JButton();

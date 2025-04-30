@@ -97,7 +97,9 @@ public class GUICamareroImp extends GUICamarero {
 		String[] mesas = new String[controlador.listaMesas().size()];
 		
 		for (int i = 0; i < controlador.listaMesas().size(); i++){
-			mesas[i] = "Mesa " + (i + 1);
+			if(controlador.listaMesas().get(i).isDisponible()) {
+				mesas[i] = "Mesa " + (i + 1);
+			}
 		}
 		
 		selectorMesa = new JComboBox<>(mesas);
@@ -250,11 +252,17 @@ public class GUICamareroImp extends GUICamarero {
 
 		JPanel panelInfo = new JPanel();
 		panelInfo.setLayout(new BoxLayout(panelInfo, BoxLayout.Y_AXIS));
-		JLabel totalClientes = new JLabel("Total Clientes: 5");
+		JLabel totalClientes = new JLabel("Total Clientes:");
 		totalClientes.setFont(new Font("Arial", Font.BOLD, 20));
-		panelInfo.add(totalClientes);
-		JLabel mesaAsignada = new JLabel("Mesa asignada: " + selectorMesa.getSelectedItem().toString());
+		panelInfo.add(totalClientes); 
+		JLabel mesaAsignada = new JLabel("Mesa asignada: " + (selectorMesa.getSelectedItem().toString()));
 		mesaAsignada.setFont(new Font("Arial", Font.BOLD, 20));
+		
+		selectorMesa.addActionListener(e -> {
+		    String indiceSeleccionado = (selectorMesa.getSelectedItem().toString());
+		    mesaAsignada.setText("Mesa asignada: " + indiceSeleccionado);
+		});
+		
 		panelInfo.add(mesaAsignada);
 		panelIzquierdo.add(panelInfo);
 
@@ -345,6 +353,12 @@ public class GUICamareroImp extends GUICamarero {
 				// Siempre se guarda el destino en el campo direccion, sea mesa o para llevar
 				String seleccionMesa = selectorMesa.getSelectedItem().toString();
 				pedido.setDireccion(seleccionMesa);
+				String idMesa = seleccionMesa.replaceAll("\\D+", "");
+				
+				
+				controlador.buscarMesa(idMesa).setDisponible(false);// marcamos la mesa como ocupada
+				controlador.buscarMesa(idMesa).setTiempoReserva(System.currentTimeMillis()); // le añadimos la hora del pedido
+				
 				pedido.setTipo(pedidoADomicilio); // true si es para llevar, false si es en el local
 
 				pedido.setNotas(anotacion); // Campo de notas vacío por ahora
@@ -352,7 +366,7 @@ public class GUICamareroImp extends GUICamarero {
 
 				// Llamada al controlador para guardar el pedido
 				controlador.crearPedido(pedido);
-
+				
 				JOptionPane.showMessageDialog(frame, "¡Pedido confirmado! El pago ha sido realizado.");
 
 				// Reiniciar datos del pedido
