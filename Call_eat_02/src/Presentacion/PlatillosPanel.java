@@ -4,11 +4,14 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -19,16 +22,20 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 
+import Negocio.TransferIngrediente;
 import Negocio.TransferPlato;
 
 public class PlatillosPanel extends JPanel {
@@ -173,8 +180,107 @@ public class PlatillosPanel extends JPanel {
 		botonAgregarPlato.setFocusPainted(false);
 		botonAgregarPlato.setBackground(new Color(100, 180, 255));
 		panelCategorias.add(botonAgregarPlato);
-
 		this.add(panelCategorias, BorderLayout.PAGE_END);
+		botonAgregarPlato.addActionListener(e->{
+			JFrame frame = new JFrame("Crear Plato");
+			frame.setResizable(false);
+			frame.setSize(400, 200);
+			frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			frame.setLocationRelativeTo(null);
+			frame.setVisible(true);
+            frame.setBackground(Color.BLACK);
+
+            JPanel panelPrincipal = new JPanel(new BorderLayout());
+            frame.add(panelPrincipal);
+            panelPrincipal.setBackground(Color.white);
+            
+            JLabel nombre = new JLabel("Creacion de Plato", SwingConstants.CENTER);
+            nombre.setFont(new Font("Arial", Font.BOLD, 20));
+            panelPrincipal.add(nombre, BorderLayout.NORTH);
+            
+            JPanel centro = new JPanel();
+       	 	centro.setLayout(new BoxLayout(centro,BoxLayout.Y_AXIS));
+       	 	JPanel panelNombre = new JPanel();
+       	 	JPanel panelPrecio= new JPanel();
+       	 	JPanel panelTipo = new JPanel();
+    	 	JPanel panelBuscarIngrediente= new JPanel();
+    	 	JPanel panelTabla = new JPanel();
+    	 	panelNombre.setBackground(Color.white);
+    	 	panelPrecio.setBackground(Color.white);
+    	 	panelTipo.setBackground(Color.white);
+    	 	panelBuscarIngrediente.setBackground(Color.white);
+            centro.setBackground(Color.WHITE);
+            
+            
+            JPanel abajo = new JPanel(new FlowLayout());
+            abajo.setBackground(Color.WHITE);
+            
+            
+            
+            //Implementacion de paneles del panelCentro(su jlabel y su jtext o jcombobox)
+            Dimension dimension = new Dimension(200,25);
+            JLabel nombreLabel = new JLabel("Nombre : ");
+            JTextField jtextNombre = new JTextField();
+            jtextNombre.setMinimumSize(dimension);
+            jtextNombre.setPreferredSize(dimension);
+            jtextNombre.setMaximumSize(dimension);
+            /*
+            
+            JPanel aux = new JPanel();
+            aux.setBackground(Color.WHITE);
+            
+            crearFrame.add(aux);
+            
+            JLabel titulo = new JLabel("Creacion de ingrediente", SwingConstants.CENTER);
+            titulo.setFont(new Font("Arial", Font.BOLD, 20));
+            aux.add(titulo, BorderLayout.NORTH);
+            
+            
+            JPanel centro = new JPanel();
+       	 	centro.setLayout(new BoxLayout(centro,BoxLayout.Y_AXIS));
+       	 	JPanel centroArriba = new JPanel();
+       	 	JPanel centroAbajo= new JPanel();
+       	 	centroArriba.setBackground(Color.white);
+       	 	centroAbajo.setBackground(Color.white);
+       	 	centro.setBackground(Color.white);
+            centro.setBackground(Color.WHITE);
+            
+            
+            JPanel abajo = new JPanel(new FlowLayout());
+            abajo.setBackground(Color.WHITE);
+            JLabel texto1 = new JLabel("Nombre : ");
+            JTextField texto2 = new JTextField();
+            texto2.setMinimumSize(jtextYcomco);
+            texto2.setPreferredSize(jtextYcomco);
+            texto2.setMaximumSize(jtextYcomco);
+            JLabel texto3 = new JLabel("Cantidad : ");
+    		JSpinner spinner = new JSpinner(new SpinnerNumberModel(10, 1, 10000, 1));
+    		JButton ok = new JButton("Aceptar");
+    		ok.setBackground(new Color(50, 205, 50));
+    		ok.setFont(new Font("Arial",Font.BOLD,15));
+    		ok.setForeground(Color.WHITE);
+    		ok.addActionListener(ee ->{
+    			TransferIngrediente in = new TransferIngrediente(controlador.generarCodigoRandom(),texto2.getText(), (int) spinner.getValue());
+        		if(controlador.crearIngrediente(in)) {
+        			JOptionPane.showMessageDialog(null, "Ingrediente creado correctamente.");
+        		}
+        		else {
+        			JOptionPane.showMessageDialog(null, "Error.");
+        		}
+        		
+        		crearFrame.addWindowListener(new WindowAdapter() {
+        			@Override
+        			public void windowClosed(WindowEvent e) {
+                        cargarIngredientes();
+                    }
+        			
+        		});
+        		crearFrame.dispose();
+        		//SwingUtilities.getWindowAncestor(InventarioPanel.this).dispose();
+        		//GUIGestor.resetInstancia();
+        		//GUIGestor.getInstancia(controlador,null);
+			*/
+		});
 	}
 
 	private void filtrar() {
