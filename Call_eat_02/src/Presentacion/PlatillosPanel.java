@@ -384,7 +384,6 @@ public class PlatillosPanel extends JPanel {
     					JOptionPane.showMessageDialog(null, "El precio debe ser en valor numerico.");
     				}
     				frame.dispose();
-    				initGUI();
     			}
 			});
 			JButton botonCancelarAgregarPlato = new JButton("Cancelar");

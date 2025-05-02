@@ -43,11 +43,14 @@ import Negocio.TransferIngrediente;
 public class InventarioPanel extends JPanel {
 
 	private JPanel panelContenedor;
-	private JFrame frame;
 	private JTable table;
 	private CardLayout cardLayout;
 	private Controlador controlador;
 	private List<TransferIngrediente> ingredientes;
+	private JButton botonAnadir;
+	private JButton botonModificar;
+	private JButton botonEliminar;
+	private JButton botonCancelar;
 
 	public InventarioPanel(JPanel panelContenedor, CardLayout cardLayout, Controlador controlador) {
 		this.panelContenedor = panelContenedor;
@@ -109,11 +112,11 @@ public class InventarioPanel extends JPanel {
 
 		///////////////////////// BOTON DE CREAR UN NUEVO
 		///////////////////////// INGREDIENTE///////////////////////
-		JButton btonAnadir = new JButton("Crear");
-		btonAnadir.setBackground(new Color(50, 205, 50));
-		btonAnadir.setForeground(Color.WHITE);
-		btonAnadir.setFont(new Font("Arial", Font.BOLD, 13));
-		btonAnadir.addActionListener(e -> {
+		botonAnadir = new JButton("Crear");
+		botonAnadir.setBackground(new Color(50, 205, 50));
+		botonAnadir.setForeground(Color.WHITE);
+		botonAnadir.setFont(new Font("Arial", Font.BOLD, 13));
+		botonAnadir.addActionListener(e -> {
 			
 			JFrame crearFrame = new JFrame("Crear Ingrediente");
 			crearFrame.setResizable(false);
@@ -194,11 +197,11 @@ public class InventarioPanel extends JPanel {
 		});
 /////////////////////////BOTON DE AUMENTAR UN INGREDIENTE///////////////////////
 
-		JButton btnAumentar = new JButton("Aumentar");
-		btnAumentar.setBackground(new Color(0, 128, 0));
-		btnAumentar.setForeground(Color.WHITE);
-		btnAumentar.setFont(new Font("Arial", Font.BOLD, 13));
-		btnAumentar.addActionListener(e -> {
+		botonModificar = new JButton("Aumentar");
+		botonModificar.setBackground(new Color(0, 128, 0));
+		botonModificar.setForeground(Color.WHITE);
+		botonModificar.setFont(new Font("Arial", Font.BOLD, 13));
+		botonModificar.addActionListener(e -> {
 			JFrame crearFrame = new JFrame("Aumentar Ingrediente");
 			crearFrame.setResizable(false);
 			crearFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -299,12 +302,11 @@ public class InventarioPanel extends JPanel {
 		});
 
 /////////////////////////BOTON DE ELIMINAR UN INGREDIENTE///////////////////////
-		JButton btnEliminar = new JButton("Eliminar");
-		btnEliminar.setBackground(new Color(255, 69, 58));
-		btnEliminar.setForeground(Color.WHITE);
-		btnEliminar.setFont(new Font("Arial", Font.BOLD, 13));
-
-		btnEliminar.addActionListener(e -> {
+		botonEliminar = new JButton("Eliminar");
+		botonEliminar.setBackground(new Color(255, 69, 58));
+		botonEliminar.setForeground(Color.WHITE);
+		botonEliminar.setFont(new Font("Arial", Font.BOLD, 13));
+		botonEliminar.addActionListener(e -> {
 			JFrame crearFrame = new JFrame("Eliminar Ingrediente");
 			crearFrame.setResizable(false);
 			crearFrame.setSize(400, 150);
@@ -385,18 +387,18 @@ public class InventarioPanel extends JPanel {
 /////////////////////////BOTON DE REGRESAR EL MENU DEL GESTOR///////////////////////
 		ImageIcon volverIcono = new ImageIcon("resources/botonAtras.png");
 		Image volverIconoImagen = volverIcono.getImage().getScaledInstance(35, 35, Image.SCALE_SMOOTH);
-		JButton btnVolver = new JButton("Volver", new ImageIcon(volverIconoImagen));
-		btnVolver.setFont(new Font("Arial", Font.BOLD, 10));
-		btnVolver.setForeground(Color.white);
-		btnVolver.setPreferredSize(new Dimension(110, 20));
-		btnVolver.setContentAreaFilled(false); // elimina el fondo estirado
-		btnVolver.setBorderPainted(false); // elimina el borde
-		btnVolver.setFocusPainted(false); // quita ese borde de foco azul
-		btnVolver.setHorizontalAlignment(SwingConstants.CENTER);
-		btnVolver.setVerticalAlignment(SwingConstants.CENTER);
-		btnVolver.setHorizontalTextPosition(SwingConstants.CENTER);
-		btnVolver.setVerticalTextPosition(SwingConstants.BOTTOM);
-		btnVolver.addActionListener(ev -> {
+		botonCancelar = new JButton("Volver", new ImageIcon(volverIconoImagen));
+		botonCancelar.setFont(new Font("Arial", Font.BOLD, 10));
+		botonCancelar.setForeground(Color.white);
+		botonCancelar.setPreferredSize(new Dimension(110, 20));
+		botonCancelar.setContentAreaFilled(false); // elimina el fondo estirado
+		botonCancelar.setBorderPainted(false); // elimina el borde
+		botonCancelar.setFocusPainted(false); // quita ese borde de foco azul
+		botonCancelar.setHorizontalAlignment(SwingConstants.CENTER);
+		botonCancelar.setVerticalAlignment(SwingConstants.CENTER);
+		botonCancelar.setHorizontalTextPosition(SwingConstants.CENTER);
+		botonCancelar.setVerticalTextPosition(SwingConstants.BOTTOM);
+		botonCancelar.addActionListener(ev -> {
 			cardLayout.show(panelContenedor, "menu");
 		});
 
@@ -405,12 +407,12 @@ public class InventarioPanel extends JPanel {
 		ImageIcon logoIconoEscalado = new ImageIcon(locoImagenEscalado);
 		JLabel etiquetaImagen = new JLabel(logoIconoEscalado);
 
-		panelSuperior.add(btnVolver, BorderLayout.LINE_START);
+		panelSuperior.add(botonCancelar, BorderLayout.LINE_START);
 		panelSuperior.setBackground(new Color(100, 180, 255));
 		panelSuperior.add(etiquetaImagen, BorderLayout.LINE_END);
-		panelBotones.add(btonAnadir); // Primer botón
-		panelBotones.add(btnAumentar); // Segundo botón
-		panelBotones.add(btnEliminar); // Tercer botón
+		panelBotones.add(botonAnadir); // Primer botón
+		panelBotones.add(botonModificar); // Segundo botón
+		panelBotones.add(botonEliminar); // Tercer botón
 		panelCentral.add(panelBotones, BorderLayout.SOUTH);
 		this.add(panelSuperior, BorderLayout.PAGE_START);
 		this.add(panelCentral, BorderLayout.CENTER);
