@@ -3,6 +3,7 @@ package Negocio;
 import java.util.List;
 
 public interface FachadaIngrediente {
+	
 	public boolean crearIngrediente(TransferIngrediente ingrediente);
 
 	public boolean eliminarIngrediente(TransferIngrediente ingrediente);

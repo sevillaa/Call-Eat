@@ -125,14 +125,14 @@ public class InventarioPanel extends JPanel {
 			crearFrame.setLocationRelativeTo(null);
 			crearFrame.setVisible(true);
 
-			JPanel aux = new JPanel();
-			aux.setBackground(Color.WHITE);
-			aux.setLayout(new BorderLayout());
-			crearFrame.add(aux);
+			JPanel panelCrear = new JPanel();
+			panelCrear.setBackground(Color.WHITE);
+			panelCrear.setLayout(new BorderLayout());
+			crearFrame.add(panelCrear);
 
 			JLabel titulo = new JLabel("Creacion de ingrediente", SwingConstants.CENTER);
 			titulo.setFont(new Font("Arial", Font.BOLD, 20));
-			aux.add(titulo, BorderLayout.NORTH);
+			panelCrear.add(titulo, BorderLayout.NORTH);
 
 			JPanel centro = new JPanel();
 			centro.setLayout(new BoxLayout(centro, BoxLayout.Y_AXIS));
@@ -145,24 +145,24 @@ public class InventarioPanel extends JPanel {
 
 			JPanel abajo = new JPanel(new FlowLayout());
 			abajo.setBackground(Color.WHITE);
-			JLabel texto1 = new JLabel("Nombre : ");
-			JTextField texto2 = new JTextField();
-			texto2.setMinimumSize(jtextYcomco);
-			texto2.setPreferredSize(jtextYcomco);
-			texto2.setMaximumSize(jtextYcomco);
-			JLabel texto3 = new JLabel("Cantidad : ");
-			JSpinner spinner = new JSpinner(new SpinnerNumberModel(10, 1, 10000, 1));
+			JLabel labelNombre = new JLabel("Nombre : ");
+			JTextField textNombre = new JTextField();
+			textNombre.setMinimumSize(jtextYcomco);
+			textNombre.setPreferredSize(jtextYcomco);
+			textNombre.setMaximumSize(jtextYcomco);
+			JLabel labelCantidad = new JLabel("Cantidad : ");
+			JSpinner spinnerCantidad = new JSpinner(new SpinnerNumberModel(10, 1, 10000, 1));
 			JButton ok = new JButton("Aceptar");
 			ok.setBackground(new Color(50, 205, 50));
 			ok.setFont(new Font("Arial", Font.BOLD, 15));
 			ok.setForeground(Color.WHITE);
 			ok.addActionListener(ee -> {
-				TransferIngrediente in = new TransferIngrediente(controlador.generarCodigoRandom(), texto2.getText(),
-						(int) spinner.getValue());
+				TransferIngrediente in = new TransferIngrediente(controlador.generarCodigoRandom(), textNombre.getText(),
+						(int) spinnerCantidad.getValue());
 				if (controlador.crearIngrediente(in)) {
 					JOptionPane.showMessageDialog(null, "Ingrediente creado correctamente.");
 				} else {
-					JOptionPane.showMessageDialog(null, "Error, el ingrediente '" + texto2.getText() + "' ya existe ",
+					JOptionPane.showMessageDialog(null, "Error, el ingrediente '" + textNombre.getText() + "' ya existe ",
 							"Ingrediente ya existente", JOptionPane.ERROR_MESSAGE);
 				}
 
@@ -182,17 +182,17 @@ public class InventarioPanel extends JPanel {
 			cancelar.addActionListener(ee -> {
 				crearFrame.dispose();
 			});
-			centroArriba.add(texto1);
-			centroArriba.add(texto2);
-			centroAbajo.add(texto3);
+			centroArriba.add(labelNombre);
+			centroArriba.add(textNombre);
+			centroAbajo.add(labelCantidad);
 			centroAbajo.add(Box.createHorizontalStrut(115));
-			centroAbajo.add(spinner);
+			centroAbajo.add(spinnerCantidad);
 			centro.add(centroArriba);
 			centro.add(centroAbajo);
 			abajo.add(cancelar);
 			abajo.add(ok);
-			aux.add(centro, BorderLayout.CENTER);
-			aux.add(abajo, BorderLayout.PAGE_END);
+			panelCrear.add(centro, BorderLayout.CENTER);
+			panelCrear.add(abajo, BorderLayout.PAGE_END);
 
 		});
 /////////////////////////BOTON DE AUMENTAR UN INGREDIENTE///////////////////////
@@ -210,13 +210,13 @@ public class InventarioPanel extends JPanel {
 			crearFrame.setVisible(true);
 			crearFrame.setBackground(Color.white);
 
-			JPanel aux = new JPanel();
-			aux.setLayout(new BorderLayout());
-			aux.setBackground(Color.WHITE);
-			crearFrame.add(aux);
+			JPanel panelModificar = new JPanel();
+			panelModificar.setLayout(new BorderLayout());
+			panelModificar.setBackground(Color.WHITE);
+			crearFrame.add(panelModificar);
 			JLabel titulo = new JLabel("Aumentar suministro", SwingConstants.CENTER);
 			titulo.setFont(new Font("Arial", Font.BOLD, 20));
-			aux.add(titulo, BorderLayout.NORTH);
+			panelModificar.add(titulo, BorderLayout.NORTH);
 			JPanel centro = new JPanel();
 			centro.setLayout(new BoxLayout(centro, BoxLayout.Y_AXIS));
 			JPanel centroArriba = new JPanel();
@@ -226,7 +226,7 @@ public class InventarioPanel extends JPanel {
 			centro.setBackground(Color.white);
 			JPanel abajo = new JPanel(new FlowLayout());
 			abajo.setBackground(Color.WHITE);
-			JLabel texto1 = new JLabel("Producto : ");
+			JLabel labelNombre = new JLabel("Producto : ");
 			String[] combolist = new String[ingredientes.size()];
 			for (int i = 0; i < ingredientes.size(); i++) {
 				combolist[i] = ingredientes.get(i).getNombre();
@@ -240,8 +240,8 @@ public class InventarioPanel extends JPanel {
 				int fila = table.getSelectedRow();
 				comboIngredientes.setSelectedItem(combolist[fila]);
 			}
-			JLabel texto3 = new JLabel("Cantidad : ");
-			JSpinner spinner = new JSpinner(new SpinnerNumberModel(10, 1, 10000, 1));
+			JLabel labelCantidad = new JLabel("Cantidad : ");
+			JSpinner spinnerCantidad = new JSpinner(new SpinnerNumberModel(10, 1, 10000, 1));
 			JButton ok = new JButton("Aceptar");
 			ok.setBackground(new Color(0, 128, 0));
 			ok.setFont(new Font("Arial", Font.BOLD, 15));
@@ -256,7 +256,7 @@ public class InventarioPanel extends JPanel {
 
 					TransferIngrediente in = transformasStringATransferIngrediente(
 							(String) comboIngredientes.getSelectedItem());
-					in.setCantidad(in.getCantidad() + (int) spinner.getValue());
+					in.setCantidad(in.getCantidad() + (int) spinnerCantidad.getValue());
 					if (controlador.modificarIngrediente(in)) {
 						JOptionPane.showMessageDialog(null, "Cantidad modificada correctamente.");
 					} else {
@@ -287,18 +287,18 @@ public class InventarioPanel extends JPanel {
 			centroAbajo.setAlignmentX(CENTER_ALIGNMENT);
 			centroArriba.setOpaque(false);
 			centroAbajo.setOpaque(false);
-			centroArriba.add(texto1);
+			centroArriba.add(labelNombre);
 			centroArriba.add(comboIngredientes);
-			centroAbajo.add(texto3);
+			centroAbajo.add(labelCantidad);
 			centroAbajo.add(Box.createHorizontalStrut(114));
-			centroAbajo.add(spinner);
+			centroAbajo.add(spinnerCantidad);
 			centroAbajo.add(Box.createVerticalStrut(20));
 			centro.add(centroArriba);
 			centro.add(centroAbajo);
 			abajo.add(cancelar);
 			abajo.add(ok);
-			aux.add(centro, BorderLayout.CENTER);
-			aux.add(abajo, BorderLayout.PAGE_END);
+			panelModificar.add(centro, BorderLayout.CENTER);
+			panelModificar.add(abajo, BorderLayout.PAGE_END);
 		});
 
 /////////////////////////BOTON DE ELIMINAR UN INGREDIENTE///////////////////////
@@ -313,18 +313,18 @@ public class InventarioPanel extends JPanel {
 			crearFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			crearFrame.setLocationRelativeTo(null);
 			crearFrame.setVisible(true);
-			JPanel aux = new JPanel();
-			aux.setLayout(new BorderLayout());
-			crearFrame.add(aux);
-			aux.setBackground(Color.white);
+			JPanel panelEliminar = new JPanel();
+			panelEliminar.setLayout(new BorderLayout());
+			crearFrame.add(panelEliminar);
+			panelEliminar.setBackground(Color.white);
 			JLabel titulo = new JLabel("¿Quieres eliminar este producto?", SwingConstants.CENTER);
 			titulo.setFont(new Font("Arial", Font.BOLD, 20));
-			aux.add(titulo, BorderLayout.NORTH);
+			panelEliminar.add(titulo, BorderLayout.NORTH);
 			JPanel centro = new JPanel(new FlowLayout());
 			JPanel abajo = new JPanel(new FlowLayout());
 			centro.setBackground(Color.WHITE);
 			abajo.setBackground(Color.WHITE);
-			JLabel texto1 = new JLabel("Producto");
+			JLabel labelNombre = new JLabel("Producto");
 			String[] combolist = new String[ingredientes.size()];
 			for (int i = 0; i < ingredientes.size(); i++) {
 				combolist[i] = ingredientes.get(i).getNombre();
@@ -376,12 +376,12 @@ public class InventarioPanel extends JPanel {
 			cancelar.addActionListener(ee -> {
 				crearFrame.dispose();
 			});
-			centro.add(texto1);
+			centro.add(labelNombre);
 			centro.add(comboIngredientes);
 			abajo.add(cancelar);
 			abajo.add(ok);
-			aux.add(centro, BorderLayout.CENTER);
-			aux.add(abajo, BorderLayout.PAGE_END);
+			panelEliminar.add(centro, BorderLayout.CENTER);
+			panelEliminar.add(abajo, BorderLayout.PAGE_END);
 		});
 
 /////////////////////////BOTON DE REGRESAR EL MENU DEL GESTOR///////////////////////
