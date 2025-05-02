@@ -32,4 +32,9 @@ public class FachadaDAOPlatoImp implements FachadaDAOPlato  {
 	public void actualizarPlato(TransferPlato plato) {
 		saDaoPlato.actualizarPlato(plato);
 	}
+
+	@Override
+	public boolean comprobarPlato(TransferPlato plato) {
+		return this.saDaoPlato.comprobarPlato(plato);
+	}
 }

@@ -19,7 +19,7 @@ public class TransferPlato {
 
 	}
 
-	public TransferPlato(String id, String nombre, Map<String, Integer> ingredientes, int precio,
+	public TransferPlato(String id, String nombre, Map<String, Integer> ingredientes, double precio,
 			String categoria, String iconPath) {
 		this.id = id;
 		this.nombre = nombre;

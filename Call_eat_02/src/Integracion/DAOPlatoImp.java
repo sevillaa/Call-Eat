@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import Negocio.TransferEmpleado;
+import Negocio.TransferIngrediente;
 import Negocio.TransferPlato;
 
 public class DAOPlatoImp {
@@ -58,8 +59,10 @@ public class DAOPlatoImp {
 			while (i < platos.size() && !platos.get(i).getId().equals(platoActualizado.getId())) {
 				i++;
 			}
-			platos.set(i, platoActualizado);
-			objectMapper.writeValue(new File(FILE_PATH), platos);
+			 if (i != platos.size()) {
+				 platos.set(i, platoActualizado);
+					objectMapper.writeValue(new File(FILE_PATH), platos);
+		        }
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -82,5 +85,13 @@ public class DAOPlatoImp {
 	public List<TransferPlato> obtenerPlatos() {
 		return Collections.unmodifiableList(this.platos);
 	}
-
+	public boolean comprobarPlato(TransferPlato plato) {
+		for(TransferPlato p : this.platos) {
+			if(p.getId().equals(plato.getId()) || p.getNombre().equals(plato.getNombre())) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
 }

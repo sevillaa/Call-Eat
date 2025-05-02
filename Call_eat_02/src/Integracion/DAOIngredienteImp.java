@@ -60,6 +60,9 @@ public class DAOIngredienteImp {
 			while (i < ingredientes.size() && !ingredientes.get(i).getId().equals(ingredienteActualizado.getId())) {
 				i++;
 			}
+			 if (i == ingredientes.size()) {
+		            return false; // No se encontró el ingrediente
+		        }
 			ingredientes.set(i, ingredienteActualizado);
 			
 			objectMapper.writeValue(new File(FILE_PATH), ingredientes);
@@ -103,7 +106,14 @@ public class DAOIngredienteImp {
 	public List<TransferIngrediente> obtenerIngredientes() {
 		return Collections.unmodifiableList(this.ingredientes);
 	}
-
+	public boolean comprobarIngrediente(TransferIngrediente ingrediente) {
+		for(TransferIngrediente i : this.ingredientes) {
+			if(i.getId().equals(ingrediente.getId()) || i.getNombre().equals(ingrediente.getNombre())) {
+				return true;
+			}
+		}
+		return false;
+	}
 	public TransferIngrediente buscarIngredientePorNombre(String nombreIngrediente) {
 		List<TransferIngrediente> ingredientes = obtenerTodos();
 

@@ -10,6 +10,7 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -39,396 +40,442 @@ import javax.swing.table.TableColumnModel;
 import Negocio.TransferEmpleado;
 import Negocio.TransferIngrediente;
 
-public class InventarioPanel extends JPanel{
-	
+public class InventarioPanel extends JPanel {
+
 	private JPanel panelContenedor;
 	private JFrame frame;
 	private JTable table;
-    private CardLayout cardLayout;
+	private CardLayout cardLayout;
 	private Controlador controlador;
-	
-	public InventarioPanel(JPanel panelContenedor, CardLayout cardLayout,Controlador controlador) {
-		this.panelContenedor=panelContenedor;
-		this.cardLayout=cardLayout;
-		this.controlador=controlador;
+	private List<TransferIngrediente> ingredientes;
+
+	public InventarioPanel(JPanel panelContenedor, CardLayout cardLayout, Controlador controlador) {
+		this.panelContenedor = panelContenedor;
+		this.cardLayout = cardLayout;
+		this.controlador = controlador;
+		this.ingredientes = new ArrayList<>();
 		initComponents();
 	}
+
 	private void cargarIngredientes() {
-		
-	    List<TransferIngrediente> ingredientes = controlador.listaIngredientes();
 
-	    String[] columnas = {"Nombre de producto", "Cantidad"};
-        Object[][] datosIngredientes = new Object[ingredientes.size()][2];
+		ingredientes = controlador.listaIngredientes();
 
-        for (int i = 0; i < ingredientes.size(); i++) {
-            TransferIngrediente ingrediente = ingredientes.get(i);
-            datosIngredientes[i][0] = ingrediente.getNombre();
-            datosIngredientes[i][1]= ingrediente.getCantidad();
-        }
-        //table.setModel(datosIngredientes, columnas);
-        
-        table.setModel(new DefaultTableModel(datosIngredientes, columnas));
-        TableColumnModel columnModel = table.getColumnModel();
-        TableColumn col1 = columnModel.getColumn(0); // Columna 1 (Nombre de producto)
-        TableColumn col2 = columnModel.getColumn(1); // Columna 2 (Cantidad)
-        
-        //col1.setPreferredWidth(200); // Ajusta el tamaño de la primera columna (Nombre de producto)
-        col2.setPreferredWidth(60); // Ajusta el tamaño de la segunda columna (Cantidad)
-        col2.setMinWidth(40);
-        col2.setMaxWidth(100);
-        // Centrar el contenido de la columna "Cantidad"
-        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-        renderer.setHorizontalAlignment(SwingConstants.CENTER);  // Centra el contenido
-        col2.setCellRenderer(renderer);  // Aplica el renderizador a la columna "Cantidad"
-	    //tabla.setModel(new javax.swing.table.DefaultTableModel(datosEmpleados, columnas));
+		String[] columnas = { "Nombre de producto", "Cantidad" };
+		Object[][] datosIngredientes = new Object[ingredientes.size()][2];
+
+		for (int i = 0; i < ingredientes.size(); i++) {
+			TransferIngrediente ingrediente = ingredientes.get(i);
+			datosIngredientes[i][0] = ingrediente.getNombre();
+			datosIngredientes[i][1] = ingrediente.getCantidad();
+		}
+		// table.setModel(datosIngredientes, columnas);
+
+		table.setModel(new DefaultTableModel(datosIngredientes, columnas));
+		TableColumnModel columnModel = table.getColumnModel();
+		TableColumn col1 = columnModel.getColumn(0); // Columna 1 (Nombre de producto)
+		TableColumn col2 = columnModel.getColumn(1); // Columna 2 (Cantidad)
+
+		// col1.setPreferredWidth(200); // Ajusta el tamaño de la primera columna
+		// (Nombre de producto)
+		col2.setPreferredWidth(60); // Ajusta el tamaño de la segunda columna (Cantidad)
+		col2.setMinWidth(40);
+		col2.setMaxWidth(100);
+		// Centrar el contenido de la columna "Cantidad"
+		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
+		renderer.setHorizontalAlignment(SwingConstants.CENTER); // Centra el contenido
+		col2.setCellRenderer(renderer); // Aplica el renderizador a la columna "Cantidad"
+		// tabla.setModel(new javax.swing.table.DefaultTableModel(datosEmpleados,
+		// columnas));
 	}
+
 	private void initComponents() {
-		//this.setSize(1000, 500);
+		// this.setSize(1000, 500);
 		this.setLayout(new BorderLayout());
 		JPanel panelSuperior = new JPanel(new BorderLayout());
 		JPanel panelCentral = new JPanel(new BorderLayout());
 		panelCentral.setBackground(Color.white);
 		JPanel panelBotones = new JPanel(new FlowLayout());
 		panelBotones.setBackground(new Color(173, 216, 230));
-		//panelBotones.setLayout(new BoxLayout(panelBotones, BoxLayout.Y_AXIS)); 
-		//panelBotones.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 10)); 
-		
+		// panelBotones.setLayout(new BoxLayout(panelBotones, BoxLayout.Y_AXIS));
+		// panelBotones.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 10));
+
 		JLabel tituloPlantilla = new JLabel("Inventario", SwingConstants.CENTER);
-        tituloPlantilla.setFont(new Font("Arial", Font.BOLD, 20));
-        panelCentral.add(tituloPlantilla, BorderLayout.NORTH);
-        
-        /*
-        List<TransferIngrediente> ingredientes = controlador.listaIngredientes();
-        
-        // Crear la tabla con los empleados
-        String[] columnas = {"Nombre de producto", "Cantidad"};
-        Object[][] datosIngredientes = new Object[ingredientes.size()][2];
+		tituloPlantilla.setFont(new Font("Arial", Font.BOLD, 20));
+		panelCentral.add(tituloPlantilla, BorderLayout.NORTH);
 
-        for (int i = 0; i < ingredientes.size(); i++) {
-            TransferIngrediente ingrediente = ingredientes.get(i);
-            datosIngredientes[i][0] = ingrediente.getNombre();
-            datosIngredientes[i][1]= ingrediente.getCantidad();
-        }*/
-        //JTable tabla = new JTable(datosIngredientes, columnas);
-        //table=new JTable();
-        table=new JTable();
-        cargarIngredientes();
-        
-        
-        
-        
-        
-        
-        JScrollPane scrollTabla = new JScrollPane(table);
-        panelCentral.add(scrollTabla, BorderLayout.CENTER);
-        //this.add(panelLista,BorderLayout.CENTER);
-        
-        //JPanel panelBotones = new JPanel(new FlowLayout());
+		/*
+		 * List<TransferIngrediente> ingredientes = controlador.listaIngredientes();
+		 * 
+		 * // Crear la tabla con los empleados String[] columnas =
+		 * {"Nombre de producto", "Cantidad"}; Object[][] datosIngredientes = new
+		 * Object[ingredientes.size()][2];
+		 * 
+		 * for (int i = 0; i < ingredientes.size(); i++) { TransferIngrediente
+		 * ingrediente = ingredientes.get(i); datosIngredientes[i][0] =
+		 * ingrediente.getNombre(); datosIngredientes[i][1]= ingrediente.getCantidad();
+		 * }
+		 */
+		// JTable tabla = new JTable(datosIngredientes, columnas);
+		// table=new JTable();
+		table = new JTable();
+		cargarIngredientes();
 
-        Dimension botonDimension = new Dimension(150, 40); // Tamaño común para los botones
-        Dimension jtextYcomco = new Dimension(200,25);
-        
-        /////////////////////////BOTON DE CREAR UN NUEVO INGREDIENTE///////////////////////
-        JButton btonAnadir = new JButton("Crear");
-       // btonAnadir.setPreferredSize(botonDimension);
-        //btonAnadir.setMinimumSize(botonDimension);
-        //btonAnadir.setMaximumSize(botonDimension);
-        btonAnadir.setBackground(new Color(50, 205, 50)); 
-        btonAnadir.setForeground(Color.WHITE);
-        btonAnadir.setFont(new Font("Arial",Font.BOLD,13));
-        btonAnadir.addActionListener(e -> {
-            JFrame crearFrame = new JFrame("Crear Ingrediente");
-            crearFrame.setResizable(false);
-            crearFrame.setSize(400, 200);
-            crearFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            crearFrame.setLocationRelativeTo(null);
-            crearFrame.setVisible(true);
-            
-            
-            
-            JPanel aux = new JPanel();
-            aux.setBackground(Color.WHITE);
-            aux.setLayout(new BorderLayout());
-            crearFrame.add(aux);
-            
-            JLabel titulo = new JLabel("Creacion de ingrediente", SwingConstants.CENTER);
-            titulo.setFont(new Font("Arial", Font.BOLD, 20));
-            aux.add(titulo, BorderLayout.NORTH);
-            
-            
-            JPanel centro = new JPanel();
-       	 	centro.setLayout(new BoxLayout(centro,BoxLayout.Y_AXIS));
-       	 	JPanel centroArriba = new JPanel();
-       	 	JPanel centroAbajo= new JPanel();
-       	 	centroArriba.setBackground(Color.white);
-       	 	centroAbajo.setBackground(Color.white);
-       	 	centro.setBackground(Color.white);
-            centro.setBackground(Color.WHITE);
-            
-            
-            JPanel abajo = new JPanel(new FlowLayout());
-            abajo.setBackground(Color.WHITE);
-            JLabel texto1 = new JLabel("Nombre : ");
-            JTextField texto2 = new JTextField();
-            texto2.setMinimumSize(jtextYcomco);
-            texto2.setPreferredSize(jtextYcomco);
-            texto2.setMaximumSize(jtextYcomco);
-            JLabel texto3 = new JLabel("Cantidad : ");
-    		JSpinner spinner = new JSpinner(new SpinnerNumberModel(10, 1, 10000, 1));
-    		JButton ok = new JButton("Aceptar");
-    		ok.setBackground(new Color(50, 205, 50));
-    		ok.setFont(new Font("Arial",Font.BOLD,15));
-    		ok.setForeground(Color.WHITE);
-    		ok.addActionListener(ee ->{
-    			TransferIngrediente in = new TransferIngrediente(controlador.generarCodigoRandom(),texto2.getText(), (int) spinner.getValue());
-        		if(controlador.crearIngrediente(in)) {
-        			JOptionPane.showMessageDialog(null, "Ingrediente creado correctamente.");
-        		}
-        		else {
-        			JOptionPane.showMessageDialog(null, "Error.");
-        		}
-        		
-        		crearFrame.addWindowListener(new WindowAdapter() {
-        			@Override
-        			public void windowClosed(WindowEvent e) {
-                        cargarIngredientes();
-                    }
-        			
-        		});
-        		crearFrame.dispose();
-        		//SwingUtilities.getWindowAncestor(InventarioPanel.this).dispose();
-        		//GUIGestor.resetInstancia();
-        		//GUIGestor.getInstancia(controlador,null);
-    		});
-    		JButton cancelar = new JButton("Cancelar");
-    		cancelar.setBackground(Color.GRAY);
-    		cancelar.setFont(new Font("Arial",Font.BOLD,15));
-    		cancelar.setForeground(Color.WHITE);
-    		cancelar.addActionListener(ee ->{
-    			crearFrame.dispose();
-    		});
-            centroArriba.add(texto1);
-            centroArriba.add(texto2);
-            //centro.add(Box.createHorizontalStrut(100));
-            centroAbajo.add(texto3);
-            centroAbajo.add(Box.createHorizontalStrut(115));
-            centroAbajo.add(spinner);      
-            centro.add(centroArriba);
-            centro.add(centroAbajo);
-            abajo.add(cancelar);
-            abajo.add(ok);
-            aux.add(centro,BorderLayout.CENTER);
-            aux.add(abajo,BorderLayout.PAGE_END);
-            
-        });
+		JScrollPane scrollTabla = new JScrollPane(table);
+		panelCentral.add(scrollTabla, BorderLayout.CENTER);
+		// this.add(panelLista,BorderLayout.CENTER);
+
+		// JPanel panelBotones = new JPanel(new FlowLayout());
+
+		Dimension botonDimension = new Dimension(150, 40); // Tamaño común para los botones
+		Dimension jtextYcomco = new Dimension(200, 25);
+
+		///////////////////////// BOTON DE CREAR UN NUEVO
+		///////////////////////// INGREDIENTE///////////////////////
+		JButton btonAnadir = new JButton("Crear");
+		// btonAnadir.setPreferredSize(botonDimension);
+		// btonAnadir.setMinimumSize(botonDimension);
+		// btonAnadir.setMaximumSize(botonDimension);
+		btonAnadir.setBackground(new Color(50, 205, 50));
+		btonAnadir.setForeground(Color.WHITE);
+		btonAnadir.setFont(new Font("Arial", Font.BOLD, 13));
+		btonAnadir.addActionListener(e -> {
+			JFrame crearFrame = new JFrame("Crear Ingrediente");
+			crearFrame.setResizable(false);
+			crearFrame.setSize(400, 200);
+			crearFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			crearFrame.setLocationRelativeTo(null);
+			crearFrame.setVisible(true);
+
+			JPanel aux = new JPanel();
+			aux.setBackground(Color.WHITE);
+			aux.setLayout(new BorderLayout());
+			crearFrame.add(aux);
+
+			JLabel titulo = new JLabel("Creacion de ingrediente", SwingConstants.CENTER);
+			titulo.setFont(new Font("Arial", Font.BOLD, 20));
+			aux.add(titulo, BorderLayout.NORTH);
+
+			JPanel centro = new JPanel();
+			centro.setLayout(new BoxLayout(centro, BoxLayout.Y_AXIS));
+			JPanel centroArriba = new JPanel();
+			JPanel centroAbajo = new JPanel();
+			centroArriba.setBackground(Color.white);
+			centroAbajo.setBackground(Color.white);
+			centro.setBackground(Color.white);
+			centro.setBackground(Color.WHITE);
+
+			JPanel abajo = new JPanel(new FlowLayout());
+			abajo.setBackground(Color.WHITE);
+			JLabel texto1 = new JLabel("Nombre : ");
+			JTextField texto2 = new JTextField();
+			texto2.setMinimumSize(jtextYcomco);
+			texto2.setPreferredSize(jtextYcomco);
+			texto2.setMaximumSize(jtextYcomco);
+			JLabel texto3 = new JLabel("Cantidad : ");
+			JSpinner spinner = new JSpinner(new SpinnerNumberModel(10, 1, 10000, 1));
+			JButton ok = new JButton("Aceptar");
+			ok.setBackground(new Color(50, 205, 50));
+			ok.setFont(new Font("Arial", Font.BOLD, 15));
+			ok.setForeground(Color.WHITE);
+			ok.addActionListener(ee -> {
+				TransferIngrediente in = new TransferIngrediente(controlador.generarCodigoRandom(), texto2.getText(),
+						(int) spinner.getValue());
+				if (controlador.crearIngrediente(in)) {
+					JOptionPane.showMessageDialog(null, "Ingrediente creado correctamente.");
+				} else {
+					JOptionPane.showMessageDialog(null, "Error, el ingrediente '" + texto2.getText() + "' ya existe ",
+							"Ingrediente ya existente", JOptionPane.ERROR_MESSAGE);
+				}
+
+				crearFrame.addWindowListener(new WindowAdapter() {
+					@Override
+					public void windowClosed(WindowEvent e) {
+						cargarIngredientes();
+					}
+
+				});
+				crearFrame.dispose();
+				// SwingUtilities.getWindowAncestor(InventarioPanel.this).dispose();
+				// GUIGestor.resetInstancia();
+				// GUIGestor.getInstancia(controlador,null);
+			});
+			JButton cancelar = new JButton("Cancelar");
+			cancelar.setBackground(Color.GRAY);
+			cancelar.setFont(new Font("Arial", Font.BOLD, 15));
+			cancelar.setForeground(Color.WHITE);
+			cancelar.addActionListener(ee -> {
+				crearFrame.dispose();
+			});
+			centroArriba.add(texto1);
+			centroArriba.add(texto2);
+			// centro.add(Box.createHorizontalStrut(100));
+			centroAbajo.add(texto3);
+			centroAbajo.add(Box.createHorizontalStrut(115));
+			centroAbajo.add(spinner);
+			centro.add(centroArriba);
+			centro.add(centroAbajo);
+			abajo.add(cancelar);
+			abajo.add(ok);
+			aux.add(centro, BorderLayout.CENTER);
+			aux.add(abajo, BorderLayout.PAGE_END);
+
+		});
 /////////////////////////BOTON DE AUMENTAR UN INGREDIENTE///////////////////////
-        
-        JButton btnAumentar = new JButton("Aumentar");
-        //btnAumentar.setPreferredSize(botonDimension);
-        //btnAumentar.setMinimumSize(botonDimension);
-        //btnAumentar.setMaximumSize(botonDimension);
-        btnAumentar.setBackground(new Color(0, 128, 0)); 
-        btnAumentar.setForeground(Color.WHITE);
-        btnAumentar.setFont(new Font("Arial",Font.BOLD,13));
-        btnAumentar.addActionListener(e->{        	    	       	
-        	JFrame crearFrame = new JFrame("Aumentar Ingrediente");
-        	crearFrame.setResizable(false);
-            crearFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            crearFrame.setSize(400, 200);
-            crearFrame.setLocationRelativeTo(null);
-            crearFrame.setVisible(true);
-            crearFrame.setBackground(Color.white);
-            
-            JPanel aux = new JPanel();
-            aux.setLayout(new BorderLayout());
-            aux.setBackground(Color.WHITE);
-            crearFrame.add(aux);            
-            JLabel titulo = new JLabel("Aumentar suministro", SwingConstants.CENTER);
-            titulo.setFont(new Font("Arial", Font.BOLD, 20));
-            aux.add(titulo, BorderLayout.NORTH);
-        	 //JPanel centro = new JPanel(new FlowLayout());
-        	 JPanel centro = new JPanel();
-        	 centro.setLayout(new BoxLayout(centro,BoxLayout.Y_AXIS));
-        	 JPanel centroArriba = new JPanel();
-        	 JPanel centroAbajo= new JPanel();
-        	 centroArriba.setBackground(Color.white);
-        	 centroAbajo.setBackground(Color.white);
-        	 centro.setBackground(Color.white);
-        	 JPanel abajo = new JPanel(new FlowLayout());
-        	 abajo.setBackground(Color.WHITE);
-             JLabel texto1 = new JLabel("Producto : ");
-             List<TransferIngrediente> combo = controlador.listaIngredientes();
-             TransferIngrediente [] combolist  = new TransferIngrediente[combo.size()];         	
-         	 for(int i=0;i<combo.size();i++){
-         		combolist[i]=combo.get(i);
-         	}
-         	 JComboBox<TransferIngrediente> comboIngredientes = new JComboBox<>(combolist);
-         	 comboIngredientes.setEditable(true);
-         	comboIngredientes.setMinimumSize(jtextYcomco);
-         	comboIngredientes.setPreferredSize(jtextYcomco);
-         	comboIngredientes.setMaximumSize(jtextYcomco);
-         	if(table.getSelectedRow()!=-1) {
-         		int fila=table.getSelectedRow();
-         		comboIngredientes.setSelectedItem(combolist[fila]);
-         	}
-             JLabel texto3 = new JLabel("Cantidad : ");
-     		 JSpinner spinner = new JSpinner(new SpinnerNumberModel(10, 1, 10000, 1));    	
-     		 //spinner.setMinimumSize(jtextYcomco);
-     		 //spinner.setMaximumSize(jtextYcomco);
-     		// spinner.setPreferredSize(jtextYcomco);
-     		JButton ok = new JButton("Aceptar");
-     		ok.setBackground(new Color(0, 128, 0));
-    		ok.setFont(new Font("Arial",Font.BOLD,15));
-    		ok.setForeground(Color.WHITE);
-    		ok.addActionListener(ee ->{    			
-    			TransferIngrediente in=(TransferIngrediente) comboIngredientes.getSelectedItem();    			
-    			in.setCantidad(in.getCantidad()+ (int) spinner.getValue());
-    			if(controlador.modificarIngrediente(in)) {
-    				JOptionPane.showMessageDialog(null, "Cantidad modificada correctamente.");
-    			}
-    			crearFrame.addWindowListener(new WindowAdapter() {
-        			@Override
-        			public void windowClosed(WindowEvent e) {
-                        cargarIngredientes();
-                    }
-        			
-        		});
-        		crearFrame.dispose();
-        		//SwingUtilities.getWindowAncestor(InventarioPanel.this).dispose();
-        		//GUIGestor.resetInstancia();
-        		//GUIGestor.getInstancia(controlador,null);
-    		});
-    		JButton cancelar = new JButton("Cancelar");
-    		cancelar.setBackground(Color.GRAY);
-    		cancelar.setFont(new Font("Arial",Font.BOLD,15));
-    		cancelar.setForeground(Color.WHITE);
-    		cancelar.addActionListener(ee ->{
-    			crearFrame.dispose();
-    		});
-    		centroArriba.setAlignmentX(CENTER_ALIGNMENT);
-    		centroAbajo.setAlignmentX(CENTER_ALIGNMENT);
-    		centroArriba.setOpaque(false);
-    		centroAbajo.setOpaque(false);
-    		centroArriba.add(texto1);
-    		centroArriba.add(comboIngredientes);
-    		centroAbajo.add(texto3);
-    		centroAbajo.add(Box.createHorizontalStrut(114));
-    		centroAbajo.add(spinner);
-    		centroAbajo.add(Box.createVerticalStrut(20));
-    		centro.add(centroArriba);
-    		centro.add(centroAbajo);
-    		abajo.add(cancelar);
-    		abajo.add(ok);
-    		aux.add(centro,BorderLayout.CENTER);
-    		aux.add(abajo,BorderLayout.PAGE_END);
-        });
-        
+
+		JButton btnAumentar = new JButton("Aumentar");
+		// btnAumentar.setPreferredSize(botonDimension);
+		// btnAumentar.setMinimumSize(botonDimension);
+		// btnAumentar.setMaximumSize(botonDimension);
+		btnAumentar.setBackground(new Color(0, 128, 0));
+		btnAumentar.setForeground(Color.WHITE);
+		btnAumentar.setFont(new Font("Arial", Font.BOLD, 13));
+		btnAumentar.addActionListener(e -> {
+			JFrame crearFrame = new JFrame("Aumentar Ingrediente");
+			crearFrame.setResizable(false);
+			crearFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			crearFrame.setSize(400, 200);
+			crearFrame.setLocationRelativeTo(null);
+			crearFrame.setVisible(true);
+			crearFrame.setBackground(Color.white);
+
+			JPanel aux = new JPanel();
+			aux.setLayout(new BorderLayout());
+			aux.setBackground(Color.WHITE);
+			crearFrame.add(aux);
+			JLabel titulo = new JLabel("Aumentar suministro", SwingConstants.CENTER);
+			titulo.setFont(new Font("Arial", Font.BOLD, 20));
+			aux.add(titulo, BorderLayout.NORTH);
+			// JPanel centro = new JPanel(new FlowLayout());
+			JPanel centro = new JPanel();
+			centro.setLayout(new BoxLayout(centro, BoxLayout.Y_AXIS));
+			JPanel centroArriba = new JPanel();
+			JPanel centroAbajo = new JPanel();
+			centroArriba.setBackground(Color.white);
+			centroAbajo.setBackground(Color.white);
+			centro.setBackground(Color.white);
+			JPanel abajo = new JPanel(new FlowLayout());
+			abajo.setBackground(Color.WHITE);
+			JLabel texto1 = new JLabel("Producto : ");
+			String[] combolist = new String[ingredientes.size()];
+			for (int i = 0; i < ingredientes.size(); i++) {
+				combolist[i] = ingredientes.get(i).getNombre();
+			}
+			JComboBox<String> comboIngredientes = new JComboBox<>(combolist);
+			comboIngredientes.setEditable(true);
+			comboIngredientes.setMinimumSize(jtextYcomco);
+			comboIngredientes.setPreferredSize(jtextYcomco);
+			comboIngredientes.setMaximumSize(jtextYcomco);
+			if (table.getSelectedRow() != -1) {
+				int fila = table.getSelectedRow();
+				comboIngredientes.setSelectedItem(combolist[fila]);
+			}
+			JLabel texto3 = new JLabel("Cantidad : ");
+			JSpinner spinner = new JSpinner(new SpinnerNumberModel(10, 1, 10000, 1));
+			// spinner.setMinimumSize(jtextYcomco);
+			// spinner.setMaximumSize(jtextYcomco);
+			// spinner.setPreferredSize(jtextYcomco);
+			JButton ok = new JButton("Aceptar");
+			ok.setBackground(new Color(0, 128, 0));
+			ok.setFont(new Font("Arial", Font.BOLD, 15));
+			ok.setForeground(Color.WHITE);
+			ok.addActionListener(ee -> {
+				if (!comprobarIngredienteComboBoxAumentar((String) comboIngredientes.getSelectedItem())) {
+
+					JOptionPane.showMessageDialog(null,
+							"El ingrediente '" + (String) comboIngredientes.getSelectedItem() + "' no existe", "Aviso",
+							JOptionPane.WARNING_MESSAGE);
+				} else {
+
+					TransferIngrediente in = transformasStringATransferIngrediente(
+							(String) comboIngredientes.getSelectedItem());
+					in.setCantidad(in.getCantidad() + (int) spinner.getValue());
+					if (controlador.modificarIngrediente(in)) {
+						JOptionPane.showMessageDialog(null, "Cantidad modificada correctamente.");
+					} else {
+						JOptionPane.showMessageDialog(null,
+								"El ingrediente '" + comboIngredientes.getSelectedIndex() + "' no existe",
+								"No existe este ingrediente", JOptionPane.ERROR_MESSAGE);
+					}
+					crearFrame.dispose();
+				}
+
+				crearFrame.addWindowListener(new WindowAdapter() {
+					@Override
+					public void windowClosed(WindowEvent e) {
+						cargarIngredientes();
+					}
+
+				});
+				
+				// SwingUtilities.getWindowAncestor(InventarioPanel.this).dispose();
+				// GUIGestor.resetInstancia();
+				// GUIGestor.getInstancia(controlador,null);
+			});
+			JButton cancelar = new JButton("Cancelar");
+			cancelar.setBackground(Color.GRAY);
+			cancelar.setFont(new Font("Arial", Font.BOLD, 15));
+			cancelar.setForeground(Color.WHITE);
+			cancelar.addActionListener(ee -> {
+				crearFrame.dispose();
+			});
+			centroArriba.setAlignmentX(CENTER_ALIGNMENT);
+			centroAbajo.setAlignmentX(CENTER_ALIGNMENT);
+			centroArriba.setOpaque(false);
+			centroAbajo.setOpaque(false);
+			centroArriba.add(texto1);
+			centroArriba.add(comboIngredientes);
+			centroAbajo.add(texto3);
+			centroAbajo.add(Box.createHorizontalStrut(114));
+			centroAbajo.add(spinner);
+			centroAbajo.add(Box.createVerticalStrut(20));
+			centro.add(centroArriba);
+			centro.add(centroAbajo);
+			abajo.add(cancelar);
+			abajo.add(ok);
+			aux.add(centro, BorderLayout.CENTER);
+			aux.add(abajo, BorderLayout.PAGE_END);
+		});
+
 /////////////////////////BOTON DE ELIMINAR UN INGREDIENTE///////////////////////
-        JButton btnEliminar= new JButton("Eliminar");
-       // btnEliminar.setPreferredSize(botonDimension);
-        //btnEliminar.setMinimumSize(botonDimension);
-       // btnEliminar.setMaximumSize(botonDimension);
-        btnEliminar.setBackground(new Color(255, 69, 58));
-        btnEliminar.setForeground(Color.WHITE);
-        btnEliminar.setFont(new Font("Arial",Font.BOLD,13));
-        
-        btnEliminar.addActionListener(e->{
-        	JFrame crearFrame = new JFrame("Eliminar Ingrediente");
-        	crearFrame.setResizable(false);
-            crearFrame.setSize(400, 150);
-            crearFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            crearFrame.setLocationRelativeTo(null);
-            crearFrame.setVisible(true);
-            JPanel aux = new JPanel();
-            aux.setLayout(new BorderLayout());
-            crearFrame.add(aux);         
-            aux.setBackground(Color.white);
-            JLabel titulo = new JLabel("¿Quieres eliminar este producto?", SwingConstants.CENTER);
-            titulo.setFont(new Font("Arial", Font.BOLD, 20));
-            aux.add(titulo, BorderLayout.NORTH);
-        	 JPanel centro = new JPanel(new FlowLayout());
-             JPanel abajo = new JPanel(new FlowLayout());
-             centro.setBackground(Color.WHITE);
-             abajo.setBackground(Color.WHITE);
-             JLabel texto1 = new JLabel("Producto");
-             List<TransferIngrediente> combo = controlador.listaIngredientes();
-             TransferIngrediente [] combolist  = new TransferIngrediente[combo.size()];         	
-         	 for(int i=0;i<combo.size();i++){
-         		combolist[i]=combo.get(i);
-         	}
-         	 JComboBox<TransferIngrediente> comboIngredientes = new JComboBox<>(combolist);
-         	 comboIngredientes.setEditable(true);   		 
-         	if(table.getSelectedRow()!=-1) {
-         		int fila=table.getSelectedRow();
-         		comboIngredientes.setSelectedItem(combolist[fila]);
-         	}
-     		JButton ok = new JButton("Eliminar");
-     		ok.setBackground(new Color(255, 69, 58));
-    		ok.setFont(new Font("Arial",Font.BOLD,15));
-    		ok.setForeground(Color.WHITE);
-    		ok.addActionListener(ee ->{    			
-    			TransferIngrediente in=(TransferIngrediente) comboIngredientes.getSelectedItem();
-    			if(controlador.eliminarIngrediente(in)) {
-    				JOptionPane.showMessageDialog(null, "Ingrediente eliminado correctamente.");
-    			}
-    			crearFrame.addWindowListener(new WindowAdapter() {
-        			@Override
-        			public void windowClosed(WindowEvent e) {
-                        cargarIngredientes();
-                    }
-        			
-        		});
-        		crearFrame.dispose();
-    		});
-    		JButton cancelar = new JButton("Cancelar");
-    		cancelar.setBackground(Color.GRAY);
-    		cancelar.setFont(new Font("Arial",Font.BOLD,15));
-    		cancelar.setForeground(Color.WHITE);
-    		cancelar.addActionListener(ee ->{
-    			crearFrame.dispose();
-    		});
-    		centro.add(texto1);
-    		centro.add(comboIngredientes);
-    		abajo.add(cancelar);
-    		abajo.add(ok);
-    		aux.add(centro,BorderLayout.CENTER);
-    		aux.add(abajo,BorderLayout.PAGE_END);
-        });
-        
+		JButton btnEliminar = new JButton("Eliminar");
+		// btnEliminar.setPreferredSize(botonDimension);
+		// btnEliminar.setMinimumSize(botonDimension);
+		// btnEliminar.setMaximumSize(botonDimension);
+		btnEliminar.setBackground(new Color(255, 69, 58));
+		btnEliminar.setForeground(Color.WHITE);
+		btnEliminar.setFont(new Font("Arial", Font.BOLD, 13));
+
+		btnEliminar.addActionListener(e -> {
+			JFrame crearFrame = new JFrame("Eliminar Ingrediente");
+			crearFrame.setResizable(false);
+			crearFrame.setSize(400, 150);
+			crearFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			crearFrame.setLocationRelativeTo(null);
+			crearFrame.setVisible(true);
+			JPanel aux = new JPanel();
+			aux.setLayout(new BorderLayout());
+			crearFrame.add(aux);
+			aux.setBackground(Color.white);
+			JLabel titulo = new JLabel("¿Quieres eliminar este producto?", SwingConstants.CENTER);
+			titulo.setFont(new Font("Arial", Font.BOLD, 20));
+			aux.add(titulo, BorderLayout.NORTH);
+			JPanel centro = new JPanel(new FlowLayout());
+			JPanel abajo = new JPanel(new FlowLayout());
+			centro.setBackground(Color.WHITE);
+			abajo.setBackground(Color.WHITE);
+			JLabel texto1 = new JLabel("Producto");
+			String[] combolist = new String[ingredientes.size()];
+			for (int i = 0; i < ingredientes.size(); i++) {
+				combolist[i] = ingredientes.get(i).getNombre();
+			}
+			JComboBox<String> comboIngredientes = new JComboBox<>(combolist);
+			comboIngredientes.setEditable(true);
+			if (table.getSelectedRow() != -1) {
+				int fila = table.getSelectedRow();
+				comboIngredientes.setSelectedItem(combolist[fila]);
+			}
+			JButton ok = new JButton("Eliminar");
+			ok.setBackground(new Color(255, 69, 58));
+			ok.setFont(new Font("Arial", Font.BOLD, 15));
+			ok.setForeground(Color.WHITE);
+			ok.addActionListener(ee -> {
+				if (!comprobarIngredienteComboBoxAumentar((String) comboIngredientes.getSelectedItem())) {
+
+					JOptionPane.showMessageDialog(null,
+							"El ingrediente '" + (String) comboIngredientes.getSelectedItem() + "' no existe", "Aviso",
+							JOptionPane.WARNING_MESSAGE);
+				}
+				else {
+					TransferIngrediente in = transformasStringATransferIngrediente(
+							(String) comboIngredientes.getSelectedItem());
+					if (controlador.eliminarIngrediente(in)) {
+						JOptionPane.showMessageDialog(null, "Ingrediente eliminado correctamente.");
+					}
+					else {
+						JOptionPane.showMessageDialog(null,
+								"El ingrediente '" + comboIngredientes.getSelectedIndex() + "' no existe",
+								"No existe este ingrediente", JOptionPane.ERROR_MESSAGE);
+					}
+					crearFrame.dispose();
+				}
+				
+				crearFrame.addWindowListener(new WindowAdapter() {
+					@Override
+					public void windowClosed(WindowEvent e) {
+						cargarIngredientes();
+					}
+
+				});
+				
+			});
+			JButton cancelar = new JButton("Cancelar");
+			cancelar.setBackground(Color.GRAY);
+			cancelar.setFont(new Font("Arial", Font.BOLD, 15));
+			cancelar.setForeground(Color.WHITE);
+			cancelar.addActionListener(ee -> {
+				crearFrame.dispose();
+			});
+			centro.add(texto1);
+			centro.add(comboIngredientes);
+			abajo.add(cancelar);
+			abajo.add(ok);
+			aux.add(centro, BorderLayout.CENTER);
+			aux.add(abajo, BorderLayout.PAGE_END);
+		});
+
 /////////////////////////BOTON DE REGRESAR EL MENU DEL GESTOR///////////////////////
-        ImageIcon volverIcono = new ImageIcon("resources/botonAtras.png");
-        Image volverIconoImagen = volverIcono.getImage().getScaledInstance(35,35, Image.SCALE_SMOOTH);
-        JButton btnVolver = new JButton("Volver",new ImageIcon(volverIconoImagen));
-        btnVolver.setFont(new Font("Arial",Font.BOLD,10));
-        btnVolver.setForeground(Color.white);
-        btnVolver.setPreferredSize(new Dimension(110,20));
-        btnVolver.setContentAreaFilled(false); // elimina el fondo estirado
-        btnVolver.setBorderPainted(false);    // elimina el borde
-        btnVolver.setFocusPainted(false);     // quita ese borde de foco azul
-        btnVolver.setHorizontalAlignment(SwingConstants.CENTER);
-        btnVolver.setVerticalAlignment(SwingConstants.CENTER);
-        btnVolver.setHorizontalTextPosition(SwingConstants.CENTER);
-        btnVolver.setVerticalTextPosition(SwingConstants.BOTTOM);
-        btnVolver.addActionListener(ev -> {
-        	cardLayout.show(panelContenedor, "menu");
-        });
-        
-        ImageIcon logo = new ImageIcon("resources/logo.png"); 
-        Image locoImagenEscalado = logo.getImage().getScaledInstance(63,63, Image.SCALE_SMOOTH);
-        ImageIcon logoIconoEscalado=new ImageIcon(locoImagenEscalado);
-        JLabel etiquetaImagen = new JLabel(logoIconoEscalado);
-        
-        panelSuperior.add(btnVolver, BorderLayout.LINE_START);
-        panelSuperior.setBackground(new Color(100, 180, 255));
-        panelSuperior.add(etiquetaImagen,BorderLayout.LINE_END);
-        //panelBotones.add(Box.createVerticalStrut(70));  // Espacio superior
-        panelBotones.add(btonAnadir); // Primer botón
-       // panelBotones.add(Box.createVerticalStrut(10));  // Espacio entre botones
-        panelBotones.add(btnAumentar); // Segundo botón
-        //panelBotones.add(Box.createVerticalStrut(10));  // Espacio entre botones
-        panelBotones.add(btnEliminar); // Tercer botón
-        panelCentral.add(panelBotones,BorderLayout.SOUTH);
-        this.add(panelSuperior,BorderLayout.PAGE_START);
-        this.add(panelCentral, BorderLayout.CENTER);
+		ImageIcon volverIcono = new ImageIcon("resources/botonAtras.png");
+		Image volverIconoImagen = volverIcono.getImage().getScaledInstance(35, 35, Image.SCALE_SMOOTH);
+		JButton btnVolver = new JButton("Volver", new ImageIcon(volverIconoImagen));
+		btnVolver.setFont(new Font("Arial", Font.BOLD, 10));
+		btnVolver.setForeground(Color.white);
+		btnVolver.setPreferredSize(new Dimension(110, 20));
+		btnVolver.setContentAreaFilled(false); // elimina el fondo estirado
+		btnVolver.setBorderPainted(false); // elimina el borde
+		btnVolver.setFocusPainted(false); // quita ese borde de foco azul
+		btnVolver.setHorizontalAlignment(SwingConstants.CENTER);
+		btnVolver.setVerticalAlignment(SwingConstants.CENTER);
+		btnVolver.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnVolver.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnVolver.addActionListener(ev -> {
+			cardLayout.show(panelContenedor, "menu");
+		});
+
+		ImageIcon logo = new ImageIcon("resources/logo.png");
+		Image locoImagenEscalado = logo.getImage().getScaledInstance(63, 63, Image.SCALE_SMOOTH);
+		ImageIcon logoIconoEscalado = new ImageIcon(locoImagenEscalado);
+		JLabel etiquetaImagen = new JLabel(logoIconoEscalado);
+
+		panelSuperior.add(btnVolver, BorderLayout.LINE_START);
+		panelSuperior.setBackground(new Color(100, 180, 255));
+		panelSuperior.add(etiquetaImagen, BorderLayout.LINE_END);
+		// panelBotones.add(Box.createVerticalStrut(70)); // Espacio superior
+		panelBotones.add(btonAnadir); // Primer botón
+		// panelBotones.add(Box.createVerticalStrut(10)); // Espacio entre botones
+		panelBotones.add(btnAumentar); // Segundo botón
+		// panelBotones.add(Box.createVerticalStrut(10)); // Espacio entre botones
+		panelBotones.add(btnEliminar); // Tercer botón
+		panelCentral.add(panelBotones, BorderLayout.SOUTH);
+		this.add(panelSuperior, BorderLayout.PAGE_START);
+		this.add(panelCentral, BorderLayout.CENTER);
+	}
+
+	private boolean comprobarIngredienteComboBoxAumentar(String ingredienteNombre) {
+		for (TransferIngrediente i : this.controlador.listaIngredientes()) {
+			if (i.getNombre().equals(ingredienteNombre)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private TransferIngrediente transformasStringATransferIngrediente(String nombreIngrediente) {
+		for (TransferIngrediente i : ingredientes) {
+			if (i.getNombre().equals(nombreIngrediente)) {
+				return i;
+			}
+		}
+		return null;
 	}
 }

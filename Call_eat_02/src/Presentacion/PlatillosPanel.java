@@ -13,27 +13,36 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.plaf.basic.BasicScrollBarUI;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 
 import Negocio.TransferIngrediente;
 import Negocio.TransferPlato;
@@ -184,7 +193,7 @@ public class PlatillosPanel extends JPanel {
 		botonAgregarPlato.addActionListener(e->{
 			JFrame frame = new JFrame("Crear Plato");
 			frame.setResizable(false);
-			frame.setSize(400, 200);
+			frame.setSize(420, 400);
 			frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			frame.setLocationRelativeTo(null);
 			frame.setVisible(true);
@@ -198,91 +207,200 @@ public class PlatillosPanel extends JPanel {
             nombre.setFont(new Font("Arial", Font.BOLD, 20));
             panelPrincipal.add(nombre, BorderLayout.NORTH);
             
-            JPanel centro = new JPanel();
-       	 	centro.setLayout(new BoxLayout(centro,BoxLayout.Y_AXIS));
+            JPanel panelCentral = new JPanel();
+            panelCentral.setLayout(new BoxLayout(panelCentral,BoxLayout.Y_AXIS));
        	 	JPanel panelNombre = new JPanel();
        	 	JPanel panelPrecio= new JPanel();
        	 	JPanel panelTipo = new JPanel();
     	 	JPanel panelBuscarIngrediente= new JPanel();
-    	 	JPanel panelTabla = new JPanel();
+    	 	JPanel panelTabla = new JPanel(new FlowLayout(FlowLayout.CENTER));
+    	 	JPanel panelBotonesAbajo= new JPanel(new FlowLayout(FlowLayout.CENTER));
+    	 	
     	 	panelNombre.setBackground(Color.white);
     	 	panelPrecio.setBackground(Color.white);
     	 	panelTipo.setBackground(Color.white);
     	 	panelBuscarIngrediente.setBackground(Color.white);
-            centro.setBackground(Color.WHITE);
-            
-            
-            JPanel abajo = new JPanel(new FlowLayout());
-            abajo.setBackground(Color.WHITE);
+    	 	panelTabla.setBackground(Color.white);
+    	 	panelBotonesAbajo.setBackground(Color.white);
+    	 	panelCentral.setBackground(Color.WHITE);
             
             
             
             //Implementacion de paneles del panelCentro(su jlabel y su jtext o jcombobox)
-            Dimension dimension = new Dimension(200,25);
+            Dimension dimensionJtextNombre = new Dimension(200,25);
+            Dimension dimensionJtextPrecio = new Dimension(88,25);
+            Dimension dimensionJComboIngredientes = new Dimension(190,25);
+            Dimension dimensionSpinnerCantidad=new Dimension(60,25);
+            //panel nombre
             JLabel nombreLabel = new JLabel("Nombre : ");
             JTextField jtextNombre = new JTextField();
-            jtextNombre.setMinimumSize(dimension);
-            jtextNombre.setPreferredSize(dimension);
-            jtextNombre.setMaximumSize(dimension);
-            
-            JLabel cantidadPrecio = new JLabel("Precio : ");
-    		JSpinner spinnerPrecio = new JSpinner(new SpinnerNumberModel(10, 1, 10000, 1));
-            /*
-            
-            JPanel aux = new JPanel();
-            aux.setBackground(Color.WHITE);
-            
-            crearFrame.add(aux);
-            
-            JLabel titulo = new JLabel("Creacion de ingrediente", SwingConstants.CENTER);
-            titulo.setFont(new Font("Arial", Font.BOLD, 20));
-            aux.add(titulo, BorderLayout.NORTH);
-            
-            
-            JPanel centro = new JPanel();
-       	 	centro.setLayout(new BoxLayout(centro,BoxLayout.Y_AXIS));
-       	 	JPanel centroArriba = new JPanel();
-       	 	JPanel centroAbajo= new JPanel();
-       	 	centroArriba.setBackground(Color.white);
-       	 	centroAbajo.setBackground(Color.white);
-       	 	centro.setBackground(Color.white);
-            centro.setBackground(Color.WHITE);
-            
-            
-            JPanel abajo = new JPanel(new FlowLayout());
-            abajo.setBackground(Color.WHITE);
-            JLabel texto1 = new JLabel("Nombre : ");
-            JTextField texto2 = new JTextField();
-            texto2.setMinimumSize(jtextYcomco);
-            texto2.setPreferredSize(jtextYcomco);
-            texto2.setMaximumSize(jtextYcomco);
-            JLabel texto3 = new JLabel("Cantidad : ");
-    		JSpinner spinner = new JSpinner(new SpinnerNumberModel(10, 1, 10000, 1));
-    		JButton ok = new JButton("Aceptar");
-    		ok.setBackground(new Color(50, 205, 50));
-    		ok.setFont(new Font("Arial",Font.BOLD,15));
-    		ok.setForeground(Color.WHITE);
-    		ok.addActionListener(ee ->{
-    			TransferIngrediente in = new TransferIngrediente(controlador.generarCodigoRandom(),texto2.getText(), (int) spinner.getValue());
-        		if(controlador.crearIngrediente(in)) {
-        			JOptionPane.showMessageDialog(null, "Ingrediente creado correctamente.");
-        		}
-        		else {
-        			JOptionPane.showMessageDialog(null, "Error.");
-        		}
-        		
-        		crearFrame.addWindowListener(new WindowAdapter() {
-        			@Override
-        			public void windowClosed(WindowEvent e) {
-                        cargarIngredientes();
-                    }
-        			
-        		});
-        		crearFrame.dispose();
-        		//SwingUtilities.getWindowAncestor(InventarioPanel.this).dispose();
-        		//GUIGestor.resetInstancia();
-        		//GUIGestor.getInstancia(controlador,null);
-			*/
+            jtextNombre.setMinimumSize(dimensionJtextNombre);
+            jtextNombre.setPreferredSize(dimensionJtextNombre);
+            jtextNombre.setMaximumSize(dimensionJtextNombre);
+            panelNombre.add(nombreLabel);
+            panelNombre.add(jtextNombre);
+           // panel precio
+            JLabel labelPrecio = new JLabel("Precio :                        ");
+            JTextField jtextPrecio = new JTextField();
+            jtextPrecio.setMinimumSize(dimensionJtextPrecio);
+            jtextPrecio.setPreferredSize(dimensionJtextPrecio);
+            jtextPrecio.setMaximumSize(dimensionJtextPrecio);
+    		panelPrecio.add(labelPrecio);
+    		panelPrecio.add(Box.createHorizontalStrut(30));
+    		panelPrecio.add(jtextPrecio);
+    		
+    		//panel categoria
+    		JLabel labelTipo=new JLabel("Tipo:   ");
+    		String[] tipo=new String[1];
+    		JRadioButton tipo1 = new JRadioButton("Platos");
+    		tipo1.addItemListener(ee->{
+    			tipo[0]="Platos";
+    		});
+    		JRadioButton tipo2 = new JRadioButton("Bebidas");
+    		tipo2.addItemListener(ee->{
+    			tipo[0]="Bebidas";
+    		});
+    		JRadioButton tipo3 = new JRadioButton("Postres");
+    		tipo3.addItemListener(ee->{
+    			tipo[0]="Postres";
+    		});
+    		ButtonGroup tipoGrupo = new ButtonGroup();
+    		tipoGrupo.add(tipo1);
+    		tipoGrupo.add(tipo2);
+    		tipoGrupo.add(tipo3);
+    		
+    		panelTipo.add(labelTipo);
+    		panelTipo.add(tipo1);
+    		panelTipo.add(tipo2);
+    		panelTipo.add(tipo3);
+    		
+    		
+    		
+    		
+    		//panel ingredientes Table
+    		String[] nombresTable= {"Ingrediente","Cantidad"};
+    		List<TransferIngrediente> lista=new ArrayList<>();
+    		Object[][] datosIngredientes = new Object[lista.size()][2];
+    		/*
+    		for (int i = 0; i < lista.size(); i++) {
+    			TransferIngrediente ingrediente = lista.get(i);
+    			datosIngredientes[i][0] = ingrediente.getNombre();
+    			datosIngredientes[i][1] = ingrediente.getCantidad();
+    		}*/
+    		JTable tabla=new JTable();
+    		tabla.setModel(new DefaultTableModel(datosIngredientes,nombresTable));
+    		TableColumnModel columnModel = tabla.getColumnModel();
+    		TableColumn col1 = columnModel.getColumn(0); // Columna 1 (Nombre de producto)
+    		TableColumn col2 = columnModel.getColumn(1); // Columna 2 (Cantidad)
+
+    		// col1.setPreferredWidth(200); // Ajusta el tamaño de la primera columna
+    		// (Nombre de producto)
+    		col1.setPreferredWidth(249); // Ajusta el tamaño de la segunda columna (Cantidad)
+    		col1.setMinWidth(249);
+    		col1.setMaxWidth(249);
+    		col2.setPreferredWidth(60); // Ajusta el tamaño de la segunda columna (Cantidad)
+    		col2.setMinWidth(60);
+    		col2.setMaxWidth(60);
+    		// Centrar el contenido de la columna "Cantidad"
+    		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
+    		renderer.setHorizontalAlignment(SwingConstants.CENTER); // Centra el contenido
+    		col2.setCellRenderer(renderer); // Aplica el renderizador a la columna "Cantidad"
+    		//col1.setCellRenderer(renderer);
+    		JScrollPane scrollTabla = new JScrollPane(tabla);
+    		scrollTabla.setPreferredSize(new Dimension(327, 100)); // Ajusta según necesites
+    		//tabla.setPreferredScrollableViewportSize(tabla.getPreferredSize());
+    		
+    		JButton botonEliminarIngredienteTabla=new JButton("-");
+    		botonEliminarIngredienteTabla.setBackground(new Color(255, 69, 58));
+    		botonEliminarIngredienteTabla.setFont(new Font("Arial", Font.BOLD, 15));
+    		botonEliminarIngredienteTabla.setForeground(Color.WHITE);
+    		botonEliminarIngredienteTabla.addActionListener(ee->{
+    			eliminarFilaListaIngredientes(tabla);
+    		});
+    		panelTabla.add(scrollTabla);
+    		panelTabla.add(botonEliminarIngredienteTabla);
+    		
+    		//panel ComboBox de ingredientes
+    		JLabel labelIngrediente = new JLabel("Ingrediente : ");
+    		List<TransferIngrediente> ingredientes =controlador.listaIngredientes();
+    		String[] ingredientesNombre=new String[ingredientes.size()];
+    		for(int i=0;i<ingredientes.size();i++) {
+    			ingredientesNombre[i]=ingredientes.get(i).getNombre();
+    		}
+    		JComboBox<String> ingredientesCombo=new JComboBox(ingredientesNombre);
+    		ingredientesCombo.setEditable(true);
+    		ingredientesCombo.setMinimumSize(dimensionJComboIngredientes);
+    		ingredientesCombo.setPreferredSize(dimensionJComboIngredientes);
+    		ingredientesCombo.setMaximumSize(dimensionJComboIngredientes);
+    		panelBuscarIngrediente.add(labelIngrediente);
+    		panelBuscarIngrediente.add(ingredientesCombo);
+    		JSpinner spinner = new JSpinner(new SpinnerNumberModel(1, 1, 10000, 1));
+    		spinner.setMinimumSize(dimensionSpinnerCantidad);
+    		spinner.setPreferredSize(dimensionSpinnerCantidad);
+    		spinner.setMaximumSize(dimensionSpinnerCantidad);
+    		
+    		JButton botonAgregar=new JButton("+");
+    		botonAgregar.setBackground(new Color(0, 128, 0));
+    		botonAgregar.setFont(new Font("Arial", Font.BOLD, 15));
+    		botonAgregar.setForeground(Color.WHITE);
+    		botonAgregar.addActionListener(ee->{
+    			if(comprobarIngredienteComboBoxAumentar((String)ingredientesCombo.getSelectedItem()) &&
+    					!ingredienteRepetido(tabla, (String)ingredientesCombo.getSelectedItem())) {
+    				String [] ingredienteFila = {(String) ingredientesCombo.getSelectedItem() ,String.valueOf(spinner.getValue())};
+    				agregarFilaListaIngrediente(tabla,ingredienteFila);
+    			}
+    		});
+    		
+    		panelBuscarIngrediente.add(labelIngrediente);
+    		panelBuscarIngrediente.add(ingredientesCombo);
+    		panelBuscarIngrediente.add(spinner);
+    		panelBuscarIngrediente.add(botonAgregar);
+    		//pane de botones de abajo: aceptar y cancelar
+    		JButton botonAceptarCrearPlato = new JButton("Aceptar");
+    		botonAceptarCrearPlato.setBackground(new Color(50, 205, 50));
+    		botonAceptarCrearPlato.setFont(new Font("Arial", Font.BOLD, 15));
+    		botonAceptarCrearPlato.setForeground(Color.WHITE);
+    		botonAceptarCrearPlato.addActionListener(ee -> {
+    			if(nombrePlatoNoNulo(jtextNombre) && comprobarPrecio(jtextPrecio) && categoriaNoNula(tipoGrupo) && noTablaNula(tabla))  {
+    				
+    				Map<String,Integer> mapa=new HashMap<>();
+    				for(int i=0;i<tabla.getRowCount();i++) {
+    					mapa.put((String)tabla.getValueAt(i,0),Integer.valueOf((String)tabla.getValueAt(i,1)));
+    				}
+    				try{
+    					TransferPlato plato = new TransferPlato(controlador.generarCodigoRandom(),(String)jtextNombre.getText(),
+        						mapa,Double.valueOf((String)jtextPrecio.getText()),tipo[0],null);
+
+        				if (controlador.crearPlato(plato)) {
+        					JOptionPane.showMessageDialog(null, "Plato creado correctamente.");
+        					
+        				} else {
+        					JOptionPane.showMessageDialog(null, "Error, el plato no se agrego correctamente","Error", JOptionPane.ERROR_MESSAGE);
+        				}
+    				}catch(NumberFormatException ex) {
+    					JOptionPane.showMessageDialog(null, "El precio debe ser en valor numerico.");
+    				}
+    				frame.dispose();
+    			}
+			});
+			JButton botonCancelarAgregarPlato = new JButton("Cancelar");
+			botonCancelarAgregarPlato.setBackground(Color.GRAY);
+			botonCancelarAgregarPlato.setFont(new Font("Arial", Font.BOLD, 15));
+			botonCancelarAgregarPlato.setForeground(Color.WHITE);
+			botonCancelarAgregarPlato.addActionListener(ee -> {
+				frame.dispose();
+			});
+    		
+    		panelCentral.add(panelNombre);
+    		panelCentral.add(panelPrecio);
+    		panelCentral.add(panelTipo);
+    		panelCentral.add(panelBuscarIngrediente);
+    		panelCentral.add(panelTabla);
+    		panelBotonesAbajo.add(botonCancelarAgregarPlato);
+    		panelBotonesAbajo.add(botonAceptarCrearPlato);
+    		panelPrincipal.add(panelCentral,BorderLayout.CENTER);
+    		panelPrincipal.add(panelBotonesAbajo,BorderLayout.SOUTH);
+    		
 		});
 	}
 
@@ -461,5 +579,75 @@ public class PlatillosPanel extends JPanel {
 				return button;
 			}
 		});
+	}
+	private boolean comprobarIngredienteComboBoxAumentar(String ingredienteNombre) {
+		for (TransferIngrediente i : this.controlador.listaIngredientes()) {
+			if (i.getNombre().equals(ingredienteNombre)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	private TransferIngrediente transformasStringATransferIngrediente(String nombreIngrediente) {
+		for (TransferIngrediente i : controlador.listaIngredientes()) {
+			if (i.getNombre().equals(nombreIngrediente)) {
+				return i;
+			}
+		}
+		return null;
+	}
+	private void agregarFilaListaIngrediente(JTable tabla, Object[] ingrediente) {
+		DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+	    modelo.addRow(ingrediente);
+	}
+	private void eliminarFilaListaIngredientes(JTable tabla) {
+		int filaSeleccionada = tabla.getSelectedRow();
+		if (filaSeleccionada != -1) {
+		    DefaultTableModel model = (DefaultTableModel) tabla.getModel();
+		    model.removeRow(filaSeleccionada);
+		} else {
+		    JOptionPane.showMessageDialog(null, "Selecciona una fila para eliminar.");
+		}
+	}
+	private boolean ingredienteRepetido(JTable tabla, String ingrediente) {
+		for(int i=0;i<tabla.getRowCount();i++) {
+			if (((String) tabla.getValueAt(i, 0)).equals(ingrediente)) {
+				JOptionPane.showMessageDialog(null, "Este ingrediente ya esta en la lista.");
+			    return true;
+			}
+		}
+		return false;
+	}
+	private boolean comprobarPrecio(JTextField text) {
+		if(text.getText().isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Introduzca el precio del plato.");
+			return false;
+		}
+		
+		
+		return true;
+	}
+	private boolean categoriaNoNula(ButtonGroup grupo) {
+		if(grupo.getSelection()==null) {
+			JOptionPane.showMessageDialog(null, "Elija una categoria.");
+			return false;
+		}
+
+		return true;
+		
+	}
+	private boolean nombrePlatoNoNulo(JTextField text) {
+		if(text.getText().isEmpty() ){
+			JOptionPane.showMessageDialog(null, "Introduzca un nombre para el plato.");
+			return false;
+		}
+		return true;
+	}
+	private boolean noTablaNula(JTable tabla) {
+		if(tabla.getRowCount()<1){
+			JOptionPane.showMessageDialog(null, "Agregue minimo un ingrediente.");
+			return false;
+		}
+		return true;
 	}
 }

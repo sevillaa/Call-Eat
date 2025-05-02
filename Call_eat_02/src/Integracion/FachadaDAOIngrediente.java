@@ -17,4 +17,6 @@ public interface FachadaDAOIngrediente {
 	List<TransferIngrediente> listaIngredientes();
 
 	TransferIngrediente buscarIngredientePorNombre(String nombreIngrediente);
+	
+	boolean comprobarIngrediente(TransferIngrediente ingrediente);
 }

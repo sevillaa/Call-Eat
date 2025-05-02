@@ -32,5 +32,9 @@ public class FachadaDAOIngredienteImp implements FachadaDAOIngrediente {
 	public TransferIngrediente buscarIngredientePorNombre(String nombreIngrediente) {
 		return this.saDaoIngrediente.buscarIngredientePorNombre(nombreIngrediente);
 	}
+	@Override
+	public boolean comprobarIngrediente(TransferIngrediente ingrediente) {
+		return this.saDaoIngrediente.comprobarIngrediente(ingrediente);
+	}
 
 }

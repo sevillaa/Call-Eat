@@ -33,4 +33,9 @@ public class SADAOPlatoImp implements SADAOPlato {
 		daoPlato.actualizarPlato(plato);
 	}
 
+	@Override
+	public boolean comprobarPlato(TransferPlato plato) {
+		return this.daoPlato.comprobarPlato(plato);
+	}
+
 }

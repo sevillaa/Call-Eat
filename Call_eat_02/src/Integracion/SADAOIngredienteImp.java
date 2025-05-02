@@ -36,4 +36,9 @@ public class SADAOIngredienteImp implements SADAOIngrediente {
 		return dao.buscarIngredientePorNombre(nombreIngrediente);
 	}
 
+	@Override
+	public boolean comprobarIngrediente(TransferIngrediente ingrediente) {
+		return this.dao.comprobarIngrediente(ingrediente);
+	}
+
 }

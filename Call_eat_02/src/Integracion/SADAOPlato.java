@@ -15,4 +15,6 @@ public interface SADAOPlato {
 	List<TransferPlato> obtenerPlatos();
 	
 	void actualizarPlato(TransferPlato plato);
+	
+	public boolean comprobarPlato(TransferPlato plato);
 }

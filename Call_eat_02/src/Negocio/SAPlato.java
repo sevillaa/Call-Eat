@@ -13,5 +13,6 @@ public interface SAPlato {
 	List<TransferPlato> obtenerPlatos();
 	
 	void actualizarPlato(TransferPlato plato);
-
+	
+	boolean comprobarPlato(TransferPlato plato);
 }

@@ -14,4 +14,6 @@ public interface FachadaDAOPlato {
 	public boolean eliminarPlato(TransferPlato plato);
 	
 	public List<TransferPlato> obtenerPlatos();
+	
+	public boolean comprobarPlato(TransferPlato plato);
 }

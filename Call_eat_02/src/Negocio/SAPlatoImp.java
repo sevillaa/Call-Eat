@@ -10,11 +10,17 @@ public class SAPlatoImp implements SAPlato{
 	
 	@Override
 	public boolean crearPlato(TransferPlato plato) {
+		if(plato==null || plato.getId()==null || comprobarPlato(plato)) {
+			return false;
+		}
 		return this.fachadaDaoPlato.crearPlato(plato);
 	}
 
 	@Override
 	public boolean eliminarPlato(TransferPlato plato) {
+		if(plato==null || plato.getId()==null || !comprobarPlato(plato)) {
+			return false;
+		}
 		return this.fachadaDaoPlato.eliminarPlato(plato);
 	}
 
@@ -31,6 +37,11 @@ public class SAPlatoImp implements SAPlato{
 	@Override
 	public void actualizarPlato(TransferPlato plato) {
 		fachadaDaoPlato.actualizarPlato(plato);
+	}
+
+	@Override
+	public boolean comprobarPlato(TransferPlato plato) {
+		return this.fachadaDaoPlato.comprobarPlato(plato);
 	}
 
 }

@@ -17,11 +17,11 @@ public interface SAIngrediente {
 	public boolean modificarIngrediente(TransferIngrediente modificado);
 	
 	boolean compruebaIngredientes(TransferPlato plato);
-
+	
+	boolean comprobarIngrediente(TransferIngrediente ingrediente);
+	
 	void restaIngredientes(TransferPlato plato);
 
 	void sumaIngredientes(TransferPlato plato);
-
-	
 
 }
