@@ -368,8 +368,11 @@ public class PlatillosPanel extends JPanel {
     					mapa.put((String)tabla.getValueAt(i,0),Integer.valueOf((String)tabla.getValueAt(i,1)));
     				}
     				try{
+    					String nombreDireccion = (String)jtextNombre.getText();
+    					String nombreDirecciontransformado = "resources/carta/"+nombreDireccion.trim().replaceAll(" +", "_")+".jpeg";
+    					
     					TransferPlato plato = new TransferPlato(controlador.generarCodigoRandom(),(String)jtextNombre.getText(),
-        						mapa,Double.valueOf((String)jtextPrecio.getText()),tipo[0],null);
+        						mapa,Double.valueOf((String)jtextPrecio.getText()),tipo[0],nombreDirecciontransformado);
 
         				if (controlador.crearPlato(plato)) {
         					JOptionPane.showMessageDialog(null, "Plato creado correctamente.");
@@ -381,6 +384,7 @@ public class PlatillosPanel extends JPanel {
     					JOptionPane.showMessageDialog(null, "El precio debe ser en valor numerico.");
     				}
     				frame.dispose();
+    				initGUI();
     			}
 			});
 			JButton botonCancelarAgregarPlato = new JButton("Cancelar");

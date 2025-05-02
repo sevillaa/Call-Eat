@@ -69,14 +69,13 @@ public class InventarioPanel extends JPanel {
 			datosIngredientes[i][0] = ingrediente.getNombre();
 			datosIngredientes[i][1] = ingrediente.getCantidad();
 		}
-		// table.setModel(datosIngredientes, columnas);
 
 		table.setModel(new DefaultTableModel(datosIngredientes, columnas));
 		TableColumnModel columnModel = table.getColumnModel();
 		TableColumn col1 = columnModel.getColumn(0); // Columna 1 (Nombre de producto)
 		TableColumn col2 = columnModel.getColumn(1); // Columna 2 (Cantidad)
 
-		// col1.setPreferredWidth(200); // Ajusta el tamaño de la primera columna
+		// Ajusta el tamaño de la primera columna
 		// (Nombre de producto)
 		col2.setPreferredWidth(60); // Ajusta el tamaño de la segunda columna (Cantidad)
 		col2.setMinWidth(40);
@@ -85,8 +84,6 @@ public class InventarioPanel extends JPanel {
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
 		renderer.setHorizontalAlignment(SwingConstants.CENTER); // Centra el contenido
 		col2.setCellRenderer(renderer); // Aplica el renderizador a la columna "Cantidad"
-		// tabla.setModel(new javax.swing.table.DefaultTableModel(datosEmpleados,
-		// columnas));
 	}
 
 	private void initComponents() {
@@ -97,49 +94,27 @@ public class InventarioPanel extends JPanel {
 		panelCentral.setBackground(Color.white);
 		JPanel panelBotones = new JPanel(new FlowLayout());
 		panelBotones.setBackground(new Color(173, 216, 230));
-		// panelBotones.setLayout(new BoxLayout(panelBotones, BoxLayout.Y_AXIS));
-		// panelBotones.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 10));
 
 		JLabel tituloPlantilla = new JLabel("Inventario", SwingConstants.CENTER);
 		tituloPlantilla.setFont(new Font("Arial", Font.BOLD, 20));
 		panelCentral.add(tituloPlantilla, BorderLayout.NORTH);
 
-		/*
-		 * List<TransferIngrediente> ingredientes = controlador.listaIngredientes();
-		 * 
-		 * // Crear la tabla con los empleados String[] columnas =
-		 * {"Nombre de producto", "Cantidad"}; Object[][] datosIngredientes = new
-		 * Object[ingredientes.size()][2];
-		 * 
-		 * for (int i = 0; i < ingredientes.size(); i++) { TransferIngrediente
-		 * ingrediente = ingredientes.get(i); datosIngredientes[i][0] =
-		 * ingrediente.getNombre(); datosIngredientes[i][1]= ingrediente.getCantidad();
-		 * }
-		 */
-		// JTable tabla = new JTable(datosIngredientes, columnas);
-		// table=new JTable();
 		table = new JTable();
 		cargarIngredientes();
 
 		JScrollPane scrollTabla = new JScrollPane(table);
 		panelCentral.add(scrollTabla, BorderLayout.CENTER);
-		// this.add(panelLista,BorderLayout.CENTER);
-
-		// JPanel panelBotones = new JPanel(new FlowLayout());
-
 		Dimension botonDimension = new Dimension(150, 40); // Tamaño común para los botones
 		Dimension jtextYcomco = new Dimension(200, 25);
 
 		///////////////////////// BOTON DE CREAR UN NUEVO
 		///////////////////////// INGREDIENTE///////////////////////
 		JButton btonAnadir = new JButton("Crear");
-		// btonAnadir.setPreferredSize(botonDimension);
-		// btonAnadir.setMinimumSize(botonDimension);
-		// btonAnadir.setMaximumSize(botonDimension);
 		btonAnadir.setBackground(new Color(50, 205, 50));
 		btonAnadir.setForeground(Color.WHITE);
 		btonAnadir.setFont(new Font("Arial", Font.BOLD, 13));
 		btonAnadir.addActionListener(e -> {
+			
 			JFrame crearFrame = new JFrame("Crear Ingrediente");
 			crearFrame.setResizable(false);
 			crearFrame.setSize(400, 200);
@@ -196,9 +171,6 @@ public class InventarioPanel extends JPanel {
 
 				});
 				crearFrame.dispose();
-				// SwingUtilities.getWindowAncestor(InventarioPanel.this).dispose();
-				// GUIGestor.resetInstancia();
-				// GUIGestor.getInstancia(controlador,null);
 			});
 			JButton cancelar = new JButton("Cancelar");
 			cancelar.setBackground(Color.GRAY);
@@ -209,7 +181,6 @@ public class InventarioPanel extends JPanel {
 			});
 			centroArriba.add(texto1);
 			centroArriba.add(texto2);
-			// centro.add(Box.createHorizontalStrut(100));
 			centroAbajo.add(texto3);
 			centroAbajo.add(Box.createHorizontalStrut(115));
 			centroAbajo.add(spinner);
@@ -224,9 +195,6 @@ public class InventarioPanel extends JPanel {
 /////////////////////////BOTON DE AUMENTAR UN INGREDIENTE///////////////////////
 
 		JButton btnAumentar = new JButton("Aumentar");
-		// btnAumentar.setPreferredSize(botonDimension);
-		// btnAumentar.setMinimumSize(botonDimension);
-		// btnAumentar.setMaximumSize(botonDimension);
 		btnAumentar.setBackground(new Color(0, 128, 0));
 		btnAumentar.setForeground(Color.WHITE);
 		btnAumentar.setFont(new Font("Arial", Font.BOLD, 13));
@@ -246,7 +214,6 @@ public class InventarioPanel extends JPanel {
 			JLabel titulo = new JLabel("Aumentar suministro", SwingConstants.CENTER);
 			titulo.setFont(new Font("Arial", Font.BOLD, 20));
 			aux.add(titulo, BorderLayout.NORTH);
-			// JPanel centro = new JPanel(new FlowLayout());
 			JPanel centro = new JPanel();
 			centro.setLayout(new BoxLayout(centro, BoxLayout.Y_AXIS));
 			JPanel centroArriba = new JPanel();
@@ -272,9 +239,6 @@ public class InventarioPanel extends JPanel {
 			}
 			JLabel texto3 = new JLabel("Cantidad : ");
 			JSpinner spinner = new JSpinner(new SpinnerNumberModel(10, 1, 10000, 1));
-			// spinner.setMinimumSize(jtextYcomco);
-			// spinner.setMaximumSize(jtextYcomco);
-			// spinner.setPreferredSize(jtextYcomco);
 			JButton ok = new JButton("Aceptar");
 			ok.setBackground(new Color(0, 128, 0));
 			ok.setFont(new Font("Arial", Font.BOLD, 15));
@@ -308,9 +272,6 @@ public class InventarioPanel extends JPanel {
 
 				});
 				
-				// SwingUtilities.getWindowAncestor(InventarioPanel.this).dispose();
-				// GUIGestor.resetInstancia();
-				// GUIGestor.getInstancia(controlador,null);
 			});
 			JButton cancelar = new JButton("Cancelar");
 			cancelar.setBackground(Color.GRAY);
@@ -339,9 +300,6 @@ public class InventarioPanel extends JPanel {
 
 /////////////////////////BOTON DE ELIMINAR UN INGREDIENTE///////////////////////
 		JButton btnEliminar = new JButton("Eliminar");
-		// btnEliminar.setPreferredSize(botonDimension);
-		// btnEliminar.setMinimumSize(botonDimension);
-		// btnEliminar.setMaximumSize(botonDimension);
 		btnEliminar.setBackground(new Color(255, 69, 58));
 		btnEliminar.setForeground(Color.WHITE);
 		btnEliminar.setFont(new Font("Arial", Font.BOLD, 13));
@@ -450,11 +408,8 @@ public class InventarioPanel extends JPanel {
 		panelSuperior.add(btnVolver, BorderLayout.LINE_START);
 		panelSuperior.setBackground(new Color(100, 180, 255));
 		panelSuperior.add(etiquetaImagen, BorderLayout.LINE_END);
-		// panelBotones.add(Box.createVerticalStrut(70)); // Espacio superior
 		panelBotones.add(btonAnadir); // Primer botón
-		// panelBotones.add(Box.createVerticalStrut(10)); // Espacio entre botones
 		panelBotones.add(btnAumentar); // Segundo botón
-		// panelBotones.add(Box.createVerticalStrut(10)); // Espacio entre botones
 		panelBotones.add(btnEliminar); // Tercer botón
 		panelCentral.add(panelBotones, BorderLayout.SOUTH);
 		this.add(panelSuperior, BorderLayout.PAGE_START);
