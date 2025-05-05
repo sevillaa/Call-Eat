@@ -109,7 +109,7 @@ public class PlatillosPanel extends JPanel {
 			botonPlato.setIcon(platoIcon);
 			botonPlato.putClientProperty("categoria", plato.getCategoria());
 			botonPlato.addActionListener(e -> {
-				mostrarDetallesPlato(plato);
+				mostrarDetallesPlato(plato, botonPlato);
 			});
 			botonesPlatillos.add(botonPlato);
 			panelPlatillos.add(botonPlato);
@@ -375,7 +375,21 @@ public class PlatillosPanel extends JPanel {
         						mapa,Double.valueOf((String)jtextPrecio.getText()),tipo[0],nombreDirecciontransformado);
 
         				if (controlador.crearPlato(plato)) {
+        					JButton botonPlato = new JButton();
+        					ImageIcon platoIcon = new ImageIcon(plato.getIconPath());
+        					botonPlato.setText(plato.getNombre());
+        					platoIcon = new ImageIcon(platoIcon.getImage().getScaledInstance(1000, 1000, Image.SCALE_SMOOTH));
+        					botonPlato.setIcon(platoIcon);
+        					botonPlato.putClientProperty("categoria", plato.getCategoria());
+        					botonPlato.addActionListener(eee -> {
+        						mostrarDetallesPlato(plato, botonPlato);
+        					});
+        					botonesPlatillos.add(botonPlato);
+        					panelPlatillos.add(botonPlato);
+        					panelPlatillos.revalidate();
+        					panelPlatillos.repaint();
         					JOptionPane.showMessageDialog(null, "Plato creado correctamente.");
+        					frame.dispose();
         					
         				} else {
         					JOptionPane.showMessageDialog(null, "Error, el plato no se agrego correctamente","Error", JOptionPane.ERROR_MESSAGE);
@@ -383,7 +397,7 @@ public class PlatillosPanel extends JPanel {
     				}catch(NumberFormatException ex) {
     					JOptionPane.showMessageDialog(null, "El precio debe ser en valor numerico.");
     				}
-    				frame.dispose();
+    				
     			}
 			});
 			JButton botonCancelarAgregarPlato = new JButton("Cancelar");
@@ -438,7 +452,7 @@ public class PlatillosPanel extends JPanel {
 		panelPlatillos.repaint();
 	}
 	
-	private void mostrarDetallesPlato(TransferPlato plato) {
+	private void mostrarDetallesPlato(TransferPlato plato, JButton botonPlato) {
 	    // Crear el JDialog
 	    JDialog dialog = new JDialog(SwingUtilities.getWindowAncestor(this), "Detalles del Plato");
 	    dialog.setSize(700, 500);
@@ -501,6 +515,10 @@ public class PlatillosPanel extends JPanel {
 	                "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
 	        if (confirmacion == JOptionPane.YES_OPTION) {
 	            controlador.eliminarPlato(plato); // Asumiendo que tienes un método en controlador para eliminar el plato
+	            panelPlatillos.remove(botonPlato);
+	            this.botonesPlatillos.remove(botonPlato);
+	        	panelPlatillos.revalidate();
+				panelPlatillos.repaint();
 	            dialog.dispose(); // Cierra el diálogo
 	        }
 	    });
@@ -537,6 +555,9 @@ public class PlatillosPanel extends JPanel {
 	                return;
 	            }
 	            controlador.actualizarPlato(plato);
+	            botonPlato.setText(plato.getNombre());
+	            panelPlatillos.revalidate();
+	            panelPlatillos.repaint();
 	            dialog.dispose(); // Cierra el diálogo después de editar
 	        }
 	    });
