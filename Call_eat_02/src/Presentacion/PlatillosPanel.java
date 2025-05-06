@@ -12,6 +12,7 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,6 +26,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -103,11 +105,16 @@ public class PlatillosPanel extends JPanel {
 		// Creación botones de platillo
 		for (TransferPlato plato : controlador.obtenerPlatos()) {
 			JButton botonPlato = new JButton();
+			botonPlato.setBackground(Color.white);
 			ImageIcon platoIcon = new ImageIcon(plato.getIconPath());
 			botonPlato.setText(plato.getNombre());
 			platoIcon = new ImageIcon(platoIcon.getImage().getScaledInstance(1000, 1000, Image.SCALE_SMOOTH));
 			botonPlato.setIcon(platoIcon);
 			botonPlato.putClientProperty("categoria", plato.getCategoria());
+			botonPlato.setHorizontalTextPosition(SwingConstants.CENTER);
+			botonPlato.setVerticalTextPosition(SwingConstants.BOTTOM);
+			botonPlato.setHorizontalAlignment(SwingConstants.CENTER);
+			botonPlato.setVerticalAlignment(SwingConstants.CENTER);
 			botonPlato.addActionListener(e -> {
 				mostrarDetallesPlato(plato, botonPlato);
 			});
@@ -212,6 +219,7 @@ public class PlatillosPanel extends JPanel {
        	 	JPanel panelNombre = new JPanel();
        	 	JPanel panelPrecio= new JPanel();
        	 	JPanel panelTipo = new JPanel();
+       	 	JPanel panelImagen = new JPanel();
     	 	JPanel panelBuscarIngrediente= new JPanel();
     	 	JPanel panelTabla = new JPanel(new FlowLayout(FlowLayout.CENTER));
     	 	JPanel panelBotonesAbajo= new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -219,6 +227,7 @@ public class PlatillosPanel extends JPanel {
     	 	panelNombre.setBackground(Color.white);
     	 	panelPrecio.setBackground(Color.white);
     	 	panelTipo.setBackground(Color.white);
+    	 	panelImagen.setBackground(Color.white);
     	 	panelBuscarIngrediente.setBackground(Color.white);
     	 	panelTabla.setBackground(Color.white);
     	 	panelBotonesAbajo.setBackground(Color.white);
@@ -274,19 +283,29 @@ public class PlatillosPanel extends JPanel {
     		panelTipo.add(tipo2);
     		panelTipo.add(tipo3);
     		
-    		
-    		
+    		//panel de la image  del plato
+    		JLabel labelImagen=new JLabel("Imagen del plato:     ");
+    		JButton botonImagen=new JButton("Cargar imagen");
+    		String [] direccion=new String[1];
+    		botonImagen.setBackground(new Color(100, 180, 255));
+    		botonImagen.setFont(new Font("Arial",Font.BOLD,14));
+    		botonImagen.setForeground(Color.WHITE);
+    		panelImagen.add(labelImagen);
+    		panelImagen.add(botonImagen);
+    		botonImagen.addActionListener(ee->{
+    			JFileChooser fileChooser = new JFileChooser();
+    			fileChooser.setCurrentDirectory(new File("resources/carta"));//El usuario tendra que tener subido la imagen del plato para poder ser subido
+    			int selection = fileChooser.showOpenDialog(PlatillosPanel.this);
+    			if (selection == JFileChooser.APPROVE_OPTION) {
+    				File file = fileChooser.getSelectedFile();
+    				direccion[0]=file.getPath();
+    			}
+    		});
     		
     		//panel ingredientes Table
     		String[] nombresTable= {"Ingrediente","Cantidad"};
     		List<TransferIngrediente> lista=new ArrayList<>();
     		Object[][] datosIngredientes = new Object[lista.size()][2];
-    		/*
-    		for (int i = 0; i < lista.size(); i++) {
-    			TransferIngrediente ingrediente = lista.get(i);
-    			datosIngredientes[i][0] = ingrediente.getNombre();
-    			datosIngredientes[i][1] = ingrediente.getCantidad();
-    		}*/
     		JTable tabla=new JTable();
     		tabla.setModel(new DefaultTableModel(datosIngredientes,nombresTable));
     		TableColumnModel columnModel = tabla.getColumnModel();
@@ -369,28 +388,37 @@ public class PlatillosPanel extends JPanel {
     				}
     				try{
     					String nombreDireccion = (String)jtextNombre.getText();
-    					String nombreDirecciontransformado = "resources/carta/"+nombreDireccion.trim().replaceAll(" +", "_")+".jpeg";
+    					//String nombreDirecciontransformado = "resources/carta/"+nombreDireccion.trim().replaceAll(" +", "_")+".jpeg";
     					
     					TransferPlato plato = new TransferPlato(controlador.generarCodigoRandom(),(String)jtextNombre.getText(),
-        						mapa,Double.valueOf((String)jtextPrecio.getText()),tipo[0],nombreDirecciontransformado);
+        						mapa,Double.valueOf((String)jtextPrecio.getText()),tipo[0],direccion[0]);
 
         				if (controlador.crearPlato(plato)) {
         					JButton botonPlato = new JButton();
+        					botonPlato.setBackground(Color.white);
+        					int alturaBoton = scrollPanelPlatillos.getViewport().getHeight() / 3;
+        					int anchuraBoton = (scrollPanelPlatillos.getViewport().getWidth() - 100) / 4;
+        					botonPlato.setPreferredSize(new Dimension(anchuraBoton, alturaBoton));
+        					botonPlato.setMaximumSize(new Dimension(anchuraBoton, alturaBoton));
         					ImageIcon platoIcon = new ImageIcon(plato.getIconPath());
         					botonPlato.setText(plato.getNombre());
-        					platoIcon = new ImageIcon(platoIcon.getImage().getScaledInstance(1000, 1000, Image.SCALE_SMOOTH));
+        					platoIcon = new ImageIcon(platoIcon.getImage().getScaledInstance(anchuraBoton-100, alturaBoton, Image.SCALE_SMOOTH));
         					botonPlato.setIcon(platoIcon);
         					botonPlato.putClientProperty("categoria", plato.getCategoria());
+        					botonPlato.setHorizontalTextPosition(SwingConstants.CENTER);
+        					botonPlato.setVerticalTextPosition(SwingConstants.BOTTOM);
+        					botonPlato.setHorizontalAlignment(SwingConstants.CENTER);
+        					botonPlato.setVerticalAlignment(SwingConstants.CENTER);
         					botonPlato.addActionListener(eee -> {
         						mostrarDetallesPlato(plato, botonPlato);
         					});
         					botonesPlatillos.add(botonPlato);
         					panelPlatillos.add(botonPlato);
         					panelPlatillos.revalidate();
-        					panelPlatillos.repaint();
         					JOptionPane.showMessageDialog(null, "Plato creado correctamente.");
         					frame.dispose();
-        					
+        					PlatillosPanel.this.repaint();
+        					panelPlatillos.repaint();
         				} else {
         					JOptionPane.showMessageDialog(null, "Error, el plato no se agrego correctamente","Error", JOptionPane.ERROR_MESSAGE);
         				}
@@ -411,6 +439,7 @@ public class PlatillosPanel extends JPanel {
     		panelCentral.add(panelNombre);
     		panelCentral.add(panelPrecio);
     		panelCentral.add(panelTipo);
+    		panelCentral.add(panelImagen);
     		panelCentral.add(panelBuscarIngrediente);
     		panelCentral.add(panelTabla);
     		panelBotonesAbajo.add(botonCancelarAgregarPlato);
@@ -465,7 +494,6 @@ public class PlatillosPanel extends JPanel {
 	    JLabel labelImagen = new JLabel(imagenPlato);
 	    labelImagen.setHorizontalAlignment(SwingConstants.CENTER);
 	    dialog.add(labelImagen, BorderLayout.WEST);
-
 	    // Datos a la derecha
 	    JPanel panelInfo = new JPanel();
 	    panelInfo.setLayout(new BoxLayout(panelInfo, BoxLayout.Y_AXIS));

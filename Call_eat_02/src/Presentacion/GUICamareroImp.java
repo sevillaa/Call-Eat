@@ -130,6 +130,7 @@ public class GUICamareroImp extends GUICamarero {
 		// Creamos botones de plato dinámicamente desde el controlador
 		for (TransferPlato plato : controlador.obtenerPlatos()) {
 		    JButton botonPlato = new JButton();
+		    botonPlato.setBackground(Color.white);
 		    ImageIcon icon = new ImageIcon(plato.getIconPath());
 		    icon = new ImageIcon(icon.getImage().getScaledInstance(300, 300, Image.SCALE_SMOOTH));
 		    botonPlato.setIcon(icon);
