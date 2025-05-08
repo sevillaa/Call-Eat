@@ -362,7 +362,7 @@ public class PlatillosPanel extends JPanel {
     		botonAgregar.setBackground(new Color(0, 128, 0));
     		botonAgregar.setFont(new Font("Arial", Font.BOLD, 15));
     		botonAgregar.setForeground(Color.WHITE);
-    		botonAgregar.addActionListener(ee->{
+    		botonAgregar.addActionListener(ee->{//
     			if(comprobarIngredienteComboBoxAumentar((String)ingredientesCombo.getSelectedItem()) &&
     					!ingredienteRepetido(tabla, (String)ingredientesCombo.getSelectedItem())) {
     				String [] ingredienteFila = {(String) ingredientesCombo.getSelectedItem() ,String.valueOf(spinner.getValue())};
